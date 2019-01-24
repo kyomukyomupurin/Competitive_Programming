@@ -30,7 +30,6 @@
 // using-directive
 using namespace std;
 // alias templates
-using namespace std;
 using int64 = int64_t;
 using pii = pair<int, int>;
 using pll = pair<int64_t, int64_t>;
