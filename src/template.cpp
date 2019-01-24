@@ -8,6 +8,7 @@
 #include <iostream>
 // container class
 #include <array>
+#include <deque>
 #include <map>
 #include <queue>
 #include <set>
