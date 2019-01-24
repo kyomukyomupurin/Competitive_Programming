@@ -6,7 +6,7 @@
 
 // in, out
 #include <iostream>
-// container class
+// data structure
 #include <array>
 #include <deque>
 #include <map>
@@ -14,8 +14,10 @@
 #include <set>
 #include <stack>
 #include <string>
+#include <tuple>
 #include <unordered_map>
 #include <unordered_set>
+#include <utility>
 #include <vector>
 // math, algorithm
 #include <algorithm>
@@ -24,10 +26,10 @@
 #include <numeric>
 // etc
 #include <bitset>
+#include <cctype>
 #include <chrono>
 #include <iomanip>
 #include <random>
-#include <utility>
 // using-directive
 using namespace std;
 // alias templates
