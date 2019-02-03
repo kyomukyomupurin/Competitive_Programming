@@ -39,6 +39,7 @@ using pll = pair<int64_t, int64_t>;
 // text macro replacement
 #define rep(i, n) for (int i = 0; i < (int)(n); ++i)
 #define all(v) (v).begin(), (v).end()
+#define rall(v) (v).rbegin(), (v).rend()
 #define print(x) cout << (x) << '\n'
 #define PB push_back
 #define EB emplace_back
