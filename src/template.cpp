@@ -4,9 +4,11 @@
  *      created : 
 **/
 
-// in, out
+// input/output
+#include <fstream>
 #include <iostream>
-// data structure
+#include <sstream>
+// container class
 #include <array>
 #include <deque>
 #include <map>
@@ -17,7 +19,6 @@
 #include <tuple>
 #include <unordered_map>
 #include <unordered_set>
-#include <utility>
 #include <vector>
 // math, algorithm
 #include <algorithm>
@@ -30,9 +31,10 @@
 #include <chrono>
 #include <iomanip>
 #include <random>
+#include <utility>
 // using-directive
 using namespace std;
-// alias templates
+// alias template
 using int64 = int64_t;
 using pii = pair<int, int>;
 using pll = pair<int64_t, int64_t>;
