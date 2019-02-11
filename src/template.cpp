@@ -50,9 +50,9 @@ using pll = pair<int64_t, int64_t>;
 #define se second
 
 int main(){
-    ios_base::sync_with_stdio(false);
-    cin.tie(nullptr);
-    
-    
-    return 0;
+  ios_base::sync_with_stdio(false);
+  cin.tie(nullptr);
+  
+  
+  return 0;
 }
