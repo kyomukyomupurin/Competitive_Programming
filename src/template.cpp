@@ -28,6 +28,7 @@
 // etc
 #include <bitset>
 #include <cctype>
+#include <cstring>
 #include <chrono>
 #include <iomanip>
 #include <random>
