@@ -2,6 +2,9 @@
  *  nCr (mod 1000000007)
 **/
 
+#include <iostream>
+using namespace std;
+
 const int MAX = 2e5;
 const int MOD = 1e9 + 7;
 int64_t fac[MAX] = {}, inv[MAX] = {}, finv[MAX] = {};
