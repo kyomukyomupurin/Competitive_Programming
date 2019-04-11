@@ -24,7 +24,7 @@ struct Miller_Rabin{
     int x = power(a, d, n);
     if (x == 1 || x == n - 1) return true;
 
-    while (d != n-1) {
+    while (d != n - 1) {
       x = (x * x) % n;
       d <<= 1;
       if (x == 1) return false; 
