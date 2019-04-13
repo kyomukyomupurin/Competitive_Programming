@@ -44,6 +44,7 @@ using pll = pair<int64_t, int64_t>;
 #define all(v) (v).begin(), (v).end()
 #define rall(v) (v).rbegin(), (v).rend()
 #define print(x) cout << (x) << '\n'
+#define debug(x) cout << #x << ": " << (x) << '\n';
 
 int main(){
   ios_base::sync_with_stdio(false);
