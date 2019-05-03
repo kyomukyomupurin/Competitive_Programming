@@ -7,8 +7,8 @@
 template<typename T> T gcd(T x, T y){
   while (y > 0){
     T tmp = x % y;
-    y = x;
-    x = tmp;
+    x = y;
+    y = tmp;
   }
   return x;
 }
