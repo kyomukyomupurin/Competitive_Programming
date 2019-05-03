@@ -5,12 +5,15 @@
 #include <iostream>
 
 template<typename T> T gcd(T x, T y){
-  if (x % y == 0) return y;
-  else return gcd(y, x % y);
+  while (y > 0){
+    T tmp = x % y;
+    y = x;
+    x = tmp;
+  }
+  return x;
 }
 
 template<typename T> T lcm(T x, T y){
-  if (x % y == 0) return x;
-  else if (y % x == 0) return y;
+  if (x == 0 || y == 0) return 0;
   else return x * y / gcd(x, y);
 }
