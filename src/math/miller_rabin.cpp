@@ -2,30 +2,28 @@
  *  Miller-Rabin
 **/
 
-#include <iostream>
 #include <random>
-using namespace std;
 
-struct Miller_Rabin{
+struct Miller_Rabin {
   int power(int x, unsigned int y, int p) { 
     int res = 1;
     x %= p;
     while (y > 0) {
-      if (y & 1) res = (res*x) % p; 
+      if (y & 1) (res *= x) %= p;
       y >>= 1;
-      x = (x*x) % p;
+      (x *= x) %= p;
     } 
     return res; 
   } 
  
   bool miller_rabin(int d, int n) { 
-    mt19937 kyomukyomupurin(1728);
+    std::mt19937 kyomukyomupurin(1728);
     int a = 2 + kyomukyomupurin() % (n - 4);
     int x = power(a, d, n);
     if (x == 1 || x == n - 1) return true;
 
     while (d != n - 1) {
-      x = (x * x) % n;
+      (x *= x) %= n;
       d <<= 1;
       if (x == 1) return false; 
       if (x == n - 1) return true; 

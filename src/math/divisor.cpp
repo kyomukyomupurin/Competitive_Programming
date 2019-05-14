@@ -4,11 +4,10 @@
 
 #include <algorithm>
 #include <vector>
-using namespace std;
 
-template<typename T> vector<T> divisor(T n){
-  vector<T> res;
-  for (T i = 1; i * i <= n; ++i){
+template<typename T> std::vector<T> divisor(T n) {
+  std::vector<T> res;
+  for (T i = 1; i * i <= n; ++i) {
     if (n % i == 0){
       res.push_back(i);
       if (i * i != n){
@@ -16,7 +15,7 @@ template<typename T> vector<T> divisor(T n){
       }
     }
   }
-  sort(res.begin(), res.end());
+  std::sort(res.begin(), res.end());
 
   return res;
 }

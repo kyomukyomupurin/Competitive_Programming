@@ -4,10 +4,9 @@
 
 #include <iostream>
 #include <vector>
-using namespace std;
 
-vector<pair<int64_t, int64_t>> prime_fact(int64_t n){
-  vector<pair<int64_t, int64_t>> result;
+std::vector<std::pair<int64_t, int64_t>> prime_fact(int64_t n){
+  std::vector<std::pair<int64_t, int64_t>> result;
   for (int64_t i = 2; i * i <= n; ++i){
     if (n % i != 0) continue;
     int cnt = 0;
