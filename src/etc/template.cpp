@@ -27,6 +27,7 @@
 #include <numeric>
 // etc
 #include <bitset>
+#include <cassert>
 #include <cctype>
 #include <cstring>
 #include <chrono>
