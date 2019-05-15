@@ -4,7 +4,7 @@
 
 #include <vector>
 
-const int INF = (1<<31) - 1;
+const int INF = (1LL<<31) - 1;
 
 struct SegmentTree{
   private:
