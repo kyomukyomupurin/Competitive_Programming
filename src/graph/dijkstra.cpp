@@ -2,10 +2,8 @@
  *  dijkstra
 **/
 
-#include <iostream>
 #include <queue>
 #include <vector>
-using namespace std;
 
 const int MAX_V = 1e5;
 const int64_t INF = 1e18;
@@ -15,24 +13,26 @@ struct edge {
 };
 
 int n;
-vector<edge> G[MAX_V];
+std::vector<edge> G[MAX_V];
 int64_t dis[MAX_V];
 
 void dijkstra(int s){
-  priority_queue<pair<int64_t, int64_t>, vector<pair<int64_t, int64_t>>, greater<pair<int64_t, int64_t>>> pq;
-  fill(dis, dis + n, INF);
+  std::priority_queue<std::pair<int64_t, int64_t>,
+                      std::vector<std::pair<int64_t, int64_t>>,
+                      std::greater<std::pair<int64_t, int64_t>>> pq;
+  std::fill(dis, dis + n, INF);
   dis[s] = 0;
-  pq.push(pair<int64_t, int64_t>(0, s));
+  pq.push(std::pair<int64_t, int64_t>(0, s));
 
   while (!pq.empty()){
-    pair<int64_t, int64_t> p = pq.top(); pq.pop();
+    std::pair<int64_t, int64_t> p = pq.top(); pq.pop();
     int v = p.second;
     if (dis[v] < p.first) continue;
     for (int i = 0; i < (int) G[v].size(); ++i){
       edge e = G[v][i];
       if (dis[e.to] > dis[v] + e.cost){
         dis[e.to] = dis[v] + e.cost;
-        pq.push(pair<int64_t, int64_t>(dis[e.to], e.to));
+        pq.push(std::pair<int64_t, int64_t>(dis[e.to], e.to));
       }
     }
   }

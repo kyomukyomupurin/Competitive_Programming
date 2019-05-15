@@ -2,17 +2,14 @@
  *  SegmentTree(Range Sum Query)
 **/
 
-#include <iostream>
-#include <algorithm>
 #include <vector>
-using namespace std;
 
 struct SegmentTree{
   private:
     int n;
-    vector<int> dat;
+    std::vector<int> dat;
   public:
-    SegmentTree(vector<int> v) {
+    SegmentTree(std::vector<int> v) {
       int SIZE = v.size();
       n = 1;
       while (n < SIZE) n <<= 1;

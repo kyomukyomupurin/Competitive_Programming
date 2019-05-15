@@ -2,26 +2,22 @@
  *  SegmentTree(Range Minimum Query)
 **/
 
-#include <iostream>
-#include <algorithm>
 #include <vector>
-#include <cmath>
-using namespace std;
 
-const int INF = pow(2, 31) - 1;
- 
+const int INF = (1<<31) - 1;
+
 struct SegmentTree{
   private:
     int n;
-    vector<int> dat;
+    std::vector<int> dat;
   public:
-    SegmentTree(vector<int> v) {
+    SegmentTree(std::vector<int> v) {
       int SIZE = v.size();
       n = 1;
       while (n < SIZE) n <<= 1;
       dat.resize(2 * n - 1, INF);
       for (int i = 0; i < SIZE; ++i) dat[i + n - 1] = v[i];
-      for (int i = n - 2; i >= 0; --i) dat[i] = min(dat[2 * i + 1], dat[2 * i + 2]);
+      for (int i = n - 2; i >= 0; --i) dat[i] = std::min(dat[2 * i + 1], dat[2 * i + 2]);
     }
 
     void update(int pos, int val){
@@ -29,7 +25,7 @@ struct SegmentTree{
       dat[pos] = val;
       while (pos > 0){
         pos = (pos - 1) / 2;
-        dat[pos] = min(dat[2 * pos + 1], dat[2 * pos + 2]);
+        dat[pos] = std::min(dat[2 * pos + 1], dat[2 * pos + 2]);
       }
     }
 
@@ -39,6 +35,6 @@ struct SegmentTree{
       if (a <= l && r <= b) return dat[k];
       int vl = query(a, b, 2 * k + 1, l, (l + r) / 2);
       int vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
-      return min(vl, vr);
+      return std::min(vl, vr);
     }
 };
