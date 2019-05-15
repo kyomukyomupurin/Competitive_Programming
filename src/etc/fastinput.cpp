@@ -4,9 +4,9 @@
 
 #include <iostream>
 
-void fastin(int &num) {
+template<typename T> void fastin(T &num) {
   bool negative = false;
-  int c;
+  T c;
   num = 0;
   c = getchar();
   if (c == '-') {

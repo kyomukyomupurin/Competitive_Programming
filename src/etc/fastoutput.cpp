@@ -4,8 +4,8 @@
 
 #include <iostream>
 
-void fastout(int &n) {
-  int N = n, rev, count = 0;
+template<typename T> void fastout(T &n) {
+  T N = n, rev, count = 0;
   rev = N;
   if (N == 0) { 
     putchar('0');
