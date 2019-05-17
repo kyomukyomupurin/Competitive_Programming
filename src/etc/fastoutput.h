@@ -7,9 +7,9 @@
 template<typename T> void fastout(T &n) {
   T N = n, rev, count = 0;
   rev = N;
-  if (N == 0) { 
-    putchar('0');
-    putchar('\n');
+  if (N == 0) {
+    putchar_unlocked('0');
+    putchar_unlocked('\n');
     return;
   }
   while ((rev % 10) == 0) { 
@@ -21,9 +21,9 @@ template<typename T> void fastout(T &n) {
     N /= 10;
   }
   while (rev != 0) { 
-    putchar(rev % 10 + '0');
+    putchar_unlocked(rev % 10 + '0');
     rev /= 10;
   }
-  while (count--) putchar('0');
-  putchar('\n');
+  while (count--) putchar_unlocked('0');
+  putchar_unlocked('\n');
 }
