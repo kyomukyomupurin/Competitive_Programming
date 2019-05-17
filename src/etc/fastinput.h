@@ -1,5 +1,5 @@
 /**
- *  fast input
+ *  fast input (available in gcc)
 **/
 
 #include <iostream>

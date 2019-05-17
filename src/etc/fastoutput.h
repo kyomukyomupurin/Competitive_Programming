@@ -1,5 +1,5 @@
 /**
- *  fast output
+ *  fast output (available in gcc)
 **/
 
 #include <iostream>
