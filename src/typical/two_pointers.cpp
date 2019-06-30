@@ -10,7 +10,7 @@ std::vector<int> a(n);
 int right = 0;
 int64_t sum = 0;
 
-// consition
+// condition
 bool ok(int64_t sum) {
   // for example
   return sum < 123456789;
@@ -27,10 +27,10 @@ void two_pointers() {
     int len = right - left;
 
     /**
-     *  do something using 'len'(lenght of section which satisfies condition)
+     *  do something using 'len'(length of section which satisfies condition)
     **/
 
-    // if rihgt can not go forward, increment it
+    // if right do not move at all, increment it
     if (right == left) {
       ++right;
     } else {
