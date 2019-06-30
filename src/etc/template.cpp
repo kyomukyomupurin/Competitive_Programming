@@ -38,6 +38,7 @@
 using namespace std;
 // alias template
 using int64 = int64_t;
+using vi = vector<int>;
 using vl = vector<int64_t>;
 using pii = pair<int, int>;
 using pii = pair<int, int>;
