@@ -52,11 +52,15 @@ using pll = pair<int64_t, int64_t>;
 // variadic template
 template<typename T> inline void chmin(T &a, T b) {if (a > b) a = b; return;}
 template<typename T> inline void chmax(T &a, T b) {if (a < b) a = b; return;}
+// constant
+const int INF = (1<<30) - 1;
+const int64_t INF64 = (1LL<<62) - 1;
+const int MOD = 1000000007;
 
 int main(){
   ios_base::sync_with_stdio(false);
   cin.tie(nullptr);
-  
-  
+
+
   return 0;
 }
