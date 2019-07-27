@@ -12,8 +12,8 @@ bool ok1(int n) {
 }
 
 int solve1() {
-  int low = 0;
-  int high = INF; // high : impossible
+  int low = 0; // 小さめにとっておく(そうしないと low <= x <= high の全ての x が条件を満たすときに壊れる)
+  int high = INF; // 大きめにとっておく(条件を満たす数がないときに最初に high に設定した値が返ってくる)
   while (high - low > 1) {
     int mid = (low + high) >> 1;
     if (ok1(mid)) {
@@ -33,8 +33,8 @@ bool ok2(int n) {
 }
 
 int solve2() {
-  int low = -1; // low : impossible
-  int high = 1e9;
+  int low = -1; // 小さめにとっておく(条件を満たす数がないときに最初に low に設定した値が返ってくる)
+  int high = 1e9; // 大きめにとっておく(そうしないと low <= x <= high の全ての x が条件を満たさないときに壊れる)
   while (high - low > 1) {
     int mid = (high + low) >> 1;
     if (ok2(mid)) {
