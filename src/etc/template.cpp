@@ -49,6 +49,7 @@ using pll = pair<int64, int64>;
 #define rall(v) (v).rbegin(), (v).rend()
 #define print(x) cout << (x) << '\n'
 #define debug(x) cerr << #x << ": " << (x) << '\n'
+#define dbg(v) for (size_t _ = 0; _ < v.size(); ++_){cerr << #v << "[" << _ << "] : " << v[_] << '\n';}
 // variadic template
 template<typename T> inline void chmin(T &a, T b) {if (a > b) a = b; return;}
 template<typename T> inline void chmax(T &a, T b) {if (a < b) a = b; return;}
