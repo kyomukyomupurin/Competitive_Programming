@@ -6,7 +6,7 @@
 
 const int MAX = 2e5;
 const int MOD = 1e9 + 7;
-int64_t fac[MAX] = {}, inv[MAX] = {}, finv[MAX] = {};
+int64 fac[MAX] = {}, inv[MAX] = {}, finv[MAX] = {};
 
 void make_table() {
   fac[0] = 1; fac[1] = 1;
@@ -19,7 +19,7 @@ void make_table() {
   }
 }
 
-int64_t com(int n, int k) {
+int64 com(int n, int k) {
   if (n < k) return 0;
   if (n < 0 || k < 0) return 0;
   return fac[n] * (finv[k] * finv[n - k] % MOD) % MOD;
