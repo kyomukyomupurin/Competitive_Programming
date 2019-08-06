@@ -4,14 +4,15 @@
 
 #include <iostream>
 #include <vector>
+using int64 = long long;
 
 int n;
 std::vector<int> a(n);
 int right = 0;
-int64_t sum = 0;
+int64 sum = 0;
 
 // condition
-bool ok(int64_t sum) {
+bool ok(int64 sum) {
   // for example
   return sum < 123456789;
 }

@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <vector>
+using int64 = long long;
 
 struct UnionFind {
   std::vector<int> par;
@@ -27,5 +28,5 @@ struct UnionFind {
     return;
   }
 
-  int64_t size(int x) {return -par[root(x)];}
+  int64 size(int x) {return -par[root(x)];}
 };

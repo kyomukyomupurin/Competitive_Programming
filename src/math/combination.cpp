@@ -3,6 +3,7 @@
 **/
 
 #include <iostream>
+using int64 = long long;
 
 const int MAX = 2e5;
 const int MOD = 1e9 + 7;
