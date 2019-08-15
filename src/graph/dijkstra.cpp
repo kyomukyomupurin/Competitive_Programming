@@ -2,6 +2,7 @@
  *  dijkstra
 **/
 
+#include <iostream>
 #include <queue>
 #include <vector>
 using int64 = long long;
@@ -29,11 +30,11 @@ void dijkstra(int s){
     std::pair<int64, int64> p = pq.top(); pq.pop();
     int v = p.second;
     if (dis[v] < p.first) continue;
-    for (int i = 0; i < (int) G[v].size(); ++i){
+    for (size_t i = 0; i < G[v].size(); ++i){
       edge e = G[v][i];
       if (dis[e.to] > dis[v] + e.cost){
         dis[e.to] = dis[v] + e.cost;
-        pq.push(std::pair<int64, int64>(dis[e.to], e.to));
+        pq.emplace(std::pair<int64, int64>(dis[e.to], e.to));
       }
     }
   }
