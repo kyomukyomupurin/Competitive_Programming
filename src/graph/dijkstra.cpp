@@ -6,8 +6,8 @@
 #include <vector>
 using int64 = long long;
 
-const int MAX_V = 1e5;
-const int64 INF = 1e18;
+const int MAX_V = 101010;
+const int64 INF64 = (1LL<<62) - 1;
 
 struct edge {
   int64 to, cost;
@@ -21,7 +21,7 @@ void dijkstra(int s){
   std::priority_queue<std::pair<int64, int64>,
                       std::vector<std::pair<int64, int64>>,
                       std::greater<std::pair<int64, int64>>> pq;
-  std::fill(dis, dis + n, INF);
+  std::fill(dis, dis + n, INF64);
   dis[s] = 0;
   pq.push(std::pair<int64, int64>(0, s));
 
