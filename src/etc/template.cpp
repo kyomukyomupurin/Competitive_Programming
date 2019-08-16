@@ -31,6 +31,7 @@
 #include <cctype>
 #include <cstring>
 #include <chrono>
+#include <functional>
 #include <iomanip>
 #include <random>
 #include <utility>
@@ -38,6 +39,7 @@
 using namespace std;
 // alias template
 using int64 = long long;
+using uint64 = unsigned long long;
 using vi = vector<int>;
 using vl = vector<int64>;
 using pii = pair<int, int>;
