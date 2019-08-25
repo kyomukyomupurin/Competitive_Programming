@@ -40,24 +40,24 @@ using namespace std;
 // alias template
 using int64 = long long;
 using uint64 = unsigned long long;
-using vi = vector<int>;
-using vl = vector<int64>;
-using pii = pair<int, int>;
-using pii = pair<int, int>;
-using pll = pair<int64, int64>;
+using vi = std::vector<int>;
+using vl = std::vector<int64>;
+using pii = std::pair<int, int>;
+using pii = std::pair<int, int>;
+using pll = std::pair<int64, int64>;
 // text macro replacement
 #define rep(i, n) for (int i = 0; i < (int)(n); ++i)
-#define all(v) (v).begin(), (v).end()
-#define rall(v) (v).rbegin(), (v).rend()
-#define print(x) cout << (x) << '\n'
-#define debug(x) cerr << #x << ": " << (x) << '\n'
-#define dbg(v) for (size_t _ = 0; _ < v.size(); ++_){cerr << #v << "[" << _ << "] : " << v[_] << '\n';}
+#define all(_) (_).begin(), (_).end()
+#define rall(_) (_).rbegin(), (_).rend()
+#define print(_) std::cout << (_) << '\n'
+#define debug(_) std::cerr << #_ << ": " << (_) << '\n'
+#define dbg(vec) for (size_t _ = 0; _ < vec.size(); ++_){std::cerr << #vec << "[" << _ << "] : " << vec[_] << '\n';}
 // variadic template
 template<typename T> inline void chmin(T &a, T b) {if (a > b) a = b; return;}
 template<typename T> inline void chmax(T &a, T b) {if (a < b) a = b; return;}
 // constant
-const int INF = (1<<30) - 1;
-const int64 INF64 = (1LL<<62) - 1;
+const int INF = (1<<30) - 1;  // 1.073741823e9
+const int64 INF64 = (1LL<<62) - 1;  // 4.611686018427387903e18
 const int MOD = 1000000007;
 
 int main(){
