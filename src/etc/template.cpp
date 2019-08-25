@@ -61,8 +61,8 @@ const int64 INF64 = (1LL<<62) - 1;  // 4.611686018427387903e18
 const int MOD = 1000000007;
 
 int main(){
-  ios_base::sync_with_stdio(false);
-  cin.tie(nullptr);
+  std::ios_base::sync_with_stdio(false);
+  std::cin.tie(nullptr);
 
 
   return 0;
