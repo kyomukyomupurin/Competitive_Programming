@@ -29,3 +29,40 @@ struct UnionFind {
     return;
   }
 };
+
+class UnionFind {
+ public:
+  UnionFind(int n) : n_(n) {}
+  void initialize();
+  int getroot(int x);
+  bool issame(int x, int y);
+  void unite(int x, int y);
+
+ private:
+  const int n_;
+  std::vector<int> parent_;
+  std::vector<int> rank_;
+};
+
+void UnionFind::initialize() {
+  parent_.assign(n_, -1);
+  rank_.assign(n_, 0);
+}
+
+int UnionFind::getroot(int x) {
+  if (parent_[x] == -1) return x;
+  else return parent_[x] = getroot(parent_[x]);
+}
+
+bool UnionFind::issame(int x, int y) {
+  return getroot(x) == getroot(y);
+}
+
+void UnionFind::unite(int x, int y) {
+  x = getroot(x); y = getroot(y);
+  if (x == y) return;
+  if (rank_[x] < rank_[y]) std::swap(x, y);
+  if (rank_[x] == rank_[y]) ++rank_[x];
+  parent_[y] = x;
+  return;
+}
