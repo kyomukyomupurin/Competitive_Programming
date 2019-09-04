@@ -52,6 +52,7 @@ class UnionFind {
   int Weight(int x);
   bool IsSame(int x, int y);
   void Unite(int x, int y, int w);
+  int Diff(int x, int y);
 
  private:
   const int n_;
@@ -99,4 +100,8 @@ void UnionFind::Unite(int x, int y, int w) {
   parent_[y] = x;
   diff_weight_[y] = w;
   return;
+}
+
+int UnionFind::Diff(int x, int y) {
+  return Weight(y) - Weight(x);
 }
