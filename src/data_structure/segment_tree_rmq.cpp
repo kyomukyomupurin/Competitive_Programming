@@ -39,6 +39,7 @@ struct SegmentTree{
     }
 };
 
+// verified by https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/all/DSL_2_A
 class SegmentTree {
  public:
   SegmentTree(const std::vector<int>& vec) : vec_(vec) {}
