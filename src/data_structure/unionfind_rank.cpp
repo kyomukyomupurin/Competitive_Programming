@@ -33,10 +33,10 @@ struct UnionFind {
 class UnionFind {
  public:
   UnionFind(int n) : n_(n) {}
-  void initialize();
-  int getroot(int x);
-  bool issame(int x, int y);
-  void unite(int x, int y);
+  void Initialize();
+  int GetRoot(int x);
+  bool IsSame(int x, int y);
+  void Unite(int x, int y);
 
  private:
   const int n_;
@@ -44,22 +44,22 @@ class UnionFind {
   std::vector<int> rank_;
 };
 
-void UnionFind::initialize() {
+void UnionFind::Initialize() {
   parent_.assign(n_, -1);
   rank_.assign(n_, 0);
 }
 
-int UnionFind::getroot(int x) {
+int UnionFind::GetRoot(int x) {
   if (parent_[x] == -1) return x;
-  else return parent_[x] = getroot(parent_[x]);
+  else return parent_[x] = GetRoot(parent_[x]);
 }
 
-bool UnionFind::issame(int x, int y) {
-  return getroot(x) == getroot(y);
+bool UnionFind::IsSame(int x, int y) {
+  return GetRoot(x) == GetRoot(y);
 }
 
-void UnionFind::unite(int x, int y) {
-  x = getroot(x); y = getroot(y);
+void UnionFind::Unite(int x, int y) {
+  x = GetRoot(x); y = GetRoot(y);
   if (x == y) return;
   if (rank_[x] < rank_[y]) std::swap(x, y);
   if (rank_[x] == rank_[y]) ++rank_[x];
