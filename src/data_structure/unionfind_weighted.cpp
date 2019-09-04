@@ -43,6 +43,7 @@ struct UnionFind {
   int diff(int x, int y) {return weight(y) - weight(x);}
 };
 
+// verified by https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/all/DSL_1_B
 class UnionFind {
  public:
   UnionFind(int n, int SUM_UNITY = 0) : n_(n), 
@@ -87,8 +88,7 @@ bool UnionFind::IsSame(int x, int y) {
   return GetRoot(x) == GetRoot(y);
 }
 
-// y is w larger than x
-void UnionFind::Unite(int x, int y, int w) {
+void UnionFind::Unite(int x, int y, int w) {  // y is w larger than x
   w += Weight(x); w -= Weight(y);
   x = GetRoot(x); y = GetRoot(y);
   if (x == y) return;
