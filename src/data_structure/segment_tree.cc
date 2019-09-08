@@ -5,13 +5,13 @@
 #include <functional>
 #include <vector>
 
+// verified by
+// https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/all/DSL_2_A
 class SegmentTree {
  public:
   SegmentTree(const std::vector<int>& vec, const int& initial_value,
               std::function<int(int, int)> operation)
-        : initial_value_(initial_value),
-          vec_(vec),
-          operation_(operation) {}
+      : initial_value_(initial_value), vec_(vec), operation_(operation) {}
   void Initialize();
   void Update(int position, int new_value);
   int Query(int a, int b, int k, int l, int r);
@@ -42,9 +42,10 @@ void SegmentTree::Initialize() {
 void SegmentTree::Update(int position, int new_value) {
   position += n_ - 1;
   data_[position] = new_value;
-  while (position > 0){
+  while (position > 0) {
     position = (position - 1) / 2;
-    data_[position] = operation_(data_[2 * position + 1], data_[2 * position + 2]);
+    data_[position] =
+        operation_(data_[2 * position + 1], data_[2 * position + 2]);
   }
 }
 
@@ -59,14 +60,13 @@ int SegmentTree::Query(int a, int b, int k = 0, int l = 0, int r = -1) {
 }
 
 // non-recursive version
-
+// verified by
+// https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/all/DSL_2_A
 class SegmentTree2 {
  public:
   SegmentTree2(const std::vector<int>& vec, const int& initial_value,
-              std::function<int(int, int)> operation)
-        : initial_value_(initial_value),
-          vec_(vec),
-          operation_(operation) {}
+               std::function<int(int, int)> operation)
+      : initial_value_(initial_value), vec_(vec), operation_(operation) {}
   void Initialize();
   void Update(int position, int new_value);
   int Query(int a, int b);
@@ -97,7 +97,7 @@ void SegmentTree2::Initialize() {
 void SegmentTree2::Update(int position, int new_value) {
   position += n_;
   data_[position] = new_value;
-  while (position > 0){
+  while (position > 0) {
     position >>= 1;
     data_[position] = operation_(data_[2 * position], data_[2 * position + 1]);
   }
@@ -106,9 +106,9 @@ void SegmentTree2::Update(int position, int new_value) {
 // return Query[a, b)
 int SegmentTree2::Query(int a, int b) {
   int vl = initial_value_, vr = initial_value_;
-  for(a += n_, b += n_; a < b; a >>= 1, b >>= 1) {
-    if(a & 1) vl = operation_(vl, data_[a++]);
-    if(b & 1) vr = operation_(data_[--b], vr);
+  for (a += n_, b += n_; a < b; a >>= 1, b >>= 1) {
+    if (a & 1) vl = operation_(vl, data_[a++]);
+    if (b & 1) vr = operation_(data_[--b], vr);
   }
   return operation_(vl, vr);
 }
