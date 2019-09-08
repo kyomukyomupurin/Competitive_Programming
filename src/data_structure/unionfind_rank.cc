@@ -4,7 +4,8 @@
 
 #include <vector>
 
-// verified by https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/all/DSL_1_A
+// verified by
+// https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/all/DSL_1_A
 class UnionFind {
  public:
   UnionFind(int n) : n_(n) {}
@@ -25,16 +26,17 @@ void UnionFind::Initialize() {
 }
 
 int UnionFind::GetRoot(int x) {
-  if (parent_[x] == -1) return x;
-  else return parent_[x] = GetRoot(parent_[x]);
+  if (parent_[x] == -1)
+    return x;
+  else
+    return parent_[x] = GetRoot(parent_[x]);
 }
 
-bool UnionFind::IsSame(int x, int y) {
-  return GetRoot(x) == GetRoot(y);
-}
+bool UnionFind::IsSame(int x, int y) { return GetRoot(x) == GetRoot(y); }
 
 void UnionFind::Unite(int x, int y) {
-  x = GetRoot(x); y = GetRoot(y);
+  x = GetRoot(x);
+  y = GetRoot(y);
   if (x == y) return;
   if (rank_[x] < rank_[y]) std::swap(x, y);
   if (rank_[x] == rank_[y]) ++rank_[x];

@@ -19,21 +19,20 @@ class UnionFind {
   std::vector<int> parent_;
 };
 
-void UnionFind::Initialize() {
-  parent_.assign(n_, -1);
-}
+void UnionFind::Initialize() { parent_.assign(n_, -1); }
 
 int UnionFind::GetRoot(int x) {
-  if (parent_[x] < 0) return x;
-  else return parent_[x] = GetRoot(parent_[x]);
+  if (parent_[x] < 0)
+    return x;
+  else
+    return parent_[x] = GetRoot(parent_[x]);
 }
 
-bool UnionFind::IsSame(int x, int y) {
-  return GetRoot(x) == GetRoot(y);
-}
+bool UnionFind::IsSame(int x, int y) { return GetRoot(x) == GetRoot(y); }
 
 void UnionFind::Unite(int x, int y) {
-  x = GetRoot(x); y = GetRoot(y);
+  x = GetRoot(x);
+  y = GetRoot(y);
   if (x == y) return;
   if (parent_[x] > parent_[y]) std::swap(x, y);
   parent_[x] += parent_[y];
@@ -41,6 +40,4 @@ void UnionFind::Unite(int x, int y) {
   return;
 }
 
-int UnionFind::GetSize(int x) {
-  return -parent_[GetRoot(x)];
-}
+int UnionFind::GetSize(int x) { return -parent_[GetRoot(x)]; }

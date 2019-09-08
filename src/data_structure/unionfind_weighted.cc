@@ -4,11 +4,11 @@
 
 #include <vector>
 
-// verified by https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/all/DSL_1_B
+// verified by
+// https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/all/DSL_1_B
 class UnionFind {
  public:
-  UnionFind(int n, int SUM_UNITY = 0) : n_(n), 
-                                        SUM_UNITY_(SUM_UNITY) {}
+  UnionFind(int n, int SUM_UNITY = 0) : n_(n), SUM_UNITY_(SUM_UNITY) {}
   void Initialize();
   int GetRoot(int x);
   int Weight(int x);
@@ -45,13 +45,13 @@ int UnionFind::Weight(int x) {
   return diff_weight_[x];
 }
 
-bool UnionFind::IsSame(int x, int y) {
-  return GetRoot(x) == GetRoot(y);
-}
+bool UnionFind::IsSame(int x, int y) { return GetRoot(x) == GetRoot(y); }
 
 void UnionFind::Unite(int x, int y, int w) {  // y is w larger than x
-  w += Weight(x); w -= Weight(y);
-  x = GetRoot(x); y = GetRoot(y);
+  w += Weight(x);
+  w -= Weight(y);
+  x = GetRoot(x);
+  y = GetRoot(y);
   if (x == y) return;
   if (rank_[x] < rank_[y]) {
     std::swap(x, y);
@@ -63,6 +63,4 @@ void UnionFind::Unite(int x, int y, int w) {  // y is w larger than x
   return;
 }
 
-int UnionFind::Diff(int x, int y) {
-  return Weight(y) - Weight(x);
-}
+int UnionFind::Diff(int x, int y) { return Weight(y) - Weight(x); }
