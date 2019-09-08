@@ -51,10 +51,19 @@ using pll = std::pair<int64, int64>;
 #define rall(_) (_).rbegin(), (_).rend()
 #define print(_) std::cout << (_) << '\n'
 #define debug(_) std::cerr << #_ << ": " << (_) << '\n'
-#define dbg(vec) for (size_t _ = 0; _ < vec.size(); ++_){std::cerr << #vec << "[" << _ << "] : " << vec[_] << '\n';}
 // variadic template
 template<typename T> inline void chmin(T &a, T b) {if (a > b) a = b; return;}
 template<typename T> inline void chmax(T &a, T b) {if (a < b) a = b; return;}
+template<typename T> std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec) {
+  os << "{";
+  for (size_t i = 0; i < vec.size(); ++i) {
+    os << vec[i] << ",}"[i == vec.size() - 1];
+  }
+  return os;
+}
+template<typename T, typename U> std::ostream& operator<<(std::ostream& os, const std::pair<T, U>& p) {
+  return os << "{" << p.first << " " << p.second << "}";
+}
 // constant
 const int INF = (1<<30) - 1;  // 1.073741823e9
 const int64 INF64 = (1LL<<62) - 1;  // 4.611686018427387903e18
