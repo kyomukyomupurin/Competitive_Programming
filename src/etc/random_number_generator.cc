@@ -3,6 +3,7 @@
 **/
 
 #include <chrono>
+#include <ext/random>
 #include <random>
 
 // verified by https://atcoder.jp/contests/abc139/tasks/abc139_f
@@ -15,7 +16,7 @@ class RandomNumberGenerator {
   double RandomDouble(double a, double b);
 
  private:
-  std::mt19937_64 rng_;
+  __gnu_cxx::sfmt19937_64 rng_;
 };
 
 // return [a, b]
