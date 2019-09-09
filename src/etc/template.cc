@@ -31,6 +31,8 @@
 #include <cctype>
 #include <cstring>
 #include <chrono>
+#include <ext/random>
+#include <ext/rope>
 #include <functional>
 #include <iomanip>
 #include <random>
