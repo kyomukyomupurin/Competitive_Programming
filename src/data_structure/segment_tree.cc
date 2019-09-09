@@ -89,7 +89,7 @@ void SegmentTree2::Initialize() {
   for (int i = 0; i < vsize; ++i) {
     data_[i + n_] = vec_[i];
   }
-  for (int i = n_ - 1; i >= 0; --i) {
+  for (int i = n_ - 1; i > 0; --i) {
     data_[i] = operation_(data_[2 * i], data_[2 * i + 1]);
   }
 }
