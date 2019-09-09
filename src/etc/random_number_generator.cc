@@ -1,6 +1,6 @@
 /**
  *  Generate random number
-**/ 
+**/
 
 #include <chrono>
 #include <random>
@@ -8,10 +8,12 @@
 // verified by https://atcoder.jp/contests/abc139/tasks/abc139_f
 class RandomNumberGenerator {
  public:
-  RandomNumberGenerator() : rng_(std::chrono::steady_clock::now().time_since_epoch().count()) {}
+  RandomNumberGenerator()
+      : rng_(std::chrono::steady_clock::now().time_since_epoch().count()) {}
   int RandomInt(int a, int b);
   long long RandomInt64(long long a, long long b);
   double RandomDouble(double a, double b);
+
  private:
   std::mt19937_64 rng_;
 };
