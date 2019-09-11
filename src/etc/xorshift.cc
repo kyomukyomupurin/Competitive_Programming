@@ -20,6 +20,12 @@ class Xorshift128plus {
   void Next();
 };
 
+uint64_t Xorshift128plus::result_;
+uint64_t Xorshift128plus::seed0_ =
+    std::chrono::steady_clock::now().time_since_epoch().count() - 172817281728;
+uint64_t Xorshift128plus::seed1_ =
+    std::chrono::steady_clock::now().time_since_epoch().count() + 172817281728;
+
 void Xorshift128plus::Next() {
   uint64_t s1 = seed0_;
   uint64_t s0 = seed1_;
@@ -28,12 +34,6 @@ void Xorshift128plus::Next() {
   s1 ^= s1 << 23;
   seed1_ = s1 ^ s0 ^ (s1 >> 18) ^ (s0 >> 5);
 }
-
-uint64_t Xorshift128plus::result_;
-uint64_t Xorshift128plus::seed0_ =
-    std::chrono::steady_clock::now().time_since_epoch().count() - 172817281728;
-uint64_t Xorshift128plus::seed1_ =
-    std::chrono::steady_clock::now().time_since_epoch().count() + 172817281728;
 
 void Xorshift128plus::Initialize() {
   for (int i = 0; i < 10; ++i) {
