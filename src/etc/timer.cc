@@ -7,19 +7,17 @@
 // verified by https://atcoder.jp/contests/abc139/tasks/abc139_f
 class Timer {
  public:
-  Timer(std::chrono::system_clock::time_point start =
-            std::chrono::system_clock::now(),
-        std::chrono::system_clock::time_point stop =
-            std::chrono::system_clock::now())
-      : start_(start), stop_(stop) {}
   void Start();
   void Stop();
   double GetElapsedTime();
 
  private:
-  std::chrono::system_clock::time_point start_;
-  std::chrono::system_clock::time_point stop_;
+  static std::chrono::system_clock::time_point start_;
+  static std::chrono::system_clock::time_point stop_;
 };
+
+std::chrono::system_clock::time_point Timer::start_;
+std::chrono::system_clock::time_point Timer::stop_;
 
 void Timer::Start() { start_ = std::chrono::system_clock::now(); }
 
