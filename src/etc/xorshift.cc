@@ -26,9 +26,9 @@ class Xorshift128plus {
 
 uint64_t Xorshift128plus::result_;
 uint64_t Xorshift128plus::seed0_ = static_cast<uint64_t>(
-    std::chrono::steady_clock::now().time_since_epoch().count() - 172817281728);
+    std::chrono::steady_clock::now().time_since_epoch().count());
 uint64_t Xorshift128plus::seed1_ = static_cast<uint64_t>(
-    std::chrono::steady_clock::now().time_since_epoch().count() + 172817281728);
+    std::chrono::steady_clock::now().time_since_epoch().count());
 
 inline void Xorshift128plus::Initialize() {
   for (int i = 0; i < 10; ++i) {
