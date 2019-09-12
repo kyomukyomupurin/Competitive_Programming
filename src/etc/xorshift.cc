@@ -31,7 +31,7 @@ uint64_t Xorshift128plus::seed1_ = static_cast<uint64_t>(
     std::chrono::steady_clock::now().time_since_epoch().count());
 
 inline void Xorshift128plus::Initialize() {
-  for (int i = 0; i < 10; ++i) {
+  for (int i = 0; i < 40; ++i) {
     Next();
   }
 }
