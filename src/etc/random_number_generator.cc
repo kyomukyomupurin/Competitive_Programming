@@ -20,17 +20,17 @@ class RandomNumberGenerator {
 };
 
 // return [a, b]
-int RandomNumberGenerator::RandomInt(int a, int b) {
+inline int RandomNumberGenerator::RandomInt(int a, int b) {
   std::uniform_int_distribution<int> distribution(a, b);
   return distribution(rng_);
 }
 
-long long RandomNumberGenerator::RandomInt64(long long a, long long b) {
+inline long long RandomNumberGenerator::RandomInt64(long long a, long long b) {
   std::uniform_int_distribution<long long> distribution(a, b);
   return distribution(rng_);
 }
 
-double RandomNumberGenerator::RandomDouble(double a, double b) {
+inline double RandomNumberGenerator::RandomDouble(double a, double b) {
   std::uniform_real_distribution<double> distribution(a, b);
   return distribution(rng_);
 }
