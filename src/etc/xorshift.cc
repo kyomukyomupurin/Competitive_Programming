@@ -5,28 +5,38 @@
 #include <chrono>
 #include <iostream>
 
+// reference : https://cpplover.blogspot.com/2013/03/blog-post_22.html
+//             http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3551.pdf
 // verified by https://atcoder.jp/contests/abc139/tasks/abc139_f
 class Xorshift128plus {
  public:
+  using result_type = uint64_t;
+  static constexpr uint64_t min() { return std::numeric_limits<result_type>::min(); }
+  static constexpr uint64_t max() { return std::numeric_limits<result_type>::max(); }
+  uint64_t operator()() { return GetNext(); }
   void Initialize();
-  int RandomInt(int a, int b);
-  long long RandomInt64(long long a, long long b);
-  double RandomDouble(double a, double b);
 
  private:
   static uint64_t result_;
   static uint64_t seed0_;
   static uint64_t seed1_;
   void Next();
+  uint64_t GetNext();
 };
 
 uint64_t Xorshift128plus::result_;
-uint64_t Xorshift128plus::seed0_ =
-    std::chrono::steady_clock::now().time_since_epoch().count() - 172817281728;
-uint64_t Xorshift128plus::seed1_ =
-    std::chrono::steady_clock::now().time_since_epoch().count() + 172817281728;
+uint64_t Xorshift128plus::seed0_ = static_cast<uint64_t>(
+    std::chrono::steady_clock::now().time_since_epoch().count() - 172817281728);
+uint64_t Xorshift128plus::seed1_ = static_cast<uint64_t>(
+    std::chrono::steady_clock::now().time_since_epoch().count() + 172817281728);
 
-void Xorshift128plus::Next() {
+inline void Xorshift128plus::Initialize() {
+  for (int i = 0; i < 10; ++i) {
+    Next();
+  }
+}
+
+inline void Xorshift128plus::Next() {
   uint64_t s1 = seed0_;
   uint64_t s0 = seed1_;
   result_ = s0 + s1;
@@ -35,30 +45,7 @@ void Xorshift128plus::Next() {
   seed1_ = s1 ^ s0 ^ (s1 >> 18) ^ (s0 >> 5);
 }
 
-void Xorshift128plus::Initialize() {
-  for (int i = 0; i < 10; ++i) {
-    Next();
-  }
-}
-
-// return [a, b - 1]
-int Xorshift128plus::RandomInt(int a, int b) {
+inline uint64_t Xorshift128plus::GetNext() {
   Next();
-  return static_cast<int>(
-      result_ % (static_cast<uint64_t>(b) - static_cast<uint64_t>(a)) +
-      static_cast<uint64_t>(a));
-}
-
-long long Xorshift128plus::RandomInt64(long long a, long long b) {
-  Next();
-  return static_cast<long long>(
-      result_ % (static_cast<uint64_t>(b) - static_cast<uint64_t>(a)) +
-      static_cast<uint64_t>(a));
-}
-
-// return [a, b]
-double Xorshift128plus::RandomDouble(double a, double b) {
-  Next();
-  return static_cast<double>(result_) / static_cast<double>(UINT64_MAX) *
-             (b - a) + a;
+  return result_;
 }
