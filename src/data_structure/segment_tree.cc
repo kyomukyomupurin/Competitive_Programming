@@ -14,7 +14,6 @@ class SegmentTree {
       : initial_value_(initial_value), vec_(vec), operation_(operation) {
     Initialize();
   }
-  void Initialize();
   void Update(int position, int new_value);
   int Query(int a, int b, int k, int l, int r);
 
@@ -24,6 +23,7 @@ class SegmentTree {
   const std::vector<int> vec_;
   std::vector<int> data_;
   std::function<int(int, int)> operation_;
+  void Initialize();
 };
 
 void SegmentTree::Initialize() {
@@ -71,7 +71,6 @@ class SegmentTree2 {
       : initial_value_(initial_value), vec_(vec), operation_(operation) {
     Initialize();
   }
-  void Initialize();
   void Update(int position, int new_value);
   int Query(int a, int b);
 
@@ -81,6 +80,7 @@ class SegmentTree2 {
   const std::vector<int> vec_;
   std::vector<int> data_;
   std::function<int(int, int)> operation_;
+  void Initialize();
 };
 
 void SegmentTree2::Initialize() {

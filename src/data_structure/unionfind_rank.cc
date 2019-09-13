@@ -9,7 +9,6 @@
 class UnionFind {
  public:
   UnionFind(int n) : n_(n) { Initialize(); }
-  void Initialize();
   int GetRoot(int x);
   bool IsSame(int x, int y);
   void Unite(int x, int y);
@@ -18,6 +17,7 @@ class UnionFind {
   const int n_;
   std::vector<int> parent_;
   std::vector<int> rank_;
+  void Initialize();
 };
 
 void UnionFind::Initialize() {

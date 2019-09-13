@@ -8,7 +8,6 @@
 class UnionFind {
  public:
   UnionFind(int n) : n_(n) { Initialize(); }
-  void Initialize();
   int GetRoot(int x);
   bool IsSame(int x, int y);
   void Unite(int x, int y);
@@ -17,6 +16,7 @@ class UnionFind {
  private:
   const int n_;
   std::vector<int> parent_;
+  void Initialize();
 };
 
 void UnionFind::Initialize() { parent_.assign(n_, -1); }

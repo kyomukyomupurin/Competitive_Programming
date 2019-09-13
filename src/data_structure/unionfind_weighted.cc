@@ -11,7 +11,6 @@ class UnionFind {
   UnionFind(int n, int SUM_UNITY = 0) : n_(n), SUM_UNITY_(SUM_UNITY) {
     Initialize();
   }
-  void Initialize();
   int GetRoot(int x);
   int Weight(int x);
   bool IsSame(int x, int y);
@@ -24,6 +23,7 @@ class UnionFind {
   std::vector<int> parent_;
   std::vector<int> rank_;
   std::vector<int> diff_weight_;
+  void Initialize();
 };
 
 void UnionFind::Initialize() {
