@@ -8,7 +8,9 @@
 // https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/all/DSL_1_B
 class UnionFind {
  public:
-  UnionFind(int n, int SUM_UNITY = 0) : n_(n), SUM_UNITY_(SUM_UNITY) {}
+  UnionFind(int n, int SUM_UNITY = 0) : n_(n), SUM_UNITY_(SUM_UNITY) {
+    Initialize();
+  }
   void Initialize();
   int GetRoot(int x);
   int Weight(int x);

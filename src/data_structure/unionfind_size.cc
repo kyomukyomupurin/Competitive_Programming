@@ -7,7 +7,7 @@
 // verified by https://atcoder.jp/contests/abc120/tasks/abc120_d
 class UnionFind {
  public:
-  UnionFind(int n) : n_(n) {}
+  UnionFind(int n) : n_(n) { Initialize(); }
   void Initialize();
   int GetRoot(int x);
   bool IsSame(int x, int y);
