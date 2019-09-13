@@ -8,7 +8,7 @@
 // https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/all/DSL_1_A
 class UnionFind {
  public:
-  UnionFind(int n) : n_(n) {}
+  UnionFind(int n) : n_(n) { Initialize(); }
   void Initialize();
   int GetRoot(int x);
   bool IsSame(int x, int y);
