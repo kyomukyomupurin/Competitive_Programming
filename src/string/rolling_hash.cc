@@ -8,20 +8,26 @@
 
 // verified by
 // https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/all/ALDS1_14_B
+// https://atcoder.jp/contests/abc141/tasks/abc141_e
 class RollingHash {
  public:
   RollingHash(const std::string& s) : s_(s) { Initialize(); }
-  unsigned int GetHash(int left, int right);
+  std::pair<unsigned int, unsigned int> GetHash(int left, int right);
 
  private:
   const std::string s_;
   static std::vector<unsigned int> bases_;
-  static unsigned int base_;
-  const unsigned int mod_ = 1000000007;
-  std::vector<unsigned int> hash_;
-  std::vector<unsigned int> power_;
+  static unsigned int base0_;
+  static unsigned int base1_;
+  std::vector<unsigned int> hash0_;
+  std::vector<unsigned int> hash1_;
+  std::vector<unsigned int> power0_;
+  std::vector<unsigned int> power1_;
+  static constexpr unsigned int mod0_ = 2020202077;
+  static constexpr unsigned int mod1_ = 2020202111;
   void Initialize();
-  unsigned int mul(unsigned int a, unsigned int b);
+  unsigned int mul0(unsigned int a, unsigned int b);
+  unsigned int mul1(unsigned int a, unsigned int b);
 };
 
 std::vector<unsigned int> RollingHash::bases_ = {
@@ -37,34 +43,58 @@ std::vector<unsigned int> RollingHash::bases_ = {
     10939, 10949, 10957, 10973, 10979, 10987, 10993, 11003, 11027, 11047, 11057,
     11059, 11069, 11071, 11083, 11087, 11093, 11113, 11117, 11119, 11131, 11149,
     11159, 11161, 11171, 11173, 11177, 11197};
-unsigned int RollingHash::base_ =
+
+unsigned int RollingHash::base0_ =
     bases_[std::chrono::steady_clock::now().time_since_epoch().count() & 127];
 
-// return hash value of [left, right)
-unsigned int RollingHash::GetHash(int left, int right) {
-  unsigned int ret =
-      hash_[right] + mod_ - mul(hash_[left], power_[right - left]);
-  if (ret >= mod_) ret -= mod_;
-  return ret;
+unsigned int RollingHash::base1_ =
+    bases_[std::chrono::steady_clock::now().time_since_epoch().count() & 127];
+
+// return hash pair of [left, right)
+inline std::pair<unsigned int, unsigned int> RollingHash::GetHash(int left,
+                                                                  int right) {
+  unsigned int ret0 =
+      hash0_[right] + mod0_ - mul0(hash0_[left], power0_[right - left]);
+  if (ret0 >= mod0_) ret0 -= mod0_;
+  unsigned int ret1 =
+      hash1_[right] + mod1_ - mul1(hash1_[left], power1_[right - left]);
+  if (ret1 >= mod1_) ret1 -= mod1_;
+
+  return {ret0, ret1};
 }
 
 void RollingHash::Initialize() {
   int ssize = static_cast<int>(s_.size());
-  hash_.assign(ssize + 1, 0);
-  power_.assign(ssize + 1, 0);
-  power_[0] = 1;
+  hash0_.assign(ssize + 1, 0);
+  hash1_.assign(ssize + 1, 0);
+  power0_.assign(ssize + 1, 0);
+  power1_.assign(ssize + 1, 0);
+  power0_[0] = 1;
+  power1_[0] = 1;
   for (int i = 0; i < ssize; ++i) {
-    hash_[i + 1] = mul(hash_[i], base_) + s_[i];
-    power_[i + 1] = mul(power_[i], base_);
-    if (hash_[i + 1] >= mod_) hash_[i + 1] -= mod_;
+    hash0_[i + 1] = mul0(hash0_[i], base0_) + s_[i];
+    hash1_[i + 1] = mul1(hash1_[i], base1_) + s_[i];
+    power0_[i + 1] = mul0(power0_[i], base0_);
+    power1_[i + 1] = mul1(power1_[i], base1_);
+    if (hash0_[i + 1] >= mod0_) hash0_[i + 1] -= mod0_;
+    if (hash1_[i + 1] >= mod1_) hash1_[i + 1] -= mod1_;
   }
 }
 
-unsigned int RollingHash::mul(unsigned int a, unsigned int b) {
+inline unsigned int RollingHash::mul0(unsigned int a, unsigned int b) {
   unsigned long long x =
       static_cast<unsigned long long>(a) * static_cast<unsigned long long>(b);
   unsigned int xh = static_cast<unsigned int>(x >> 32),
                xl = static_cast<unsigned int>(x), d, m;
-  asm("divl %4; \n\t" : "=a"(d), "=d"(m) : "d"(xh), "a"(xl), "r"(mod_));
+  asm("divl %4; \n\t" : "=a"(d), "=d"(m) : "d"(xh), "a"(xl), "r"(mod0_));
+  return m;
+}
+
+inline unsigned int RollingHash::mul1(unsigned int a, unsigned int b) {
+  unsigned long long x =
+      static_cast<unsigned long long>(a) * static_cast<unsigned long long>(b);
+  unsigned int xh = static_cast<unsigned int>(x >> 32),
+               xl = static_cast<unsigned int>(x), d, m;
+  asm("divl %4; \n\t" : "=a"(d), "=d"(m) : "d"(xh), "a"(xl), "r"(mod1_));
   return m;
 }
