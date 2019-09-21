@@ -41,7 +41,7 @@
 using namespace std;
 // alias template
 using int64 = long long;
-using uint64 = unsigned long long;
+using ull = unsigned long long;
 using vi = std::vector<int>;
 using vl = std::vector<int64>;
 using pii = std::pair<int, int>;
