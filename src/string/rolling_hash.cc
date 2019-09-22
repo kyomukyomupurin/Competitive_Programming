@@ -45,6 +45,7 @@ void RollingHash::Initialize() {
   }
 }
 
+// return hash pair of [left, right)
 inline std::pair<ull, ull> RollingHash::GetHash(int left, int right) {
   ull ret0 =
       hash0_[right] + mod0_ - hash0_[left] * power0_[right - left] % mod0_;
