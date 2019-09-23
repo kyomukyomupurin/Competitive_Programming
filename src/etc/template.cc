@@ -57,14 +57,16 @@ using pll = std::pair<int64, int64>;
 template<typename T> inline void chmin(T &a, T b) {if (a > b) a = b; return;}
 template<typename T> inline void chmax(T &a, T b) {if (a < b) a = b; return;}
 template<typename T> std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec) {
-  os << "{";
+  os << '{';
   for (size_t i = 0; i < vec.size(); ++i) {
-    os << vec[i] << ",}"[i == vec.size() - 1];
+    os << vec[i];
+    if (i != vec.size() - 1) os << ',';
   }
+  os << '}';
   return os;
 }
 template<typename T, typename U> std::ostream& operator<<(std::ostream& os, const std::pair<T, U>& p) {
-  return os << "{" << p.first << " " << p.second << "}";
+  return os << '{' << p.first << " " << p.second << '}';
 }
 // constant
 const int INF = (1<<30) - 1;  // 1.073741823e9
