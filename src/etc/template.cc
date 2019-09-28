@@ -45,7 +45,6 @@ using ull = unsigned long long;
 using vi = std::vector<int>;
 using vl = std::vector<int64>;
 using pii = std::pair<int, int>;
-using pii = std::pair<int, int>;
 using pll = std::pair<int64, int64>;
 // text macro replacement
 #define rep(i, n) for (int i = 0; i < (int)(n); ++i)
