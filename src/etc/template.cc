@@ -68,9 +68,9 @@ template<typename T, typename U> std::ostream& operator<<(std::ostream& os, cons
   return os << '{' << p.first << " " << p.second << '}';
 }
 // constant
-const int INF = (1<<30) - 1;  // 1.073741823e9
-const int64 INF64 = (1LL<<62) - 1;  // 4.611686018427387903e18
-const int MOD = 1000000007;
+constexpr int INF = (1<<30) - 1;  // 1.073741823e9
+constexpr int64 INF64 = (1LL<<62) - 1;  // 4.611686018427387903e18
+constexpr int MOD = 1000000007;
 
 int main(){
   std::ios_base::sync_with_stdio(false);
