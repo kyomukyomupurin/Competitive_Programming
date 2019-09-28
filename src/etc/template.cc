@@ -70,7 +70,7 @@ template<typename T, typename U> std::ostream& operator<<(std::ostream& os, cons
 // constant
 constexpr int INF = (1<<30) - 1;  // 1.073741823e9
 constexpr int64 INF64 = (1LL<<62) - 1;  // 4.611686018427387903e18
-constexpr int MOD = 1000000007;
+constexpr int MOD = 1'000'000'007;
 
 int main(){
   std::ios_base::sync_with_stdio(false);
