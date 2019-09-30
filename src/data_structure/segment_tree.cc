@@ -8,6 +8,7 @@
 // non-recursive version
 // verified by
 // https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/all/DSL_2_A
+// https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/all/DSL_2_B
 template <typename T>
 class SegmentTree {
  public:
@@ -18,6 +19,7 @@ class SegmentTree {
   }
   void Update(int position, T new_value);
   T Query(int a, int b);
+  T operator[](const int& position) const;
 
  private:
   int n_;
@@ -65,6 +67,11 @@ T SegmentTree<T>::Query(int a, int b) {
   return operation_(vl, vr);
 }
 
+template <typename T>
+T SegmentTree<T>::operator[](const int& position) const {
+  return data_[n_ + position];
+}
+
 /*
 void DSL_2_A() {
   int n, q; cin >> n >> q;
@@ -77,5 +84,20 @@ void DSL_2_A() {
       cout << seg.Query(x, y + 1) << '\n';
     }
   }  
+}
+*/
+
+/*
+void DSL_2_B() {
+  int n, q; cin >> n >> q;
+  SegmentTree<int> seg(vector<int>(n, 0), 0, [](int x, int y){ return x + y; });
+  rep(i, q) {
+    int com, x, y; cin >> com >> x >> y;
+    if (com == 0) {
+      seg.Update(x, seg[x] + y);
+    } else {
+      cout << seg.Query(x, y + 1) << '\n';
+    }
+  }
 }
 */
