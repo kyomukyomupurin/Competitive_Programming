@@ -63,3 +63,50 @@ ull RollingHash::base1_ = std::uniform_int_distribution<ull>(
     2, RollingHash::mod1_)(RollingHash::sfmt_);
 std::vector<ull> RollingHash::power0_{1};
 std::vector<ull> RollingHash::power1_{1};
+
+/*
+void ABC141_E() {
+  int n; cin >> n;
+  string s; cin >> s;
+  RollingHash rh(s);
+
+  auto ok = [&](int x) -> bool{
+    for (int i = 0; i + 2 * x <= n; ++i) {
+      for (int j = i + x; j + x <= n; ++j) {
+        if (rh.GetHash(i, i + x) == rh.GetHash(j, j + x)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  };
+
+  int low = 0, high = n / 2 + 1;
+
+  while (high - low > 1) {
+    int mid = (low + high) >> 1;
+    if (ok(mid)) {
+      low = mid;
+    } else {
+      high = mid;
+    }
+  }
+
+  cout << low << '\n';
+}
+*/
+/*
+void ALDS1_14_B() {
+  string t, p; cin >> t >> p;
+  RollingHash rh0(t);
+  RollingHash rh1(p);
+
+  int n = t.size(); int m = p.size();
+
+  for (int i = 0; i + m <= n; ++i) {
+    if (rh0.GetHash(i, i + m) == rh1.GetHash(0, m)) {
+      cout << i << '\n';
+    }
+  }  
+}
+*/
