@@ -45,15 +45,13 @@ void RollingHash::Initialize() {
   }
 }
 
-// return hash pair of [left, right)
 inline std::pair<ull, ull> RollingHash::GetHash(int left, int right) {
   ull ret0 =
-      hash0_[right] + mod0_ - hash0_[left] * power0_[right - left] % mod0_;
-  if (ret0 >= mod0_) ret0 -= mod0_;
+      (hash0_[right] - hash0_[left] * power0_[right - left] % mod0_ + mod0_) %
+      mod0_;
   ull ret1 =
-      hash1_[right] + mod1_ - hash1_[left] * power1_[right - left] % mod1_;
-  if (ret1 >= mod1_) ret1 -= mod1_;
-
+      (hash1_[right] - hash1_[left] * power1_[right - left] % mod1_ + mod1_) %
+      mod1_;
   return {ret0, ret1};
 }
 
