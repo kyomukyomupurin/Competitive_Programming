@@ -16,24 +16,8 @@ class SegmentTree {
       : initial_value_(initial_value), vec_(vec), operation_(operation) {
     Initialize();
   }
-  void Update(int position, T new_value) {
-    position += n_;
-    data_[position] = new_value;
-    while (position > 0) {
-      position >>= 1;
-      data_[position] =
-          operation_(data_[2 * position], data_[2 * position + 1]);
-    }
-  }
-  // return Query[a, b)
-  T Query(int a, int b) {
-    T vl = initial_value_, vr = initial_value_;
-    for (a += n_, b += n_; a < b; a >>= 1, b >>= 1) {
-      if (a & 1) vl = operation_(vl, data_[a++]);
-      if (b & 1) vr = operation_(data_[--b], vr);
-    }
-    return operation_(vl, vr);
-  }
+  void Update(int position, T new_value);
+  T Query(int a, int b);
 
  private:
   int n_;
@@ -41,21 +25,45 @@ class SegmentTree {
   const std::vector<T> vec_;
   std::vector<T> data_;
   std::function<T(T, T)> operation_;
-  void Initialize() {
-    int vsize = static_cast<int>(vec_.size());
-    n_ = 1;
-    while (n_ < vsize) {
-      n_ <<= 1;
-    }
-    data_.assign(2 * n_, initial_value_);
-    for (int i = 0; i < vsize; ++i) {
-      data_[i + n_] = vec_[i];
-    }
-    for (int i = n_ - 1; i > 0; --i) {
-      data_[i] = operation_(data_[2 * i], data_[2 * i + 1]);
-    }
-  }
+  void Initialize();
 };
+
+template <typename T>
+void SegmentTree<T>::Initialize() {
+  int vsize = static_cast<int>(vec_.size());
+  n_ = 1;
+  while (n_ < vsize) {
+    n_ <<= 1;
+  }
+  data_.assign(2 * n_, initial_value_);
+  for (int i = 0; i < vsize; ++i) {
+    data_[i + n_] = vec_[i];
+  }
+  for (int i = n_ - 1; i > 0; --i) {
+    data_[i] = operation_(data_[2 * i], data_[2 * i + 1]);
+  }
+}
+
+template <typename T>
+void SegmentTree<T>::Update(int position, T new_value) {
+  position += n_;
+  data_[position] = new_value;
+  while (position > 0) {
+    position >>= 1;
+    data_[position] = operation_(data_[2 * position], data_[2 * position + 1]);
+  }
+}
+
+// return Query[a, b)
+template <typename T>
+T SegmentTree<T>::Query(int a, int b) {
+  int vl = initial_value_, vr = initial_value_;
+  for (a += n_, b += n_; a < b; a >>= 1, b >>= 1) {
+    if (a & 1) vl = operation_(vl, data_[a++]);
+    if (b & 1) vr = operation_(data_[--b], vr);
+  }
+  return operation_(vl, vr);
+}
 
 /*
 void DSL_2_A() {
