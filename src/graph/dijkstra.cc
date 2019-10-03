@@ -7,43 +7,44 @@
 #include <limits>
 
 // verified by https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/1/GRL_1_A
-template <typename T>
+template<typename T>
 class Dijkstra {
  public:
   Dijkstra(const int& node_size) : node_size_(node_size) { Initialize(); }
   void Add_Edge(const int& from, const int& to, const T& cost);
   void Solve(const int& source);
-  std::vector<T> distance_;
+  T operator[](const int& to) const;
 
  private:
   struct edge {
-    int to;
-    T cost;
+   int to;
+   T cost;
   };
   int node_size_;
+  std::vector<T> distance_;
   std::vector<std::vector<edge>> graph_;
   void Initialize();
 };
 
-template <typename T>
+template<typename T>
 void Dijkstra<T>::Add_Edge(const int& from, const int& to, const T& cost) {
   graph_[from].push_back({to, cost});
 }
 
-template <typename T>
+template<typename T>
 void Dijkstra<T>::Solve(const int& source) {
-  std::priority_queue<std::pair<T, int>, std::vector<std::pair<T, int>>,
+  std::priority_queue<std::pair<T, int>,
+                      std::vector<std::pair<T, int>>,
                       std::greater<std::pair<T, int>>> pq;
   distance_[source] = 0;
   pq.push({0, source});
 
-  while (!pq.empty()) {
-    std::pair<T, int> top = pq.top();
-    pq.pop();
+  while (!pq.empty()){
+    std::pair<T, int> top = pq.top(); pq.pop();
     int v = top.second;
     if (distance_[v] < top.first) continue;
     for (const auto& e : graph_[v]) {
-      if (distance_[e.to] > distance_[v] + e.cost) {
+      if (distance_[e.to] > distance_[v] + e.cost){
         distance_[e.to] = distance_[v] + e.cost;
         pq.push({distance_[e.to], e.to});
       }
@@ -51,10 +52,15 @@ void Dijkstra<T>::Solve(const int& source) {
   }
 }
 
-template <typename T>
+template<typename T>
 void Dijkstra<T>::Initialize() {
   distance_.assign(node_size_, std::numeric_limits<T>::max() / 2);
   graph_.resize(node_size_);
+}
+
+template<typename T>
+T Dijkstra<T>::operator[](const int& to) const {
+  return distance_[to];
 }
 
 /*
@@ -71,10 +77,10 @@ void GRL_1_A() {
   dijkstra.Solve(r);
 
   for (int i = 0; i < n; ++i) {
-    if (dijkstra.distance_[i] == numeric_limits<int64>::max() / 2) {
+    if (dijkstra[i] == numeric_limits<int64>::max() / 2) {
       cout << "INF" << '\n';
     } else {
-      cout << dijkstra.distance_[i] << '\n';
+      cout << dijkstra[i] << '\n';
     }
   }
 }
