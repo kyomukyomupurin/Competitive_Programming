@@ -6,14 +6,14 @@
 #include <vector>
 
 // verified by https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/1/GRL_1_B
-template <typename T>
+template<typename T>
 class BellmanFord {
  public:
   BellmanFord(const int& node_size) : node_size_(node_size) { Initialize(); }
-  std::vector<T> distance_;
   void AddEdge(const int& from, const int& to, const T& cost);
   bool NegativeCycle();
   void Solve(const int& source);
+  T operator[](const int& to) const;
 
  private:
   struct edge {
@@ -21,30 +21,31 @@ class BellmanFord {
     T cost;
   };
   int node_size_;
+  std::vector<T> distance_;
   std::vector<edge> es;
   void Initialize();
 };
 
-template <typename T>
+template<typename T>
 void BellmanFord<T>::AddEdge(const int& from, const int& to, const T& cost) {
   es.push_back({from, to, cost});
 }
 
 // use after bf.solve(source) !
-template <typename T>
+template<typename T>
 bool BellmanFord<T>::NegativeCycle() {
-  for (const auto& e : es) {
+  for (const auto &e : es) {
     if (distance_[e.from] == std::numeric_limits<T>::max() / 2) continue;
     if (distance_[e.from] + e.cost < distance_[e.to]) return true;
   }
   return false;
 }
 
-template <typename T>
+template<typename T>
 void BellmanFord<T>::Solve(const int& source) {
   distance_[source] = 0;
   for (int i = 0; i < node_size_ - 1; ++i) {
-    for (const auto& e : es) {
+    for (const auto &e : es) {
       if (distance_[e.from] == std::numeric_limits<T>::max() / 2) continue;
       if (distance_[e.to] > distance_[e.from] + e.cost) {
         distance_[e.to] = distance_[e.from] + e.cost;
@@ -53,9 +54,14 @@ void BellmanFord<T>::Solve(const int& source) {
   }
 }
 
-template <typename T>
+template<typename T>
 void BellmanFord<T>::Initialize() {
   distance_.assign(node_size_, std::numeric_limits<T>::max() / 2);
+}
+
+template<typename T>
+T BellmanFord<T>::operator[](const int& to) const {
+  return distance_[to];
 }
 
 /*
@@ -73,10 +79,10 @@ void GRL_1_B() {
     cout << "NEGATIVE CYCLE" << '\n';
   } else {
     for (int i = 0; i < n; ++i) {
-      if (bf.distance_[i] == INF) {
+      if (bf[i] == INF) {
         cout << "INF" << '\n';
       } else {
-        cout << bf.distance_[i] << '\n';
+        cout << bf[i] << '\n';
       }
     }
   }
