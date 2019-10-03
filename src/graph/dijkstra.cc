@@ -61,20 +61,20 @@ void Dijkstra<T>::Initialize() {
 void GRL_1_A() {
   int n, m, r; cin >> n >> m >> r;
 
-  Dijkstra<int64> djkstra(n);
+  Dijkstra<int64> dijkstra(n);
 
   for (int i = 0; i < m; ++i) {
     int s, t, d; cin >> s >> t >> d;
-    djkstra.Add_Edge(s, t, d);
+    dijkstra.Add_Edge(s, t, d);
   }
 
-  djkstra.Solve(r);
+  dijkstra.Solve(r);
 
   for (int i = 0; i < n; ++i) {
-    if (djkstra.distance_[i] == numeric_limits<int64>::max() / 2) {
+    if (dijkstra.distance_[i] == numeric_limits<int64>::max() / 2) {
       cout << "INF" << '\n';
     } else {
-      cout << djkstra.distance_[i] << '\n';
+      cout << dijkstra.distance_[i] << '\n';
     }
   }
 }
