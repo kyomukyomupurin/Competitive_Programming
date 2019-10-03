@@ -2,41 +2,83 @@
  *  bellman ford
 **/
 
+#include <limits>
 #include <vector>
 
-template<typename T> inline void chmin(T &a, T b) {if (a > b) a = b; return;}
+// verified by https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/1/GRL_1_B
+template<typename T>
+class BellmanFord {
+ public:
+  BellmanFord(const int& node_size) : node_size_(node_size) { Initialize(); }
+  std::vector<T> distance_;
+  void AddEdge(const int& from, const int& to, const T& cost);
+  bool NegativeCycle();
+  void Solve(const int& source);
 
-const int MAX_V = 2020;
-const int INF = (1<<30) - 1;
-
-struct edge{
-  int from, to, cost;
+ private:
+  struct edge {
+    int from, to;
+    T cost;
+  };
+  int node_size_;
+  std::vector<edge> es;
+  void Initialize();
 };
 
-std::vector<edge> es;
-std::vector<int> dis(MAX_V, INF);
+template<typename T>
+void BellmanFord<T>::AddEdge(const int& from, const int& to, const T& cost) {
+  es.push_back({from, to, cost});
+}
 
-// if true, there is at least one negative cycle
-bool Bellman_Ford(int V, int source) {
-  dis[source] = 0;
-  for (int i = 0; i < V - 1; ++i) {
-    for (auto &e : es) {
-      if (dis[e.from] == INF) continue;
-      chmin(dis[e.to], dis[e.from] + e.cost);
-    }
-  }
-
-  // whether there is an update in the Vth loop
-  for (auto &e : es) {
-    if (dis[e.from] == INF) continue;
-    if (dis[e.from] + e.cost < dis[e.to]) return true;
+// use after bf.solve(source) !
+template<typename T>
+bool BellmanFord<T>::NegativeCycle() {
+  for (const auto &e : es) {
+    if (distance_[e.from] == std::numeric_limits<T>::max() / 2) continue;
+    if (distance_[e.from] + e.cost < distance_[e.to]) return true;
   }
   return false;
 }
 
+template<typename T>
+void BellmanFord<T>::Solve(const int& source) {
+  distance_[source] = 0;
+  for (int i = 0; i < node_size_ - 1; ++i) {
+    for (const auto &e : es) {
+      if (distance_[e.from] == std::numeric_limits<T>::max() / 2) continue;
+      if (distance_[e.to] > distance_[e.from] + e.cost) {
+        distance_[e.to] = distance_[e.from] + e.cost;
+      }
+    }
+  }
+}
+
+template<typename T>
+void BellmanFord<T>::Initialize() {
+  distance_.assign(node_size_, std::numeric_limits<T>::max() / 2);
+}
+
 /*
-for (int i = 0; i < E; ++i) {
-  int s, t, d; cin >> s >> t >> d;
-  es.push_back({s, t, d});
+void GRL_1_B() {
+  int n, m, r; cin >> n >> m >> r;
+  BellmanFord<int> bf(n);
+  for (int i = 0; i < m; ++i) {
+    int s, t, d; cin >> s >> t >> d;
+    bf.AddEdge(s, t, d);
+  }
+
+  bf.Solve(r);
+
+  if (bf.NegativeCycle()) {
+    cout << "NEGATIVE CYCLE" << '\n';
+  } else {
+    for (int i = 0; i < n; ++i) {
+      if (bf.distance_[i] == INF) {
+        cout << "INF" << '\n';
+      } else {
+        cout << bf.distance_[i] << '\n';
+      }
+    }
+  }
 }
 */
