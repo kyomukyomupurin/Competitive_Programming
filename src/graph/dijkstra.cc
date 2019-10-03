@@ -2,48 +2,80 @@
  *  dijkstra
 **/
 
-#include <iostream>
 #include <queue>
 #include <vector>
-using int64 = long long;
+#include <limits>
 
-const int MAX_V = 101010;
-const int64 INF64 = (1LL<<62) - 1;
+// verified by https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/1/GRL_1_A
+template <typename T>
+class Dijkstra {
+ public:
+  Dijkstra(const int& node_size) : node_size_(node_size) { Initialize(); }
+  void Add_Edge(const int& from, const int& to, const T& cost);
+  void Solve(const int& source);
+  std::vector<T> distance_;
 
-struct edge {
-  int64 to, cost;
+ private:
+  struct edge {
+    int to;
+    T cost;
+  };
+  int node_size_;
+  std::vector<std::vector<edge>> graph_;
+  void Initialize();
 };
 
-int n;
-std::vector<edge> G[MAX_V];
-int64 dis[MAX_V];
+template <typename T>
+void Dijkstra<T>::Add_Edge(const int& from, const int& to, const T& cost) {
+  graph_[from].push_back({to, cost});
+}
 
-void dijkstra(int s){
-  std::priority_queue<std::pair<int64, int64>,
-                      std::vector<std::pair<int64, int64>>,
-                      std::greater<std::pair<int64, int64>>> pq;
-  std::fill(dis, dis + n, INF64);
-  dis[s] = 0;
-  pq.push(std::pair<int64, int64>(0, s));
+template <typename T>
+void Dijkstra<T>::Solve(const int& source) {
+  std::priority_queue<std::pair<T, int>, std::vector<std::pair<T, int>>,
+                      std::greater<std::pair<T, int>>> pq;
+  distance_[source] = 0;
+  pq.push({0, source});
 
-  while (!pq.empty()){
-    std::pair<int64, int64> p = pq.top(); pq.pop();
-    int v = p.second;
-    if (dis[v] < p.first) continue;
-    for (size_t i = 0; i < G[v].size(); ++i){
-      edge e = G[v][i];
-      if (dis[e.to] > dis[v] + e.cost){
-        dis[e.to] = dis[v] + e.cost;
-        pq.emplace(std::pair<int64, int64>(dis[e.to], e.to));
+  while (!pq.empty()) {
+    std::pair<T, int> top = pq.top();
+    pq.pop();
+    int v = top.second;
+    if (distance_[v] < top.first) continue;
+    for (const auto& e : graph_[v]) {
+      if (distance_[e.to] > distance_[v] + e.cost) {
+        distance_[e.to] = distance_[v] + e.cost;
+        pq.push({distance_[e.to], e.to});
       }
     }
   }
 }
 
+template <typename T>
+void Dijkstra<T>::Initialize() {
+  distance_.assign(node_size_, std::numeric_limits<T>::max() / 2);
+  graph_.resize(node_size_);
+}
+
 /*
-for (int i = 0; i < E; ++i){
-  int64 a, b, c; cin >> a >> b >> c; --a; --b;
-  G[a].push_back({b, c});
-  G[b].push_back({a, c});
+void GRL_1_A() {
+  int n, m, r; cin >> n >> m >> r;
+
+  Dijkstra<int64> djkstra(n);
+
+  for (int i = 0; i < m; ++i) {
+    int s, t, d; cin >> s >> t >> d;
+    djkstra.Add_Edge(s, t, d);
+  }
+
+  djkstra.Solve(r);
+
+  for (int i = 0; i < n; ++i) {
+    if (djkstra.distance_[i] == numeric_limits<int64>::max() / 2) {
+      cout << "INF" << '\n';
+    } else {
+      cout << djkstra.distance_[i] << '\n';
+    }
+  }
 }
 */
