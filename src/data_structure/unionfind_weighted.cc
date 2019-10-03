@@ -66,3 +66,24 @@ void UnionFind::Unite(int x, int y, int w) {  // y is w larger than x
 }
 
 int UnionFind::Diff(int x, int y) { return Weight(y) - Weight(x); }
+
+/*
+void DSL_1_B() {
+  int n, q; cin >> n >> q;
+  UnionFind uf(n);
+  for (int i = 0; i < q; ++i) {
+    int com; cin >> com;
+    if (com == 0) {
+      int x, y, z; cin >> x >> y >> z;
+      uf.Unite(x, y, z);
+    } else {
+      int x, y; cin >> x >> y;
+      if (!uf.IsSame(x, y)) {
+        cout << '?' << '\n';
+      } else {
+        cout << uf.Diff(x, y) << '\n';
+      }
+    }
+  }
+}
+*/

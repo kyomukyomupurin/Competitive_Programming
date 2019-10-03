@@ -43,3 +43,18 @@ void UnionFind::Unite(int x, int y) {
   parent_[y] = x;
   return;
 }
+
+/*
+void DSL_1_A() {
+  int n, q; cin >> n >> q;
+  UnionFind uf(n);
+  for (int i = 0; i < q; ++i) {
+    int com, x, y; cin >> com >> x >> y;
+    if (com == 0) {
+      uf.Unite(x, y);
+    } else {
+      cout << uf.IsSame(x, y) << '\n';
+    }
+  }
+}
+*/
