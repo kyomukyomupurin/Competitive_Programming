@@ -31,12 +31,12 @@ void TreeDiameter<T>::Initialize() {
 template <typename T>
 void TreeDiameter<T>::AddEdge(const int& from, const int& to, const T& cost) {
   graph_[from].push_back({cost, to});
+  graph_[to].push_back({cost, from});
 }
 
 template <typename T>
 T TreeDiameter<T>::GetDiameter() {
-  auto p = BFS(0);
-  return BFS(p.second).first;
+  return BFS(BFS(0).second).first;
 }
 
 template <typename T>
@@ -68,7 +68,6 @@ void GRL_5_A() {
   for (int i = 0; i < n - 1; ++i) {
     int s, t, w; cin >> s >> t >> w;
     td.AddEdge(s, t, w);
-    td.AddEdge(t, s, w);
   }
   cout << td.GetDiameter() << '\n';
 }
