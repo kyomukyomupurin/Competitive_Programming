@@ -79,7 +79,7 @@ void GRL_1_B() {
     cout << "NEGATIVE CYCLE" << '\n';
   } else {
     for (int i = 0; i < n; ++i) {
-      if (bf[i] == INF) {
+      if (bf[i] == std::numeric_limits<int>::max() / 2) {
         cout << "INF" << '\n';
       } else {
         cout << bf[i] << '\n';
