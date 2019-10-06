@@ -68,8 +68,8 @@ template<typename T, typename U> std::ostream& operator<<(std::ostream& os, cons
   return os << '{' << p.first << " " << p.second << '}';
 }
 // constant
-constexpr int INF = (1<<30) - 1;  // 1.073741823e9
-constexpr int64 INF64 = (1LL<<62) - 1;  // 4.611686018427387903e18
+constexpr int INF = std::numeric_limits<int>::max() / 2;  // 1.073741823e9
+constexpr int64 INF64 = std::numeric_limits<int64>::max() / 2;  // 4.611686018427387903e18
 constexpr int MOD = 1000000007;
 
 int main(){
