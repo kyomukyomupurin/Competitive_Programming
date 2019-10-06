@@ -11,7 +11,7 @@ class BellmanFord {
  public:
   BellmanFord(const int& node_size) : node_size_(node_size) { Initialize(); }
   void AddEdge(const int& from, const int& to, const T& cost);
-  bool NegativeCycle();
+  bool ExistNegativeCycle();
   void Solve(const int& source);
   T operator[](const int& to) const;
 
@@ -33,7 +33,7 @@ void BellmanFord<T>::AddEdge(const int& from, const int& to, const T& cost) {
 
 // use after bf.solve(source) !
 template<typename T>
-bool BellmanFord<T>::NegativeCycle() {
+bool BellmanFord<T>::ExistNegativeCycle() {
   for (const auto &e : es) {
     if (distance_[e.from] == std::numeric_limits<T>::max() / 2) continue;
     if (distance_[e.from] + e.cost < distance_[e.to]) return true;
@@ -75,7 +75,7 @@ void GRL_1_B() {
 
   bf.Solve(r);
 
-  if (bf.NegativeCycle()) {
+  if (bf.ExistNegativeCycle()) {
     cout << "NEGATIVE CYCLE" << '\n';
   } else {
     for (int i = 0; i < n; ++i) {
