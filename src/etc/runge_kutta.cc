@@ -62,5 +62,6 @@ RungeKutta::status RungeKutta::Proceed(const ld& t, const ld& y) {
 /*
 auto f = [](long double t, long double y){ return y * cos(t); };
 RungeKutta rk(f, 0.0, 1.0, 0.5, 20);
-vector<RungeKutta::status> vec = rk.Solve();
+rk.Solve();
+rk.Output();
 */
