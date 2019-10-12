@@ -2,6 +2,7 @@
  *  Runge Kutta algorithm
 **/
 
+#include <fstream>
 #include <functional>
 #include <vector>
 
@@ -15,29 +16,39 @@ class RungeKutta {
         time_span_(time_span),
         step_number_(step_number),
         initial_time_(initial_time),
-        initial_y_(initial_y) {}
+        initial_y_(initial_y),
+        result_(step_number_ + 1) {}
   struct status {
     ld next_time, next_y;
   };
-  std::vector<status> Solve();
+  void Solve();
+  void Output();
 
  private:
   std::function<ld(ld, ld)> func_;
-  const ld time_span_;
+  std::vector<RungeKutta::status> result_;
   const int step_number_;
+  const ld time_span_;
   const ld initial_time_;
   const ld initial_y_;
   status Proceed(const ld& t, const ld& y);
 };
 
-std::vector<RungeKutta::status> RungeKutta::Solve() {
-  std::vector<RungeKutta::status> result(step_number_ + 1);
-  result[0] = {initial_time_, initial_y_};
+void RungeKutta::Solve() {
+  result_[0] = {initial_time_, initial_y_};
   for (int i = 1; i <= step_number_; ++i) {
-    result[i] = Proceed(result[i - 1].next_time, result[i - 1].next_y);
+    result_[i] = Proceed(result_[i - 1].next_time, result_[i - 1].next_y);
   }
 
-  return result;
+  return;
+}
+
+void RungeKutta::Output() {
+  std::ofstream outputfile("output.txt");
+  for (int i = 0; i <= step_number_; ++i) {
+    outputfile << result_[i].next_time << " " << result_[i].next_y << '\n';
+  }
+  outputfile.close();
 }
 
 RungeKutta::status RungeKutta::Proceed(const ld& t, const ld& y) {
