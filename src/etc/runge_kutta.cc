@@ -16,8 +16,9 @@ class RungeKutta {
         time_span_(time_span),
         step_number_(step_number),
         initial_time_(initial_time),
-        initial_y_(initial_y),
-        result_(step_number_ + 1) {}
+        initial_y_(initial_y) {
+          result_.resize(step_number_ + 1);
+        }
   struct status {
     ld next_time, next_y;
   };
