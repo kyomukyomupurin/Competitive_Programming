@@ -13,11 +13,12 @@ class RungeKutta {
   RungeKutta(std::function<ld(ld, ld)> func, const ld& initial_time,
              const ld& initial_y, const ld& time_span, const int& step_number)
       : func_(func),
-        time_span_(time_span),
         step_number_(step_number),
+        time_span_(time_span),
         initial_time_(initial_time),
-        initial_y_(initial_y),
-        result_(step_number_ + 1) {}
+        initial_y_(initial_y) {
+          result_.resize(step_number_ + 1);
+        }
   struct status {
     ld next_time, next_y;
   };
