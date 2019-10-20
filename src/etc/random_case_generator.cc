@@ -14,11 +14,14 @@
 
 class RandomCase {
  public:
-  RandomCase(double run_time) : run_time_(run_time) {}
+  RandomCase(double run_time)
+      : run_time_(run_time),
+        rng_(std::chrono::steady_clock::now().time_since_epoch().count()) {}
   void Run();
 
  private:
   double run_time_;
+  __gnu_cxx::sfmt19937_64 rng_;
   void Generate();
   int Solve1();
   int Solve2();
@@ -49,14 +52,12 @@ void RandomCase::Run() {
 
 void RandomCase::Generate() {
   std::ofstream outputfile("random_case.txt");
-  __gnu_cxx::sfmt19937_64 sfmt(
-      std::chrono::steady_clock::now().time_since_epoch().count());
   std::uniform_int_distribution<int> n(1, 100);
   std::uniform_int_distribution<int> vec(1, 1000);
-  int num = n(sfmt);
+  int num = n(rng_);
   outputfile << num << '\n';
   for (int i = 0; i < num; ++i) {
-    outputfile << vec(sfmt) << " ";
+    outputfile << vec(rng_) << " ";
   }
   outputfile.close();
 }
