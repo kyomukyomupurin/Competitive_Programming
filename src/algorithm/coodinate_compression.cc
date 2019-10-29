@@ -2,15 +2,54 @@
  *  coodinate compression
 **/
 
-#include <iostream>
 #include <algorithm>
 #include <vector>
 
-template<typename T> void compression(std::vector<T> &v) {
-  std::vector<T> t = v;
+// verified by https://atcoder.jp/contests/abc036/tasks/abc036_c
+template <typename T>
+class CoodinateCompression {
+ public:
+  CoodinateCompression(const std::vector<T>& vec) : vec_(vec) {
+    result_.resize(vec_.size());
+    Compress();
+  }
+  struct state {
+    T before, after;
+  };
+  state operator[](const int& pos) const;
+
+ private:
+  std::vector<T> vec_;
+  std::vector<state> result_;
+  void Compress();
+};
+
+template <typename T>
+typename CoodinateCompression<T>::state CoodinateCompression<T>::operator[](
+    const int& pos) const {
+  return result_[pos];
+}
+
+template <typename T>
+void CoodinateCompression<T>::Compress() {
+  std::vector<T> t = vec_;
   std::sort(t.begin(), t.end());
-  t.erase(unique(t.begin(), t.end()), t.end());
-  for (size_t i = 0; i < v.size(); ++i) {
-    v[i] = distance(t.begin(), std::lower_bound(t.begin(), t.end(), v[i]));
+  t.erase(std::unique(t.begin(), t.end()), t.end());
+  for (size_t i = 0; i < vec_.size(); ++i) {
+    result_[i] = {vec_[i],
+                  std::distance(t.begin(),
+                                std::lower_bound(t.begin(), t.end(), vec_[i]))};
   }
 }
+
+/*
+void ABC36_C() {
+  int n; cin >> n;
+  vector<int> a(n);
+  for (int i = 0; i < n; ++i) cin >> a[i];
+  CoodinateCompression<int> cc(a);
+  for (int i = 0; i < n; ++i) {
+    cout << cc[i].after << '\n';
+  }
+}
+*/
