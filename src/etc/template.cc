@@ -42,15 +42,7 @@ using namespace std;
 // alias template
 using int64 = long long;
 using ull = unsigned long long;
-using vi = std::vector<int>;
-using vl = std::vector<int64>;
-using pii = std::pair<int, int>;
-using pll = std::pair<int64, int64>;
 // text macro replacement
-#define rep(i, n) for (int i = 0; i < (int)(n); ++i)
-#define all(_) (_).begin(), (_).end()
-#define rall(_) (_).rbegin(), (_).rend()
-#define print(_) std::cout << (_) << '\n'
 #define debug(_) std::cerr << #_ << ": " << (_) << '\n'
 // variadic template
 template<typename T> inline void chmin(T &a, T b) {if (a > b) a = b; return;}
