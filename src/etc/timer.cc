@@ -7,23 +7,24 @@
 // verified by https://atcoder.jp/contests/abc139/tasks/abc139_f
 class Timer {
  public:
-  Timer()
-      : start_(std::chrono::system_clock::now()),
-        stop_(std::chrono::system_clock::now()) {}
-  void Start();
-  void Stop();
   double GetElapsedTime();
+  void Start();
 
  private:
-  std::chrono::system_clock::time_point start_;
-  std::chrono::system_clock::time_point stop_;
+  int64_t start_;
+  static constexpr int64_t clock_frequency_ = 2800000000;
+  int64_t GetCycle();
 };
 
-void Timer::Start() { start_ = std::chrono::system_clock::now(); }
-
-void Timer::Stop() { stop_ = std::chrono::system_clock::now(); }
-
 double Timer::GetElapsedTime() {
-  return std::chrono::duration_cast<std::chrono::milliseconds>(stop_ - start_)
-      .count();
+  return static_cast<double>(GetCycle() - start_) /
+         static_cast<double>(clock_frequency_);
+}
+
+void Timer::Start() { start_ = GetCycle(); }
+
+int64_t Timer::GetCycle() {
+  uint32_t low, high;
+  __asm__ volatile("rdtsc" : "=a"(low), "=d"(high));
+  return (static_cast<int64_t>(low)) | (static_cast<int64_t>(high) << 32);
 }
