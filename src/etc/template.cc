@@ -1,6 +1,6 @@
 /**
  *      purpose : 
- *      author  : kyomukyomupurin
+ *      author  : 𝒌𝒚𝒐𝒎𝒖𝒌𝒚𝒐𝒎𝒖𝒑𝒖𝒓𝒊𝒏
  *      created : 
 **/
 
@@ -21,7 +21,7 @@ template<typename T, typename U> ostream& operator<<(ostream& os, const pair<T, 
 }
 constexpr int INF = numeric_limits<int>::max() / 2;
 constexpr int64 INF64 = numeric_limits<int64>::max() / 2;
-constexpr int MOD = 1'000'000'007;
+constexpr int MOD = 1000000007;
 const double PI = acos(-1);
 
 int main() {
