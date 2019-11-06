@@ -11,7 +11,12 @@
 // verified by https://atcoder.jp/contests/abc139/tasks/abc139_f
 class Xorshift128plus {
  public:
-  Xorshift128plus() { Initialize(); }
+  Xorshift128plus() {
+    seed0_ = static_cast<uint64_t>(
+        std::chrono::steady_clock::now().time_since_epoch().count());
+    seed1_ = static_cast<uint64_t>(
+        std::chrono::steady_clock::now().time_since_epoch().count());
+  }
   using result_type = uint64_t;
   static constexpr uint64_t min() {
     return std::numeric_limits<result_type>::min();
@@ -22,36 +27,16 @@ class Xorshift128plus {
   uint64_t operator()() { return GetNext(); }
 
  private:
-  static uint64_t result_;
-  static uint64_t seed0_;
-  static uint64_t seed1_;
-  void Next();
-  void Initialize();
-  uint64_t GetNext();
-};
-
-uint64_t Xorshift128plus::result_;
-uint64_t Xorshift128plus::seed0_ = static_cast<uint64_t>(
-    std::chrono::steady_clock::now().time_since_epoch().count());
-uint64_t Xorshift128plus::seed1_ = static_cast<uint64_t>(
-    std::chrono::steady_clock::now().time_since_epoch().count());
-
-void Xorshift128plus::Initialize() {
-  for (int i = 0; i < 40; ++i) {
-    Next();
+  uint64_t result_;
+  uint64_t seed0_;
+  uint64_t seed1_;
+  uint64_t GetNext() {
+    uint64_t s1 = seed0_;
+    uint64_t s0 = seed1_;
+    result_ = s0 + s1;
+    seed0_ = s0;
+    s1 ^= s1 << 23;
+    seed1_ = s1 ^ s0 ^ (s1 >> 18) ^ (s0 >> 5);
+    return result_;
   }
-}
-
-void Xorshift128plus::Next() {
-  uint64_t s1 = seed0_;
-  uint64_t s0 = seed1_;
-  result_ = s0 + s1;
-  seed0_ = s0;
-  s1 ^= s1 << 23;
-  seed1_ = s1 ^ s0 ^ (s1 >> 18) ^ (s0 >> 5);
-}
-
-uint64_t Xorshift128plus::GetNext() {
-  Next();
-  return result_;
-}
+};
