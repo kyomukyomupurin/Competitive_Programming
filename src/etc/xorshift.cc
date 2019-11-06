@@ -9,9 +9,9 @@
 //             http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3551.pdf
 //             https://arxiv.org/pdf/1810.05313.pdf
 // verified by https://atcoder.jp/contests/abc139/tasks/abc139_f
-class Xorshift128plus {
+class Xorshift {
  public:
-  Xorshift128plus() {
+  Xorshift() {
     seed0_ = static_cast<uint64_t>(
         std::chrono::steady_clock::now().time_since_epoch().count());
     seed1_ = static_cast<uint64_t>(
