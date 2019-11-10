@@ -59,7 +59,7 @@ void SegmentTree<T>::Update(int position, T new_value) {
 // return Query[a, b)
 template <typename T>
 T SegmentTree<T>::Query(int a, int b) {
-  int vl = initial_value_, vr = initial_value_;
+  T vl = initial_value_, vr = initial_value_;
   for (a += n_, b += n_; a < b; a >>= 1, b >>= 1) {
     if (a & 1) vl = operation_(vl, data_[a++]);
     if (b & 1) vr = operation_(data_[--b], vr);
