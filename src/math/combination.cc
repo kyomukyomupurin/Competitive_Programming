@@ -25,3 +25,40 @@ int64 com(int n, int k) {
   if (n < 0 || k < 0) return 0;
   return fac[n] * (finv[k] * finv[n - k] % MOD) % MOD;
 }
+
+// compile time calculation version
+// warning : it takes much more compile time !!
+class Combination {
+ public:
+  constexpr Combination() { Build(); }
+  static constexpr int MOD = 1000000007;
+  static constexpr int n_ = 1000000;
+  struct LookupTable {
+    int64 factorial_[n_];
+    int64 inverse_[n_];
+    int64 finverse_[n_];
+  };
+  LookupTable lt{};
+  // return nCk
+  constexpr int64 Get(int n, int k) const noexcept {
+    if (n < k || n < 0 || k < 0) return 0;
+    return lt.factorial_[n] * (lt.finverse_[k] * lt.finverse_[n - k] % MOD) %
+           MOD;
+  }
+
+ private:
+  constexpr void Build() noexcept {
+    lt.factorial_[0] = 1;
+    lt.factorial_[1] = 1;
+    lt.finverse_[0] = 1;
+    lt.finverse_[1] = 1;
+    lt.inverse_[1] = 1;
+    for (int i = 2; i < n_; ++i) {
+      lt.factorial_[i] = lt.factorial_[i - 1] * i % MOD;
+      lt.inverse_[i] = MOD - lt.inverse_[MOD % i] * (MOD / i) % MOD;
+      lt.finverse_[i] = lt.finverse_[i - 1] * lt.inverse_[i] % MOD;
+    }
+  }
+};
+
+Combination kyomukyomupurin;
