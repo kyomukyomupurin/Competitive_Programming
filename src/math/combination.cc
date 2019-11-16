@@ -55,7 +55,7 @@ class Combination {
     lt.inverse_[1] = 1;
     for (int i = 2; i < n_; ++i) {
       lt.factorial_[i] = lt.factorial_[i - 1] * i % mod_;
-      lt.inverse_[i] = mod_ - lt.inverse_[MOD % i] * (MOD / i) % mod_;
+      lt.inverse_[i] = mod_ - lt.inverse_[mod_ % i] * (mod_ / i) % mod_;
       lt.finverse_[i] = lt.finverse_[i - 1] * lt.inverse_[i] % mod_;
     }
   }
