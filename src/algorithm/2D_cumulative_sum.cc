@@ -6,9 +6,9 @@
 #include <cassert>
 
 template <typename T>
-class CumulaticeSum2D {
+class CumulativeSum2D {
  public:
-  CumulaticeSum2D(const std::vector<vector<T>>& vec)
+  CumulativeSum2D(const std::vector<vector<T>>& vec)
       : vec_(vec), height_(vec.size()), width_(vec[0].size()) {
     Build();
   }
@@ -24,7 +24,7 @@ class CumulaticeSum2D {
 
 // return sum of [sx, gx] * [sy, gy]
 template <typename T>
-T CumulaticeSum2D<T>::Get(int sx, int sy, int gx, int gy) {
+T CumulativeSum2D<T>::Get(int sx, int sy, int gx, int gy) {
   assert(sx <= gx && sy <= gy);
   assert(0 <= sx && sx < height_ && 0 <= gx && gx < height_ && 0 <= sy &&
          sy < width_ && 0 <= gy && gy < width_);
@@ -33,7 +33,7 @@ T CumulaticeSum2D<T>::Get(int sx, int sy, int gx, int gy) {
 }
 
 template <typename T>
-void CumulaticeSum2D<T>::Build() {
+void CumulativeSum2D<T>::Build() {
   sum_.assign(height_ + 1, vector<T>(width_ + 1, static_cast<T>(0)));
   for (size_t i = 0; i < height_; ++i) {
     for (size_t j = 0; j < width_; ++j) {
