@@ -31,7 +31,7 @@ int64 com(int n, int k) {
 class Combination {
  public:
   constexpr Combination() { Build(); }
-  static constexpr int MOD = 1000000007;
+  static constexpr int mod_ = 1000000007;
   static constexpr int n_ = 1000000;
   struct LookupTable {
     int64 factorial_[n_];
@@ -42,8 +42,8 @@ class Combination {
   // return nCk
   constexpr int64 Get(int n, int k) const noexcept {
     if (n < k || n < 0 || k < 0) return 0;
-    return lt.factorial_[n] * (lt.finverse_[k] * lt.finverse_[n - k] % MOD) %
-           MOD;
+    return lt.factorial_[n] * (lt.finverse_[k] * lt.finverse_[n - k] % mod_) %
+           mod_;
   }
 
  private:
@@ -54,9 +54,9 @@ class Combination {
     lt.finverse_[1] = 1;
     lt.inverse_[1] = 1;
     for (int i = 2; i < n_; ++i) {
-      lt.factorial_[i] = lt.factorial_[i - 1] * i % MOD;
-      lt.inverse_[i] = MOD - lt.inverse_[MOD % i] * (MOD / i) % MOD;
-      lt.finverse_[i] = lt.finverse_[i - 1] * lt.inverse_[i] % MOD;
+      lt.factorial_[i] = lt.factorial_[i - 1] * i % mod_;
+      lt.inverse_[i] = mod_ - lt.inverse_[MOD % i] * (MOD / i) % mod_;
+      lt.finverse_[i] = lt.finverse_[i - 1] * lt.inverse_[i] % mod_;
     }
   }
 };
