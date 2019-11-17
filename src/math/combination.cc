@@ -5,8 +5,8 @@
 #include <iostream>
 using int64 = long long;
 
-const int MAX = 2e5;
-const int MOD = 1e9 + 7;
+constexpr int MAX = 2e5;
+constexpr int MOD = 1e9 + 7;
 int64 fac[MAX] = {}, inv[MAX] = {}, finv[MAX] = {};
 
 void make_table() {
@@ -27,12 +27,13 @@ int64 com(int n, int k) {
 }
 
 // compile time calculation version
-// warning : it takes much more compile time !!
+// warning : it takes much more compile time and sometimes ends up with compilation error !!
+// if n_ >= 10^6, use above inplementation
 class Combination {
  public:
   constexpr Combination() { Build(); }
   static constexpr int mod_ = 1000000007;
-  static constexpr int n_ = 1000000;
+  static constexpr int n_ = 200000;
   struct LookupTable {
     int64 factorial_[n_];
     int64 inverse_[n_];
