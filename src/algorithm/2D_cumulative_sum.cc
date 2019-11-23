@@ -5,6 +5,7 @@
 #include <vector>
 #include <cassert>
 
+// verified by https://atcoder.jp/contests/abc106/tasks/abc106_d
 template <typename T>
 class CumulativeSum2D {
  public:
@@ -46,3 +47,22 @@ void CumulativeSum2D<T>::Build() {
     }
   }
 }
+
+/*
+void ABC106_D() {
+  int n, m, query; cin >> n >> m >> query;
+  vector<vector<int>> board(n, vector<int>(n));
+  for (int i = 0; i < m; ++i) {
+    int l, r; cin >> l >> r; --l; --r;
+    ++board[l][r];
+  }
+
+  CumulativeSum2D<int> cs2(board);
+
+  for (int i = 0; i < query; ++i) {
+    int p, q; cin >> p >> q;
+    --p; --q;
+    cout << cs2.Get(p, p, q, q) << '\n';
+  }  
+}
+*/
