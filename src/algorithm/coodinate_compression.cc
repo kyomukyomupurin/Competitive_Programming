@@ -17,7 +17,7 @@ class CoodinateCompression {
     T before;
     int after;
   };
-  state operator[](const int& pos) const;
+  state operator[](int pos) const;
 
  private:
   std::vector<T> vec_;
@@ -27,7 +27,7 @@ class CoodinateCompression {
 
 template <typename T>
 typename CoodinateCompression<T>::state CoodinateCompression<T>::operator[](
-    const int& pos) const {
+    int pos) const {
   return result_[pos];
 }
 

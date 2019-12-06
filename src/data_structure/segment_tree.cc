@@ -12,18 +12,18 @@
 template <typename T>
 class SegmentTree {
  public:
-  SegmentTree(const std::vector<T>& vec, const T& initial_value,
+  SegmentTree(const std::vector<T>& vec, T initial_value,
               std::function<T(T, T)> operation)
       : initial_value_(initial_value), vec_(vec), operation_(operation) {
     Initialize();
   }
   void Update(int position, T new_value);
   T Query(int a, int b);
-  T operator[](const int& position) const;
+  T operator[](int position) const;
 
  private:
   int n_;
-  const T initial_value_;
+  T initial_value_;
   const std::vector<T> vec_;
   std::vector<T> data_;
   std::function<T(T, T)> operation_;
@@ -32,7 +32,7 @@ class SegmentTree {
 
 template <typename T>
 void SegmentTree<T>::Initialize() {
-  int vsize = static_cast<int>(vec_.size());
+  int vsize = vec_.size();
   n_ = 1;
   while (n_ < vsize) {
     n_ <<= 1;
@@ -68,7 +68,7 @@ T SegmentTree<T>::Query(int a, int b) {
 }
 
 template <typename T>
-T SegmentTree<T>::operator[](const int& position) const {
+T SegmentTree<T>::operator[](int position) const {
   return data_[n_ + position];
 }
 
@@ -76,14 +76,14 @@ T SegmentTree<T>::operator[](const int& position) const {
 void DSL_2_A() {
   int n, q; cin >> n >> q;
   SegmentTree<int> seg(vector<int>(n, 2147483647), 2147483647, [](int x, int y){ return min(x, y); });
-  rep(i, q) {
+  for (int i = 0; i < q; ++i) {
     int com, x, y; cin >> com >> x >> y;
     if (com == 0) {
       seg.Update(x, y);
     } else {
       cout << seg.Query(x, y + 1) << '\n';
     }
-  }  
+  }
 }
 */
 
@@ -91,7 +91,7 @@ void DSL_2_A() {
 void DSL_2_B() {
   int n, q; cin >> n >> q;
   SegmentTree<int> seg(vector<int>(n, 0), 0, [](int x, int y){ return x + y; });
-  rep(i, q) {
+  for (int i = 0; i < q; ++i) {
     int com, x, y; cin >> com >> x >> y;
     if (com == 0) {
       seg.Update(x, seg[x] + y);
