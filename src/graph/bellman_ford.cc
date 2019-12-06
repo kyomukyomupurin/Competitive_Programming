@@ -9,11 +9,11 @@
 template<typename T>
 class BellmanFord {
  public:
-  BellmanFord(const int& node_size) : node_size_(node_size) { Initialize(); }
-  void AddEdge(const int& from, const int& to, const T& cost);
+  BellmanFord(int node_size) : node_size_(node_size) { Initialize(); }
+  void AddEdge(int from, int to, T cost);
   bool ExistNegativeCycle();
-  void Solve(const int& source);
-  T operator[](const int& to) const;
+  void Solve(int source);
+  T operator[](int to) const;
 
  private:
   struct edge {
@@ -27,7 +27,7 @@ class BellmanFord {
 };
 
 template<typename T>
-void BellmanFord<T>::AddEdge(const int& from, const int& to, const T& cost) {
+void BellmanFord<T>::AddEdge(int from, int to, T cost) {
   es.push_back({from, to, cost});
 }
 
@@ -42,7 +42,7 @@ bool BellmanFord<T>::ExistNegativeCycle() {
 }
 
 template<typename T>
-void BellmanFord<T>::Solve(const int& source) {
+void BellmanFord<T>::Solve(int source) {
   distance_[source] = 0;
   for (int i = 0; i < node_size_ - 1; ++i) {
     for (const auto &e : es) {
@@ -60,7 +60,7 @@ void BellmanFord<T>::Initialize() {
 }
 
 template<typename T>
-T BellmanFord<T>::operator[](const int& to) const {
+T BellmanFord<T>::operator[](int to) const {
   return distance_[to];
 }
 

@@ -10,11 +10,11 @@
 template <typename T>
 class SPFA {
  public:
-  SPFA(const int& node_size) : node_size_(node_size) { Initialize(); }
-  void AddEdge(const int& from, const int& to, const T& cost);
+  SPFA(int node_size) : node_size_(node_size) { Initialize(); }
+  void AddEdge(int from, int to, T cost);
   bool ExistNegativeCycle();
-  void Solve(const int& source);
-  T operator[](const int& to) const;
+  void Solve(int source);
+  T operator[](int to) const;
 
  private:
   struct edge {
@@ -30,7 +30,7 @@ class SPFA {
 };
 
 template <typename T>
-void SPFA<T>::AddEdge(const int& from, const int& to, const T& cost) {
+void SPFA<T>::AddEdge(int from, int to, T cost) {
   graph_[from].push_back({to, cost});
 }
 
@@ -40,7 +40,7 @@ bool SPFA<T>::ExistNegativeCycle() {
 }
 
 template <typename T>
-void SPFA<T>::Solve(const int& source) {
+void SPFA<T>::Solve(int source) {
   std::queue<int> q;
   q.push(source);
   pending_[source] = true;
@@ -76,7 +76,7 @@ void SPFA<T>::Initialize() {
 }
 
 template <typename T>
-T SPFA<T>::operator[](const int& to) const {
+T SPFA<T>::operator[](int to) const {
   return distance_[to];
 }
 

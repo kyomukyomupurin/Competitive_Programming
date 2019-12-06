@@ -8,8 +8,8 @@
 template <typename T>
 class TreeDiameter {
  public:
-  TreeDiameter(const int& node_size) : node_size_(node_size) { Initialize(); }
-  void AddEdge(const int& from, const int& to, const T& cost);
+  TreeDiameter(int node_size) : node_size_(node_size) { Initialize(); }
+  void AddEdge(int from, int to, T cost);
   T GetDiameter();
 
  private:
@@ -20,7 +20,7 @@ class TreeDiameter {
   int node_size_;
   std::vector<std::vector<edge>> graph_;
   void Initialize();
-  std::pair<T, int> BFS(const int& source);
+  std::pair<T, int> BFS(int source);
 };
 
 template <typename T>
@@ -29,7 +29,7 @@ void TreeDiameter<T>::Initialize() {
 }
 
 template <typename T>
-void TreeDiameter<T>::AddEdge(const int& from, const int& to, const T& cost) {
+void TreeDiameter<T>::AddEdge(int from, int to, T cost) {
   graph_[from].push_back({cost, to});
   graph_[to].push_back({cost, from});
 }
@@ -40,7 +40,7 @@ T TreeDiameter<T>::GetDiameter() {
 }
 
 template <typename T>
-std::pair<T, int> TreeDiameter<T>::BFS(const int& source) {
+std::pair<T, int> TreeDiameter<T>::BFS(int source) {
   std::pair<T, int> result = {static_cast<T>(0), 0};
   std::queue<int> q;
   bool visited[node_size_] = {};

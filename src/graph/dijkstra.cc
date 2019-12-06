@@ -10,10 +10,10 @@
 template<typename T>
 class Dijkstra {
  public:
-  Dijkstra(const int& node_size) : node_size_(node_size) { Initialize(); }
-  void Add_Edge(const int& from, const int& to, const T& cost);
-  void Solve(const int& source);
-  T operator[](const int& to) const;
+  Dijkstra(int node_size) : node_size_(node_size) { Initialize(); }
+  void Add_Edge(int from, int to, T cost);
+  void Solve(int source);
+  T operator[](int to) const;
 
  private:
   struct edge {
@@ -27,12 +27,12 @@ class Dijkstra {
 };
 
 template<typename T>
-void Dijkstra<T>::Add_Edge(const int& from, const int& to, const T& cost) {
+void Dijkstra<T>::Add_Edge(int from, int to, T cost) {
   graph_[from].push_back({to, cost});
 }
 
 template<typename T>
-void Dijkstra<T>::Solve(const int& source) {
+void Dijkstra<T>::Solve(int source) {
   std::priority_queue<std::pair<T, int>,
                       std::vector<std::pair<T, int>>,
                       std::greater<std::pair<T, int>>> pq;
@@ -59,7 +59,7 @@ void Dijkstra<T>::Initialize() {
 }
 
 template<typename T>
-T Dijkstra<T>::operator[](const int& to) const {
+T Dijkstra<T>::operator[](int to) const {
   return distance_[to];
 }
 

@@ -12,9 +12,9 @@
 template <typename T>
 class Dinic {
  public:
-  Dinic(const int& node_size) : node_size_(node_size) { Initialize(); }
-  void AddEdge(const int& from, const int& to, const T& cost);
-  T MaxFlow(const int& s, const int& t);
+  Dinic(int node_size) : node_size_(node_size) { Initialize(); }
+  void AddEdge(int from, int to, T cost);
+  T MaxFlow(int s, int t);
 
  private:
   struct edge {
@@ -27,8 +27,8 @@ class Dinic {
   std::vector<int> level;
   std::vector<int> iter;
   void Initialize();
-  void BFS(const int& s);
-  T DFS(const int& v, const int& t, const int& f);
+  void BFS(int s);
+  T DFS(int v, int t, int f);
 };
 
 template <typename T>
@@ -39,14 +39,14 @@ void Dinic<T>::Initialize() {
 }
 
 template <typename T>
-void Dinic<T>::AddEdge(const int& from, const int& to, const T& cap) {
+void Dinic<T>::AddEdge(int from, int to, T cap) {
   graph_[from].push_back({to, cap, static_cast<int>(graph_[to].size())});
   graph_[to].push_back(
       {from, static_cast<T>(0), static_cast<int>(graph_[from].size()) - 1});
 }
 
 template <typename T>
-void Dinic<T>::BFS(const int& s) {
+void Dinic<T>::BFS(int s) {
   std::fill(level.begin(), level.end(), -1);
   std::queue<int> q;
   level[s] = 0;
@@ -64,7 +64,7 @@ void Dinic<T>::BFS(const int& s) {
 }
 
 template <typename T>
-T Dinic<T>::DFS(const int& v, const int& t, const int& f) {
+T Dinic<T>::DFS(int v, int t, int f) {
   if (v == t) return f;
   for (int& i = iter[v]; i < graph_[v].size(); ++i) {
     edge& e = graph_[v][i];
@@ -81,7 +81,7 @@ T Dinic<T>::DFS(const int& v, const int& t, const int& f) {
 }
 
 template <typename T>
-T Dinic<T>::MaxFlow(const int& s, const int& t) {
+T Dinic<T>::MaxFlow(int s, int t) {
   T flow = 0;
   for (;;) {
     BFS(s);
