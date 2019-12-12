@@ -26,9 +26,14 @@
 using namespace std;
 
 using int64 = long long;
-#define debug(_) cerr << #_ << ": " << (_) << '\n'
 template<class T> ostream& operator<<(ostream& os, vector<T>& _) { os << '{'; for (T& x : _) { os << x; if (&x != &_.back()) os << ','; } os << '}'; return os; }
 template<class T, class U> ostream& operator<<(ostream& os, pair<T, U>& p) { return os << '{' << p.first << " " << p.second << '}'; }
+
+#ifdef LOCAL
+#define debug(_) cerr << #_ << ": " << (_) << '\n'
+#else
+#define debug(_) 1728
+#endif
 
 int main() {
   ios_base::sync_with_stdio(false);
