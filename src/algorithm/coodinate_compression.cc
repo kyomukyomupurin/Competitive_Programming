@@ -6,7 +6,7 @@
 #include <vector>
 
 // verified by https://atcoder.jp/contests/abc036/tasks/abc036_c
-template <typename T>
+template <class T>
 class CoodinateCompression {
  public:
   CoodinateCompression(const std::vector<T>& vec) : vec_(vec) {

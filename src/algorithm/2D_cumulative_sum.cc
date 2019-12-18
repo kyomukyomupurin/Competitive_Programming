@@ -6,7 +6,7 @@
 #include <cassert>
 
 // verified by https://atcoder.jp/contests/abc106/tasks/abc106_d
-template <typename T>
+template <class T>
 class CumulativeSum2D {
  public:
   CumulativeSum2D(const std::vector<vector<T>>& vec)

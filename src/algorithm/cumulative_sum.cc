@@ -4,7 +4,7 @@
 
 #include <vector>
 
-template <typename T>
+template <class T>
 class CumulativeSum {
  public:
   CumulativeSum(const std::vector<T>& vec) : vec_(vec) { Build(); }
