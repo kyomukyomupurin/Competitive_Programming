@@ -17,31 +17,22 @@ class CoodinateCompression {
     T before;
     int after;
   };
-  state operator[](int pos) const;
+  state operator[](int pos) const { return result_[pos]; }
 
  private:
   std::vector<T> vec_;
   std::vector<state> result_;
-  void Compress();
-};
-
-template <typename T>
-typename CoodinateCompression<T>::state CoodinateCompression<T>::operator[](
-    int pos) const {
-  return result_[pos];
-}
-
-template <typename T>
-void CoodinateCompression<T>::Compress() {
-  std::vector<T> t = vec_;
-  std::sort(t.begin(), t.end());
-  t.erase(std::unique(t.begin(), t.end()), t.end());
-  for (size_t i = 0; i < vec_.size(); ++i) {
-    result_[i] = {vec_[i], static_cast<int>(std::distance(
-                               t.begin(),
-                               std::lower_bound(t.begin(), t.end(), vec_[i])))};
+  void Compress() {
+    std::vector<T> t = vec_;
+    std::sort(t.begin(), t.end());
+    t.erase(std::unique(t.begin(), t.end()), t.end());
+    for (size_t i = 0; i < vec_.size(); ++i) {
+      result_[i] = {vec_[i], static_cast<int>(std::distance(
+                                t.begin(),
+                                std::lower_bound(t.begin(), t.end(), vec_[i])))};
+    }
   }
-}
+};
 
 /*
 void ABC36_C() {
