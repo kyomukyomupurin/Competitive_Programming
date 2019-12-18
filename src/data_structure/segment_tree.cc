@@ -2,80 +2,67 @@
  *  Segment Tree
 **/
 
-#include <functional>
 #include <vector>
 
 // non-recursive version
 // verified by
 // https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/all/DSL_2_A
 // https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/all/DSL_2_B
-template <typename T>
+template <class Monoid, class Function>
 class SegmentTree {
  public:
-  SegmentTree(const std::vector<T>& vec, T initial_value,
-              std::function<T(T, T)> operation)
-      : initial_value_(initial_value), vec_(vec), operation_(operation) {
-    Initialize();
+  SegmentTree(const std::vector<Monoid>& data, Monoid identity_element,
+              Function function)
+      : identity_element_(identity_element), data_(data), function_(function) {
+    Build();
   }
-  void Update(int position, T new_value);
-  T Query(int a, int b);
-  T operator[](int position) const;
+  void Update(int position, Monoid new_value) {
+    position += n_;
+    node_[position] = new_value;
+    while (position > 0) {
+      position >>= 1;
+      node_[position] = function_(node_[2 * position], node_[2 * position + 1]);
+    }
+  }
+
+  Monoid Query(int left, int right) {
+    Monoid vl = identity_element_, vr = identity_element_;
+    for (left += n_, right += n_; left < right; left >>= 1, right >>= 1) {
+      if (left & 1) vl = function_(vl, node_[left++]);
+      if (right & 1) vr = function_(node_[--right], vr);
+    }
+    return function_(vl, vr);
+  }
+
+  Monoid operator[](int position) const { return node_[n_ + position]; }
 
  private:
   int n_;
-  T initial_value_;
-  const std::vector<T> vec_;
-  std::vector<T> data_;
-  std::function<T(T, T)> operation_;
-  void Initialize();
+  Monoid identity_element_;
+  std::vector<Monoid> data_;
+  std::vector<Monoid> node_;
+  Function function_;
+  void Build() {
+    int SIZE = data_.size();
+    n_ = 1;
+    while (n_ < SIZE) {
+      n_ <<= 1;
+    }
+    node_.assign(2 * n_, identity_element_);
+    for (int i = 0; i < SIZE; ++i) {
+      node_[i + n_] = data_[i];
+    }
+    for (int i = n_ - 1; i > 0; --i) {
+      node_[i] = function_(node_[2 * i], node_[2 * i + 1]);
+    }
+  }
 };
-
-template <typename T>
-void SegmentTree<T>::Initialize() {
-  int vsize = vec_.size();
-  n_ = 1;
-  while (n_ < vsize) {
-    n_ <<= 1;
-  }
-  data_.assign(2 * n_, initial_value_);
-  for (int i = 0; i < vsize; ++i) {
-    data_[i + n_] = vec_[i];
-  }
-  for (int i = n_ - 1; i > 0; --i) {
-    data_[i] = operation_(data_[2 * i], data_[2 * i + 1]);
-  }
-}
-
-template <typename T>
-void SegmentTree<T>::Update(int position, T new_value) {
-  position += n_;
-  data_[position] = new_value;
-  while (position > 0) {
-    position >>= 1;
-    data_[position] = operation_(data_[2 * position], data_[2 * position + 1]);
-  }
-}
-
-// return Query[a, b)
-template <typename T>
-T SegmentTree<T>::Query(int a, int b) {
-  T vl = initial_value_, vr = initial_value_;
-  for (a += n_, b += n_; a < b; a >>= 1, b >>= 1) {
-    if (a & 1) vl = operation_(vl, data_[a++]);
-    if (b & 1) vr = operation_(data_[--b], vr);
-  }
-  return operation_(vl, vr);
-}
-
-template <typename T>
-T SegmentTree<T>::operator[](int position) const {
-  return data_[n_ + position];
-}
 
 /*
 void DSL_2_A() {
   int n, q; cin >> n >> q;
-  SegmentTree<int> seg(vector<int>(n, 2147483647), 2147483647, [](int x, int y){ return min(x, y); });
+  auto f = [](int x, int y){ return min(x, y); };
+  SegmentTree<int, decltype(f)> seg(vector<int>(n, 2147483647), 2147483647, f);
   for (int i = 0; i < q; ++i) {
     int com, x, y; cin >> com >> x >> y;
     if (com == 0) {
@@ -90,7 +77,8 @@ void DSL_2_A() {
 /*
 void DSL_2_B() {
   int n, q; cin >> n >> q;
-  SegmentTree<int> seg(vector<int>(n, 0), 0, [](int x, int y){ return x + y; });
+  auto f = [](int x, int y){ return x + y; };
+  SegmentTree<int, decltype(f)> seg(vector<int>(n, 0), 0, f);
   for (int i = 0; i < q; ++i) {
     int com, x, y; cin >> com >> x >> y;
     if (com == 0) {
