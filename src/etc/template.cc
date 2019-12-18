@@ -18,7 +18,6 @@
 #include <bitset>
 #include <cassert>
 #include <cctype>
-#include <functional>
 #include <iomanip>
 #include <random>
 #include <utility>
