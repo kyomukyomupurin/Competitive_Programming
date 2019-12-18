@@ -8,36 +8,26 @@
 class UnionFind {
  public:
   UnionFind(int n) : n_(n) { Initialize(); }
-  int GetRoot(int x);
-  bool IsSame(int x, int y);
-  void Unite(int x, int y);
-  int GetSize(int x);
+  int GetRoot(int x) {
+    if (parent_[x] < 0)
+      return x;
+    else
+      return parent_[x] = GetRoot(parent_[x]);
+  }
+  bool IsSame(int x, int y) { return GetRoot(x) == GetRoot(y); }
+  void Unite(int x, int y) {
+    x = GetRoot(x);
+    y = GetRoot(y);
+    if (x == y) return;
+    if (parent_[x] > parent_[y]) std::swap(x, y);
+    parent_[x] += parent_[y];
+    parent_[y] = x;
+    return;
+  }
+  int GetSize(int x) { return -parent_[GetRoot(x)]; }
 
  private:
   const int n_;
   std::vector<int> parent_;
-  void Initialize();
+  void Initialize() { parent_.assign(n_, -1); }
 };
-
-void UnionFind::Initialize() { parent_.assign(n_, -1); }
-
-int UnionFind::GetRoot(int x) {
-  if (parent_[x] < 0)
-    return x;
-  else
-    return parent_[x] = GetRoot(parent_[x]);
-}
-
-bool UnionFind::IsSame(int x, int y) { return GetRoot(x) == GetRoot(y); }
-
-void UnionFind::Unite(int x, int y) {
-  x = GetRoot(x);
-  y = GetRoot(y);
-  if (x == y) return;
-  if (parent_[x] > parent_[y]) std::swap(x, y);
-  parent_[x] += parent_[y];
-  parent_[y] = x;
-  return;
-}
-
-int UnionFind::GetSize(int x) { return -parent_[GetRoot(x)]; }
