@@ -4,7 +4,7 @@
 
 #include <iostream>
 
-template<typename T> void fastout(T &n) {
+template<class T> void fastout(T &n) {
   T N = n, rev, count = 0;
   rev = N;
   if (N == 0) {

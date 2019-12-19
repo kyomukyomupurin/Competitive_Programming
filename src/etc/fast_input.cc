@@ -4,7 +4,7 @@
 
 #include <iostream>
 
-template<typename T> void fastin(T &num) {
+template<class T> void fastin(T &num) {
   bool negative = false;
   T c;
   num = 0;
