@@ -7,61 +7,47 @@
 #include <limits>
 
 // verified by https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/1/GRL_1_A
-template<typename T>
+template <class T>
 class Dijkstra {
  public:
   Dijkstra(int node_size) : node_size_(node_size) { Initialize(); }
-  void Add_Edge(int from, int to, T cost);
-  void Solve(int source);
-  T operator[](int to) const;
+  void Add_Edge(int from, int to, T cost) {
+    graph_[from].push_back({to, cost});
+  }
+  void Solve(int source) {
+    std::priority_queue<std::pair<T, int>, std::vector<std::pair<T, int>>,
+                        std::greater<std::pair<T, int>>> pq;
+    distance_[source] = 0;
+    pq.push({0, source});
+
+    while (!pq.empty()) {
+      std::pair<T, int> top = pq.top();
+      pq.pop();
+      int v = top.second;
+      if (distance_[v] < top.first) continue;
+      for (const auto& e : graph_[v]) {
+        if (distance_[e.to] > distance_[v] + e.cost) {
+          distance_[e.to] = distance_[v] + e.cost;
+          pq.push({distance_[e.to], e.to});
+        }
+      }
+    }
+  }
+  T operator[](int to) const { return distance_[to]; }
 
  private:
   struct edge {
-   int to;
-   T cost;
+    int to;
+    T cost;
   };
   int node_size_;
   std::vector<T> distance_;
   std::vector<std::vector<edge>> graph_;
-  void Initialize();
-};
-
-template<typename T>
-void Dijkstra<T>::Add_Edge(int from, int to, T cost) {
-  graph_[from].push_back({to, cost});
-}
-
-template<typename T>
-void Dijkstra<T>::Solve(int source) {
-  std::priority_queue<std::pair<T, int>,
-                      std::vector<std::pair<T, int>>,
-                      std::greater<std::pair<T, int>>> pq;
-  distance_[source] = 0;
-  pq.push({0, source});
-
-  while (!pq.empty()){
-    std::pair<T, int> top = pq.top(); pq.pop();
-    int v = top.second;
-    if (distance_[v] < top.first) continue;
-    for (const auto& e : graph_[v]) {
-      if (distance_[e.to] > distance_[v] + e.cost){
-        distance_[e.to] = distance_[v] + e.cost;
-        pq.push({distance_[e.to], e.to});
-      }
-    }
+  void Initialize() {
+    distance_.assign(node_size_, std::numeric_limits<T>::max() / 2);
+    graph_.resize(node_size_);
   }
-}
-
-template<typename T>
-void Dijkstra<T>::Initialize() {
-  distance_.assign(node_size_, std::numeric_limits<T>::max() / 2);
-  graph_.resize(node_size_);
-}
-
-template<typename T>
-T Dijkstra<T>::operator[](int to) const {
-  return distance_[to];
-}
+};
 
 /*
 void GRL_1_A() {
