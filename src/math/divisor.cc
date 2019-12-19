@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <vector>
 
-template<typename T> std::vector<T> divisor(T n) {
+template<class T> std::vector<T> divisor(T n) {
   std::vector<T> res;
   for (T i = 1; i * i <= n; ++i) {
     if (n % i == 0){
