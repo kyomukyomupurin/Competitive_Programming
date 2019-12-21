@@ -25,7 +25,7 @@ class SegmentTree {
     }
   }
 
-  Monoid Query(size_t left, size_t right) {
+  Monoid Query(int left, int right) {
     Monoid vl = identity_element_, vr = identity_element_;
     for (left += n_, right += n_; left < right; left >>= 1, right >>= 1) {
       if (left & 1) vl = function_(vl, node_[left++]);
