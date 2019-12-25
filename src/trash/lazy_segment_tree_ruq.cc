@@ -4,7 +4,8 @@
 
 #include <vector>
 
-// verified by https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_F
+// contains bugs
+// fails to get sum of ranges
 template <class Monoid, class Function>
 class LazySegmentTree {
   using OperatorMonoid = Monoid;
