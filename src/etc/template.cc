@@ -26,8 +26,10 @@
 using namespace std;
 
 using int64 = long long;
-template<class T> ostream& operator<<(ostream& os, vector<T>& _) { os << '{'; for (T& x : _) { os << x; if (&x != &_.back()) os << ','; } os << '}'; return os; }
-template<class T, class U> ostream& operator<<(ostream& os, pair<T, U>& p) { return os << '{' << p.first << " " << p.second << '}'; }
+
+template<class T> std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec) { os << '{'; size_t n = vec.size(); for (size_t i = 0; i < n; ++i) { os << vec[i]; if (i != n - 1) os << ','; } os << '}'; return os; }
+template<class T, class U> std::ostream& operator<<(std::ostream& os, const std::pair<T, U>& p) { return os << '{' << p.first << " " << p.second << '}'; }
+template<class T> std::istream& operator>>(std::istream& is, std::vector<T>& vec) { size_t n = vec.size(); for (size_t i = 0; i < n; ++i) is >> vec[i]; return is; }
 
 #ifdef LOCAL
 #define debug(_) cerr << #_ << ": " << (_) << '\n'
