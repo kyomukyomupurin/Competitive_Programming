@@ -1,11 +1,10 @@
 /**
- *  Lazy Propagation Segment Tree(for range update query)
+ *  Lazy Propagation Segment Tree(for range add query, range min/max query)
 **/
 
 #include <vector>
 
-// contains bugs
-// fails to get sum of ranges
+// not fot raange sum query!!
 template <class Monoid, class Function>
 class LazySegmentTree {
   using OperatorMonoid = Monoid;
@@ -14,17 +13,17 @@ class LazySegmentTree {
   LazySegmentTree(const std::vector<Monoid>& data, Monoid identity_element,
                   Function function)
       : identity_element_(identity_element),
-        operator_identity_element_(static_cast<OperatorMonoid>(-1)),
+        operator_identity_element_(static_cast<OperatorMonoid>(0)),
         data_(data),
         function_(function) {
     Build();
   }
-  void RangeUpdate(int left, int right, OperatorMonoid new_value) {
+  void RangeAdd(int left, int right, OperatorMonoid value) {
     Thrust(left += n_);
     Thrust(right += n_ - 1);
     for (int l = left, r = right + 1; l < r; l >>= 1, r >>= 1) {
-      if (l & 1) lazy_[l] = new_value, ++l;
-      if (r & 1) --r, lazy_[r] = new_value;
+      if (l & 1) lazy_[l] += value, ++l;
+      if (r & 1) --r, lazy_[r] += value;
     }
     Recalc(left);
     Recalc(right);
@@ -50,7 +49,6 @@ class LazySegmentTree {
   std::vector<Monoid> node_;
   std::vector<OperatorMonoid> lazy_;
   Function function_;
-
   void Build() {
     size_t SIZE = data_.size();
     n_ = 1;
@@ -70,15 +68,16 @@ class LazySegmentTree {
   }
   inline void Propagate(int k) {
     if (lazy_[k] != operator_identity_element_) {
-      lazy_[2 * k] = lazy_[k];
-      lazy_[2 * k + 1] = lazy_[k];
+      lazy_[2 * k] += lazy_[k];
+      lazy_[2 * k + 1] += lazy_[k];
       node_[k] = Reflect(k);
       lazy_[k] = operator_identity_element_;
     }
   }
 
   inline Monoid Reflect(int k) {
-    return lazy_[k] == operator_identity_element_ ? node_[k] : lazy_[k];
+    return lazy_[k] == operator_identity_element_ ? node_[k]
+                                                  : node_[k] + lazy_[k];
   }
 
   inline void Recalc(int k) {
@@ -91,21 +90,18 @@ class LazySegmentTree {
 };
 
 /*
-void DSL_2_F() {
-  int n, query;
-  cin >> n >> query;
+void DSL_2_H() {
+  int n, query; cin >> n >> query;
   auto f = [](int x, int y) { return min(x, y); };
-  LazySegmentTree<int, decltype(f)> seg(vector<int>(n, 2147483647), 2147483647, f);
+  constexpr int INF = 1e9;
+  LazySegmentTree<int, decltype(f)> seg(vector<int>(n, 0), INF, f);
   for (int i = 0; i < query; ++i) {
-    int com;
-    cin >> com;
+    int com; cin >> com;
     if (com == 0) {
-      int s, t, x;
-      cin >> s >> t >> x;
-      seg.RangeUpdate(s, t + 1, x);
+      int s, t, x; cin >> s >> t >> x;
+      seg.RangeAdd(s, t + 1, x);
     } else {
-      int s, t;
-      cin >> s >> t;
+      int s, t; cin >> s >> t;
       cout << seg.Query(s, t + 1) << '\n';
     }
   }
