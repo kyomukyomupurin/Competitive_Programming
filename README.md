@@ -2,6 +2,11 @@
 
 Libraries for competitive programming  
 
+## Information
+
+- クエリ系の取得は全部 0-indexed でやる  
+- 半開区間のものと両閉区間のものがあるので、気を付ける(関数の上のコメントを見る)  
+
 ## TO DO  
 
 - 遅延セグメント木をかく
