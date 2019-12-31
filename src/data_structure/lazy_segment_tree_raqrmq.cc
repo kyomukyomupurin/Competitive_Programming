@@ -18,6 +18,7 @@ class LazySegmentTree {
         function_(function) {
     Build();
   }
+  // add [left, right)
   void RangeAdd(int left, int right, OperatorMonoid value) {
     Thrust(left += n_);
     Thrust(right += n_ - 1);
@@ -28,6 +29,7 @@ class LazySegmentTree {
     Recalc(left);
     Recalc(right);
   }
+  // return Query[left, right)
   Monoid Query(int left, int right) {
     Thrust(left += n_);
     Thrust(right += n_ - 1);

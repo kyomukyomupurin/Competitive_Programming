@@ -24,7 +24,7 @@ class SegmentTree {
       node_[position] = function_(node_[2 * position], node_[2 * position + 1]);
     }
   }
-
+  // return Query[left, right)
   Monoid Query(int left, int right) {
     Monoid vl = identity_element_, vr = identity_element_;
     for (left += n_, right += n_; left < right; left >>= 1, right >>= 1) {
