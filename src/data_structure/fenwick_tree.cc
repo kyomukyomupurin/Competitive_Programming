@@ -35,9 +35,9 @@ class FenwickTree {
     return GetSum(right) - GetSum(left - 1);
   }
   // for range add query
-  class FenwickTreeRAQ {
+  class RAQ {
    public:
-    FenwickTreeRAQ(const std::vector<T>& data)
+    RAQ(const std::vector<T>& data)
         : n_(data.size()),
           ft1_(FenwickTree<T>(data)),
           ft2_(FenwickTree<T>(data)) {}
@@ -94,7 +94,7 @@ void DSL_2_B() {
 /*
 void DSL_2_G() {
   int n, q; cin >> n >> q;
-  FenwickTree<int64>::FenwickTreeRAQ ft(vector<int64>(n, 0));
+  FenwickTree<int64>::RAQ ft(vector<int64>(n, 0));
   for (int i = 0; i < q; ++i) {
     int com; cin >> com;
     if (com == 0) {
