@@ -16,3 +16,7 @@ Libraries for competitive programming
     - min/max だと $f(f(a, b), f(b, c)) = f(a, c)$ が成り立つけど、sum に対しては成り立たないからかな？と思っている(正しいかどうかは知らない)  
 
 - FFT をかく
+
+## えー
+
+GitHub って数式表示してくれないの  
