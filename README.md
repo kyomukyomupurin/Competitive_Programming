@@ -1,11 +1,12 @@
 # Competitive-Programming
 
-Libraries for competitive programming  
+競プロ用のライブラリ  
 
 ## Information
 
 - クエリ系の取得は全部 0-indexed でやる  
 - 半開区間のものと両閉区間のものがあるので、気を付ける(関数の上のコメントを見る)  
+- ```g++ -O2 -DLOCAL -Wall -std=c++17 main.cc && ./a.exe(Linux/Mac なら ./a.out)``` で実行  
 
 ## TO DO  
 
