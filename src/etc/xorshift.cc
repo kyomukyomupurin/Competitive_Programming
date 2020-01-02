@@ -1,14 +1,14 @@
-/**
- *  Xorshift128+
-**/
+// Xorshift128+
+// reference :
+//     https://cpplover.blogspot.com/2013/03/blog-post_22.html
+//     http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3551.pdf
+//     https://arxiv.org/pdf/1810.05313.pdf
+// verified by
+//     https://atcoder.jp/contests/abc139/tasks/abc139_f
 
 #include <chrono>
 #include <iostream>
 
-// reference : https://cpplover.blogspot.com/2013/03/blog-post_22.html
-//             http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3551.pdf
-//             https://arxiv.org/pdf/1810.05313.pdf
-// verified by https://atcoder.jp/contests/abc139/tasks/abc139_f
 class Xorshift {
  public:
   Xorshift() {
@@ -24,12 +24,14 @@ class Xorshift {
   static constexpr uint64_t max() {
     return std::numeric_limits<result_type>::max();
   }
+
   uint64_t operator()() { return GetNext(); }
 
  private:
   uint64_t result_;
   uint64_t seed0_;
   uint64_t seed1_;
+
   uint64_t GetNext() {
     uint64_t s1 = seed0_;
     uint64_t s0 = seed1_;

@@ -1,7 +1,4 @@
-/**
- *  generate random case and try to detect corner case
-**/
-
+// Automatic generation of random cases to find corner cases
 // input format:
 // n
 // v_0 v_1 v_2 ... v_n - 1
@@ -62,11 +59,9 @@ void RandomCase::Generate() {
   outputfile.close();
 }
 
-int RandomCase::Solve1() {
-  // naive solution
-  // it must be 200% correct!
-}
+// naive solution
+// it must be 200% correct!
+int RandomCase::Solve1() {}
 
-int RandomCase::Solve2() {
-  // your solution
-}
+// your solution
+int RandomCase::Solve2() {}
