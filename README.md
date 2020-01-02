@@ -14,7 +14,7 @@
   - [こどふぉのブログ](https://codeforces.com/blog/entry/18051)を読んでるけどしっくりきていない。
   - ラムダ式をたくさん渡すのはしんどいので、ある程度機能を絞ったものを複数用意しておこうと思っている。
   - 次のものがあれば十分かなと思っている
-    - 区間加算(<img src="https://latex.codecogs.com/gif.latex?a_l,a_{l&plus;1},...,a_r\to&space;a_l&plus;x,a_{l&plus;1}&plus;x,...,a_r&plus;x" />)・区間 min/max 取得 $\to$ できた
+    - 区間加算($a_l,...,a_r$に $x$ を加える)・区間 min/max 取得 $\to$ できた
     - 区間変更($a_l,...,a_r$を $x$ に変更)・区間 min/max 取得 $\to$ できた
     - 区間加算($a_l,...,a_r$に $x$ を加える)・区間 sum 取得 $\to$ できてない  
       - fenwick tree 2 本でできる(できた)  
