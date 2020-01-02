@@ -1,6 +1,7 @@
-/**
- *  Rolling Hash
-**/
+// Rolling Hash
+// verified by
+//     https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/all/ALDS1_14_B
+//     https://atcoder.jp/contests/abc141/tasks/abc141_e
 
 #include <chrono>
 #include <string>
@@ -9,12 +10,10 @@
 
 using ull = unsigned long long;
 
-// verified by
-// https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/all/ALDS1_14_B
-// https://atcoder.jp/contests/abc141/tasks/abc141_e
 class RollingHash {
  public:
   RollingHash(const std::string& s) : s_(s) { Initialize(); }
+
   std::pair<ull, ull> GetHash(int left, int right) {
     ull ret0 =
         (hash0_[right] - hash0_[left] * power0_[right - left] % mod0_ + mod0_) %
@@ -36,6 +35,7 @@ class RollingHash {
   static std::vector<ull> power0_;
   static std::vector<ull> power1_;
   static std::mt19937_64 mt_;
+
   void Initialize() {
     size_t n = s_.size();
     hash0_.assign(n + 1, 0);
@@ -60,6 +60,7 @@ ull RollingHash::base1_ =
 std::vector<ull> RollingHash::power0_{1};
 std::vector<ull> RollingHash::power1_{1};
 
+// verification code
 /*
 void ABC141_E() {
   int n; cin >> n;

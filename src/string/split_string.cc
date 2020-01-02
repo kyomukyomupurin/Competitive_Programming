@@ -1,6 +1,4 @@
-/**
- *  split string
-**/
+// split string
 
 #include <vector>
 #include <string>
