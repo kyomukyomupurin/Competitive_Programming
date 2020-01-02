@@ -1,18 +1,21 @@
-/**
- *  Shortest Path Faster Algorithm
-**/
+// Shortest Path Faster Algorithm(SPFA)
+// verified by
+//     https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/1/GRL_1_B
 
 #include <limits>
 #include <queue>
 #include <vector>
 
-// verified by https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/1/GRL_1_B
 template <class T>
 class SPFA {
  public:
   SPFA(int node_size) : node_size_(node_size) { Initialize(); }
+
   void AddEdge(int from, int to, T cost) { graph_[from].push_back({to, cost}); }
+
+  // use after Solve()
   bool ExistNegativeCycle() { return distance_.empty(); }
+
   void Solve(int source) {
     std::queue<int> q;
     q.push(source);
@@ -39,6 +42,7 @@ class SPFA {
     }
     return;
   }
+
   T operator[](int to) const { return distance_[to]; }
 
  private:
@@ -51,6 +55,7 @@ class SPFA {
   std::vector<T> distance_;
   std::vector<int> pending_;
   std::vector<int> times_;
+
   void Initialize() {
     graph_.resize(node_size_);
     distance_.assign(node_size_, std::numeric_limits<T>::max() / 2);
@@ -59,6 +64,7 @@ class SPFA {
   }
 };
 
+// verification code
 /*
 void GRL_1_B() {
   int n, m, r; cin >> n >> m >> r;

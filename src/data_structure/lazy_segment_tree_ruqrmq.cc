@@ -1,4 +1,3 @@
-//
 // Lazy Propagation Segment Tree(for range update query, range min/max query)
 // not fot raange sum query!!
 // verified by

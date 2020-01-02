@@ -1,29 +1,29 @@
-/**
- *  dinic algorithm
-**/
+// Dinic algorithm
+// verified by
+//     https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/6/GRL_6_A
+//     https://atcoder.jp/contests/abc091/tasks/arc092_a
 
 #include <limits>
 #include <queue>
 #include <vector>
 
-// verified by 
-// https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/6/GRL_6_A
-// https://atcoder.jp/contests/abc091/tasks/arc092_a
 template <class T>
 class Dinic {
  public:
   Dinic(int node_size) : node_size_(node_size) { Initialize(); }
+
   void AddEdge(int from, int to, T cost) {
     graph_[from].push_back({to, cost, static_cast<int>(graph_[to].size())});
     graph_[to].push_back(
         {from, static_cast<T>(0), static_cast<int>(graph_[from].size()) - 1});
   }
+
   T MaxFlow(int s, int t) {
     T flow = 0;
     for (;;) {
       BFS(s);
-      if (level[t] < 0) return flow;
-      std::fill(iter.begin(), iter.end(), 0);
+      if (level_[t] < 0) return flow;
+      std::fill(iter_.begin(), iter_.end(), 0);
       T f;
       while ((f = DFS(s, t, std::numeric_limits<T>::max() / 2)) > 0) {
         flow += f;
@@ -39,34 +39,37 @@ class Dinic {
   };
   int node_size_;
   std::vector<std::vector<edge>> graph_;
-  std::vector<int> level;
-  std::vector<int> iter;
+  std::vector<int> level_;
+  std::vector<int> iter_;
+
   void Initialize() {
     graph_.resize(node_size_);
-    level.assign(node_size_, 0);
-    iter.assign(node_size_, 0);
+    level_.assign(node_size_, 0);
+    iter_.assign(node_size_, 0);
   }
+
   void BFS(int s) {
-    std::fill(level.begin(), level.end(), -1);
+    std::fill(level_.begin(), level_.end(), -1);
     std::queue<int> q;
-    level[s] = 0;
+    level_[s] = 0;
     q.push(s);
     while (!q.empty()) {
       int top = q.front();
       q.pop();
       for (const edge& next : graph_[top]) {
-        if (next.cap > 0 && level[next.to] < 0) {
-          level[next.to] = level[top] + 1;
+        if (next.cap > 0 && level_[next.to] < 0) {
+          level_[next.to] = level_[top] + 1;
           q.push(next.to);
         }
       }
     }
   }
+
   T DFS(int v, int t, int f) {
     if (v == t) return f;
-    for (int& i = iter[v]; i < graph_[v].size(); ++i) {
+    for (int& i = iter_[v]; i < graph_[v].size(); ++i) {
       edge& e = graph_[v][i];
-      if (e.cap > 0 && level[v] < level[e.to]) {
+      if (e.cap > 0 && level_[v] < level_[e.to]) {
         T d = DFS(e.to, t, min(f, e.cap));
         if (d > 0) {
           e.cap -= d;
@@ -79,6 +82,7 @@ class Dinic {
   }
 };
 
+// verification code
 /*
 void GRL_6_A() {
   int n, m; cin >> n >> m;

@@ -1,18 +1,19 @@
-/**
- *  diameter of undirected tree
-**/
+// Diameter of undirected tree
+// verified by
+//     https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_A
 
 #include <vector>
 
-// verified by https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_A
 template <class T>
 class TreeDiameter {
  public:
   TreeDiameter(int node_size) : node_size_(node_size) { Initialize(); }
+
   void AddEdge(int from, int to, T cost) {
     graph_[from].push_back({cost, to});
     graph_[to].push_back({cost, from});
   }
+
   T GetDiameter() { return BFS(BFS(0).second).first; }
 
  private:
@@ -22,7 +23,9 @@ class TreeDiameter {
   };
   int node_size_;
   std::vector<std::vector<edge>> graph_;
+
   void Initialize() { graph_.resize(node_size_); }
+
   std::pair<T, int> BFS(int source) {
     std::pair<T, int> result = {static_cast<T>(0), 0};
     std::queue<int> q;
@@ -45,6 +48,7 @@ class TreeDiameter {
   }
 };
 
+// verification code
 /*
 void GRL_5_A() {
   int n; cin >> n;

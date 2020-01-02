@@ -1,4 +1,3 @@
-//
 // 2-Dimensional Cumulative Sum
 // verified by
 //     https://atcoder.jp/contests/abc106/tasks/abc106_d

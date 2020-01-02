@@ -1,6 +1,4 @@
-//
 // Cumulative Sum
-//
 
 #include <vector>
 

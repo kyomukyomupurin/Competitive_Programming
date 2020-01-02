@@ -1,4 +1,3 @@
-//
 // Coodinate Compression
 // verified by
 //     https://atcoder.jp/contests/abc036/tasks/abc036_c

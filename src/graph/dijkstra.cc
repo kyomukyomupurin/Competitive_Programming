@@ -1,19 +1,21 @@
-/**
- *  dijkstra
-**/
+//
+// Dijkstra algorithm
+// verified by
+//     https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/1/GRL_1_A
 
 #include <queue>
 #include <vector>
 #include <limits>
 
-// verified by https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/1/GRL_1_A
 template <class T>
 class Dijkstra {
  public:
   Dijkstra(int node_size) : node_size_(node_size) { Initialize(); }
+
   void Add_Edge(int from, int to, T cost) {
     graph_[from].push_back({to, cost});
   }
+
   void Solve(int source) {
     std::priority_queue<std::pair<T, int>, std::vector<std::pair<T, int>>,
                         std::greater<std::pair<T, int>>> pq;
@@ -33,6 +35,7 @@ class Dijkstra {
       }
     }
   }
+
   T operator[](int to) const { return distance_[to]; }
 
  private:
@@ -43,12 +46,14 @@ class Dijkstra {
   int node_size_;
   std::vector<T> distance_;
   std::vector<std::vector<edge>> graph_;
+
   void Initialize() {
     distance_.assign(node_size_, std::numeric_limits<T>::max() / 2);
     graph_.resize(node_size_);
   }
 };
 
+// verification code
 /*
 void GRL_1_A() {
   int n, m, r; cin >> n >> m >> r;

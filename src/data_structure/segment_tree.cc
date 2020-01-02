@@ -1,4 +1,3 @@
-//
 // Segment Tree
 // non-recursive version
 // verified by
