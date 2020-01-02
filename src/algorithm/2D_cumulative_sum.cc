@@ -1,11 +1,11 @@
-/**
- *  two dimensional cumulative sum
-**/
+//
+// 2-Dimensional Cumulative Sum
+// verified by
+//     https://atcoder.jp/contests/abc106/tasks/abc106_d
 
 #include <vector>
 #include <cassert>
 
-// verified by https://atcoder.jp/contests/abc106/tasks/abc106_d
 template <class T>
 class CumulativeSum2D {
  public:
@@ -13,6 +13,7 @@ class CumulativeSum2D {
       : vec_(vec), height_(vec.size()), width_(vec[0].size()) {
     Build();
   }
+
   // return sum of [sx, gx] * [sy, gy]
   T Get(int sx, int sy, int gx, int gy) {
     assert(sx <= gx && sy <= gy);
@@ -27,6 +28,7 @@ class CumulativeSum2D {
   size_t width_;
   std::vector<vector<T>> vec_;
   std::vector<vector<T>> sum_;
+
   void Build() {
     sum_.assign(height_ + 1, vector<T>(width_ + 1, static_cast<T>(0)));
     for (size_t i = 0; i < height_; ++i) {
@@ -42,6 +44,7 @@ class CumulativeSum2D {
   }
 };
 
+// verification code
 /*
 void ABC106_D() {
   int n, m, query; cin >> n >> m >> query;

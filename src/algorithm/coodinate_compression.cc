@@ -1,11 +1,11 @@
-/**
- *  coodinate compression
-**/
+//
+// Coodinate Compression
+// verified by
+//     https://atcoder.jp/contests/abc036/tasks/abc036_c
 
 #include <algorithm>
 #include <vector>
 
-// verified by https://atcoder.jp/contests/abc036/tasks/abc036_c
 template <class T>
 class CoodinateCompression {
  public:
@@ -17,11 +17,13 @@ class CoodinateCompression {
     T before;
     int after;
   };
+
   state operator[](int pos) const { return result_[pos]; }
 
  private:
   std::vector<T> vec_;
   std::vector<state> result_;
+
   void Compress() {
     std::vector<T> t = vec_;
     std::sort(t.begin(), t.end());
@@ -34,6 +36,7 @@ class CoodinateCompression {
   }
 };
 
+// verification code
 /*
 void ABC36_C() {
   int n; cin >> n;
