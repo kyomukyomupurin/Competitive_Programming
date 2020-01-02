@@ -1,6 +1,4 @@
-/**
- *  calculate x^n (mod mod)
-**/ 
+// Calculate x^n (modulo mod)
 
 template<class T> T mod_pow(T x, T n, T mod) {
   T res = 1;

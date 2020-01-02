@@ -1,6 +1,4 @@
-/**
- *  gcd(greatest common divisor), lcm(least common multiple)
-**/
+// GCD(Greatest Common Divisor), LCM(Least Common Multiple)
 
 template<class T> T gcd(T x, T y) {
   while (y > 0){

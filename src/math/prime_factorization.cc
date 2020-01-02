@@ -1,9 +1,9 @@
-/**
- *  prime factorization
-**/
+// Prime Factorization
+
 
 #include <iostream>
 #include <vector>
+
 using int64 = long long;
 
 std::vector<std::pair<int64, int64>> prime_fact(int64 n){

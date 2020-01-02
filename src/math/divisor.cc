@@ -1,6 +1,4 @@
-/**
- *  divisor enumeration
-**/
+// Divisor Enumeration
 
 #include <algorithm>
 #include <vector>
