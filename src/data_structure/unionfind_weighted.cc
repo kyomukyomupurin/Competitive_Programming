@@ -1,16 +1,15 @@
-/**
- *  Union-Find(weighted)
-**/
+// Union Find Tree(weighted)
+// verified by
+//     https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/all/DSL_1_B
 
 #include <vector>
 
-// verified by
-// https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/all/DSL_1_B
 class UnionFind {
  public:
   UnionFind(int n, int SUM_UNITY = 0) : n_(n), SUM_UNITY_(SUM_UNITY) {
     Initialize();
   }
+
   int GetRoot(int x) {
     if (parent_[x] == -1) {
       return x;
@@ -20,12 +19,16 @@ class UnionFind {
       return parent_[x] = r;
     }
   }
+
   int Weight(int x) {
     GetRoot(x);
     return diff_weight_[x];
   }
+
   bool IsSame(int x, int y) { return GetRoot(x) == GetRoot(y); }
-  void Unite(int x, int y, int w) {  // y is w larger than x
+
+  // y is w larger than x
+  void Unite(int x, int y, int w) {
     w += Weight(x);
     w -= Weight(y);
     x = GetRoot(x);
@@ -40,6 +43,7 @@ class UnionFind {
     diff_weight_[y] = w;
     return;
   }
+
   int Diff(int x, int y) { return Weight(y) - Weight(x); }
 
  private:
@@ -48,6 +52,7 @@ class UnionFind {
   std::vector<int> parent_;
   std::vector<int> rank_;
   std::vector<int> diff_weight_;
+
   void Initialize() {
     parent_.assign(n_, -1);
     rank_.assign(n_, 0);
@@ -55,6 +60,7 @@ class UnionFind {
   }
 };
 
+// verification code
 /*
 void DSL_1_B() {
   int n, q; cin >> n >> q;
