@@ -1,13 +1,13 @@
-/**
- *  bisection method
-**/
+// bisection method
 
 const int INF = (1<<30) - 1;
 
-// find the minimum n to satisfy something
+// find the minimum n that satisfies the condition
+// OK : O, NG : N
+// NNN...NOOO...O
 
+// for example
 bool ok1(int n) {
-  // for example
   return n >= 10000;
 }
 
@@ -25,10 +25,11 @@ int solve1() {
   return high;
 }
 
-// find the maximum n to satisfy something
+// find the maximum n that satisfies the condition
+// OOO...ONNN...N
 
+// for example
 bool ok2(int n) {
-  // for example
   return n <= 500;
 }
 
