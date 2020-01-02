@@ -1,18 +1,18 @@
-/**
- *  Fenwick Tree(binary indexed tree) (for point add query and range sum query, range add query and range sum query)
-**/
+//
+// Fenwick Tree(Binary Indexed Tree) (for point/range add query and range sum query)
+// verified by 
+//     https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B
+//     https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_G
 
 #include <vector>
 
-// verified by 
-// https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B
-// https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_G
 template <class T>
 class FenwickTree {
  public:
   FenwickTree(const std::vector<T>& data) : n_(data.size() + 1), data_(data) {
     Initialize();
   }
+
   void Add(size_t pos, T value) {
     ++pos;
     while (pos < n_) {
@@ -20,6 +20,7 @@ class FenwickTree {
       pos += pos & -pos;
     }
   }
+
   // return sum of [0, i]
   T GetSum(size_t pos) {
     ++pos;
@@ -30,10 +31,12 @@ class FenwickTree {
     }
     return sum;
   }
+
   // return sum of [left, rihgt]
   T GetRangeSum(int left, int right) {
     return GetSum(right) - GetSum(left - 1);
   }
+
   // for range add query
   class RAQ {
    public:
@@ -41,16 +44,19 @@ class FenwickTree {
         : n_(data.size()),
           ft1_(FenwickTree<T>(data)),
           ft2_(FenwickTree<T>(data)) {}
-    // add range [left, right)
+
+    // add value range [left, right)
     void RangeAdd(int left, int right, T value) {
       Add(ft1_, left, right, value);
       Add(ft2_, left, right, -value * static_cast<T>(left - 1));
       Add(ft2_, right, n_, value * static_cast<T>(right - left));
     }
+
     // get sum of [0, i]
     T GetSum(size_t pos) {
       return ft1_.GetSum(pos) * static_cast<T>(pos) + ft2_.GetSum(pos);
     }
+
     // get sum of [left, right]
     T GetRangeSum(int left, int right) {
       return GetSum(right) - GetSum(left - 1);
@@ -76,6 +82,7 @@ class FenwickTree {
   }
 };
 
+// verification code
 /*
 void DSL_2_B() {
   int n, q; cin >> n >> q;

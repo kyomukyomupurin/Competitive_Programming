@@ -1,11 +1,11 @@
-/**
- *  Lazy Propagation Segment Tree(for range add query, range min/max query)
-**/
+//
+// Lazy Propagation Segment Tree(for range add query, range min/max query)
+// not fot raange sum query!!
+// verified by
+//     https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_H
 
 #include <vector>
 
-// not fot raange sum query!!
-// verified by https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_H
 template <class Monoid, class Function>
 class LazySegmentTree {
   using OperatorMonoid = Monoid;
@@ -19,7 +19,8 @@ class LazySegmentTree {
         function_(function) {
     Build();
   }
-  // add [left, right)
+
+  // add value range [left, right)
   void RangeAdd(int left, int right, OperatorMonoid value) {
     Thrust(left += n_);
     Thrust(right += n_ - 1);
@@ -30,6 +31,7 @@ class LazySegmentTree {
     Recalc(left);
     Recalc(right);
   }
+
   // return Query[left, right)
   Monoid Query(int left, int right) {
     Thrust(left += n_);
@@ -41,6 +43,7 @@ class LazySegmentTree {
     }
     return function_(L, R);
   }
+
   Monoid operator[](int position) { return Query(position, position + 1); }
 
  private:
@@ -52,6 +55,7 @@ class LazySegmentTree {
   std::vector<Monoid> node_;
   std::vector<OperatorMonoid> lazy_;
   Function function_;
+
   void Build() {
     size_t SIZE = data_.size();
     n_ = 1;
@@ -69,6 +73,7 @@ class LazySegmentTree {
       node_[i] = function_(node_[2 * i], node_[2 * i + 1]);
     }
   }
+
   inline void Propagate(int k) {
     if (lazy_[k] != operator_identity_element_) {
       lazy_[2 * k] += lazy_[k];
@@ -92,6 +97,7 @@ class LazySegmentTree {
   }
 };
 
+// verification code
 /*
 void DSL_2_H() {
   int n, query; cin >> n >> query;

@@ -1,13 +1,12 @@
-/**
- *  Segment Tree
-**/
+//
+// Segment Tree
+// non-recursive version
+// verified by
+//     https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/all/DSL_2_A
+//     https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/all/DSL_2_B
 
 #include <vector>
 
-// non-recursive version
-// verified by
-// https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/all/DSL_2_A
-// https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/all/DSL_2_B
 template <class Monoid, class Function>
 class SegmentTree {
  public:
@@ -16,6 +15,7 @@ class SegmentTree {
       : identity_element_(identity_element), data_(data), function_(function) {
     Build();
   }
+
   void Update(size_t position, Monoid new_value) {
     position += n_;
     node_[position] = new_value;
@@ -24,6 +24,7 @@ class SegmentTree {
       node_[position] = function_(node_[2 * position], node_[2 * position + 1]);
     }
   }
+
   // return Query[left, right)
   Monoid Query(int left, int right) {
     Monoid vl = identity_element_, vr = identity_element_;
@@ -42,6 +43,7 @@ class SegmentTree {
   std::vector<Monoid> data_;
   std::vector<Monoid> node_;
   Function function_;
+
   void Build() {
     size_t SIZE = data_.size();
     n_ = 1;
@@ -58,6 +60,7 @@ class SegmentTree {
   }
 };
 
+// verification code
 /*
 void DSL_2_A() {
   int n, q; cin >> n >> q;
