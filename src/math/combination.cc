@@ -11,7 +11,13 @@ class Combination {
  public:
   constexpr Combination() { Build(); }
   static constexpr int mod_ = 1000000007;
-  static constexpr int n_ = 200000;
+
+  #ifdef LOCAL
+  static constexpr int n_ = 1000 + 5;
+  #else
+  static constexpr int n_ = 200000 + 5;
+  #endif
+
   struct LookupTable {
     int64 factorial_[n_];
     int64 inverse_[n_];
