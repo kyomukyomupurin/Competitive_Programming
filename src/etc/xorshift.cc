@@ -16,6 +16,9 @@ class Xorshift {
         std::chrono::steady_clock::now().time_since_epoch().count());
     seed1_ = static_cast<uint64_t>(
         std::chrono::steady_clock::now().time_since_epoch().count());
+    for (int i = 0; i < 100; ++i) {
+      GetNext();
+    }
   }
   using result_type = uint64_t;
   static constexpr uint64_t min() {
