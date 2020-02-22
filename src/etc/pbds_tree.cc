@@ -1,6 +1,6 @@
 // include __gnu_pbds::tree
 // find_by_order(k) : returns an iterator to the k-th largest element(0-origin)
-// order_of_key(k)  : returns the number of items in a set that are strictly smaller than our item
+// order_of_key(k)  : returns the number of items in a set that are strictly smaller than k
 
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>
