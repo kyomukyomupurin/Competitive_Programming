@@ -1,6 +1,6 @@
 // Calculate x^n (modulo mod)
 
-template<class T> T mod_pow(T x, T n, T mod) {
+template<class T, class U> T mod_pow(T x, U n, T mod) {
   T res = 1;
   while (n > 0) {
     if (n & 1) (res *= x) %= mod;
