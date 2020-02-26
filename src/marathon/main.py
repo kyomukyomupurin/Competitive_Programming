@@ -1,6 +1,7 @@
 import matplotlib
 import matplotlib.pyplot as plt
 
+
 def main():
     iterations = []
     scores = []
@@ -12,6 +13,7 @@ def main():
             scores.append(score)
     plt.plot(iterations, scores)
     plt.show()
+
 
 if __name__ == '__main__':
     main()
