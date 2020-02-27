@@ -48,7 +48,6 @@ class Dijkstra {
   std::vector<std::vector<edge>> graph_;
 
   void Initialize() {
-    distance_.assign(node_size_, std::numeric_limits<T>::max() / 2);
     graph_.resize(node_size_);
   }
 };
