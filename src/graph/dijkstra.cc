@@ -16,6 +16,7 @@ class Dijkstra {
   }
 
   void Solve(int source) {
+    distance_.assign(node_size_, std::numeric_limits<T>::max() / 2);
     std::priority_queue<std::pair<T, int>, std::vector<std::pair<T, int>>,
                         std::greater<std::pair<T, int>>> pq;
     distance_[source] = 0;
