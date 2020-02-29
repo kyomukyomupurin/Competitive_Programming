@@ -8,7 +8,9 @@
 class LCA {
  public:
   LCA(int node_size, int root = 0)
-      : node_size_(node_size), log_node_(std::__lg(node_size) + 1), root_(root) {
+      : node_size_(node_size),
+        log_node_(std::__lg(node_size) + 1),
+        root_(root) {
     Initialize();
   }
 
