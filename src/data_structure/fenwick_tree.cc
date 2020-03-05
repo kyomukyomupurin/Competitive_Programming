@@ -31,7 +31,7 @@ class FenwickTree {
     return sum;
   }
 
-  // return sum of [left, rihgt]
+  // return sum of [left, right]
   T GetRangeSum(int left, int right) {
     return GetSum(right) - GetSum(left - 1);
   }
