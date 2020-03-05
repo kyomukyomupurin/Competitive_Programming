@@ -45,10 +45,7 @@ class SegmentTree {
 
   void Build() {
     size_t SIZE = data_.size();
-    n_ = 1;
-    while (n_ < SIZE) {
-      n_ <<= 1;
-    }
+    n_ = 1 << (std::__lg(SIZE) + ((SIZE & (SIZE - 1)) != 0));
     node_.assign(2 * n_, identity_element_);
     for (size_t i = 0; i < SIZE; ++i) {
       node_[i + n_] = data_[i];
