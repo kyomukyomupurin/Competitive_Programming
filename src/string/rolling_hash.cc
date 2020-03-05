@@ -14,6 +14,7 @@ class RollingHash {
  public:
   RollingHash(const std::string& s) : s_(s) { Initialize(); }
 
+  // get hash value of [left, right)
   std::pair<ull, ull> GetHash(int left, int right) {
     ull ret0 =
         (hash0_[right] - hash0_[left] * power0_[right - left] % mod0_ + mod0_) %
