@@ -55,9 +55,9 @@ class RollingHash {
 std::mt19937_64 RollingHash::mt_(
     std::chrono::steady_clock::now().time_since_epoch().count());
 ull RollingHash::base0_ =
-    std::uniform_int_distribution<ull>(2, RollingHash::mod0_)(RollingHash::mt_);
+    std::uniform_int_distribution<ull>(2, RollingHash::mod0_ - 1)(RollingHash::mt_);
 ull RollingHash::base1_ =
-    std::uniform_int_distribution<ull>(2, RollingHash::mod1_)(RollingHash::mt_);
+    std::uniform_int_distribution<ull>(2, RollingHash::mod1_ - 1)(RollingHash::mt_);
 std::vector<ull> RollingHash::power0_{1};
 std::vector<ull> RollingHash::power1_{1};
 
