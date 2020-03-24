@@ -9,15 +9,15 @@ template <class T>
 class CumulativeSum2D {
  public:
   CumulativeSum2D(const std::vector<vector<T>>& vec)
-      : vec_(vec), height_(vec.size()), width_(vec[0].size()) {
+      : height_(vec.size()), width_(vec[0].size()), vec_(vec) {
     Build();
   }
 
   // return sum of [sx, gx] * [sy, gy]
   T Get(int sx, int sy, int gx, int gy) {
     assert(sx <= gx && sy <= gy);
-    assert(0 <= sx && sx < height_ && 0 <= gx && gx < height_ && 0 <= sy &&
-          sy < width_ && 0 <= gy && gy < width_);
+    assert(0 <= sx && sx < (int) height_ && 0 <= gx && gx < (int) height_ && 0 <= sy &&
+          sy < (int) width_ && 0 <= gy && gy < (int) width_);
     return sum_[gx + 1][gy + 1] - sum_[gx + 1][sy] - sum_[sx][gy + 1] +
           sum_[sx][sy];
   }
