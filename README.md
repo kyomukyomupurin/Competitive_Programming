@@ -31,6 +31,8 @@
 
 - 短い Build, Initialize 関数はコンストラクタに直書きした方が速くなりそう。  
 
+- AtCoder のジャッジ環境が新しくなったら、timer.cc の clock_frequency_ を 2800000000 から 3000000000 にすること。  
+
 ## えー
 
 GitHub って数式表示してくれないの :cry:  
