@@ -3,23 +3,29 @@
 //     https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/all/DSL_1_A
 
 #include <vector>
+#include <cassert>
 
 class UnionFind {
  public:
-  UnionFind(int n) : n_(n) { Initialize(); }
+  UnionFind(int n) : n_(n) { initialize(); }
 
-  int GetRoot(int x) {
+  int root(int x) {
+    assert(0 <= x && x < n_);
     if (parent_[x] == -1)
       return x;
     else
-      return parent_[x] = GetRoot(parent_[x]);
+      return parent_[x] = root(parent_[x]);
   }
 
-  bool IsSame(int x, int y) { return GetRoot(x) == GetRoot(y); }
+  bool same(int x, int y) {
+    assert(0 <= x && x < n_ && 0 <= y && y < n_);
+    return root(x) == root(y);
+  }
 
-  void Unite(int x, int y) {
-    x = GetRoot(x);
-    y = GetRoot(y);
+  void unite(int x, int y) {
+    assert(0 <= x && x < n_ && 0 <= y && y < n_);
+    x = root(x);
+    y = root(y);
     if (x == y) return;
     if (rank_[x] < rank_[y]) std::swap(x, y);
     if (rank_[x] == rank_[y]) ++rank_[x];
@@ -32,7 +38,7 @@ class UnionFind {
   std::vector<int> parent_;
   std::vector<int> rank_;
 
-  void Initialize() {
+  void initialize() {
     parent_.assign(n_, -1);
     rank_.assign(n_, 0);
   }
@@ -41,14 +47,16 @@ class UnionFind {
 // verification code
 /*
 void DSL_1_A() {
-  int n, q; cin >> n >> q;
+  int n, q;
+  cin >> n >> q;
   UnionFind uf(n);
   for (int i = 0; i < q; ++i) {
-    int com, x, y; cin >> com >> x >> y;
+    int com, x, y;
+    cin >> com >> x >> y;
     if (com == 0) {
-      uf.Unite(x, y);
+      uf.unite(x, y);
     } else {
-      cout << uf.IsSame(x, y) << '\n';
+      cout << uf.same(x, y) << '\n';
     }
   }
 }
