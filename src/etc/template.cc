@@ -40,7 +40,7 @@ template<class T> std::istream& operator>>(std::istream& is, std::vector<T>& vec
 #ifdef LOCAL
 #define debug(...) cerr << "[" << #__VA_ARGS__ << "]: ", debug_out(__VA_ARGS__)
 #else
-#define debug(...) 1728
+#define debug(...)
 #endif
 
 void debug_out() { std::cerr << '\n'; }
