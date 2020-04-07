@@ -5,14 +5,14 @@
 
 #include <vector>
 
-template <class T>
+template <class _Tp>
 class FenwickTree {
  public:
-  FenwickTree(const std::vector<T>& data) : n_(data.size() + 1), data_(data) {
-    Initialize();
+  FenwickTree(const std::vector<_Tp>& data) : n_(data.size() + 1), data_(data) {
+    initialize();
   }
 
-  void Add(size_t pos, T value) {
+  void add(int pos, _Tp value) {
     ++pos;
     while (pos < n_) {
       node_[pos] += value;
@@ -21,9 +21,9 @@ class FenwickTree {
   }
 
   // return sum of [0, i]
-  T GetSum(size_t pos) {
+  _Tp get(int pos) {
     ++pos;
-    T sum = 0;
+    _Tp sum = 0;
     while (pos > 0) {
       sum += node_[pos];
       pos -= pos & -pos;
@@ -31,67 +31,65 @@ class FenwickTree {
     return sum;
   }
 
-  // return sum of [left, right]
-  T GetRangeSum(int left, int right) {
-    return GetSum(right) - GetSum(left - 1);
-  }
+  // return sum of [l, rihgt]
+  _Tp get(int l, int r) { return get(r) - get(l - 1); }
 
   // for range add query
   class RAQ {
    public:
-    RAQ(const std::vector<T>& data)
+    RAQ(const std::vector<_Tp>& data)
         : n_(data.size()),
-          ft1_(FenwickTree<T>(data)),
-          ft2_(FenwickTree<T>(data)) {}
+          ft1_(FenwickTree<_Tp>(data)),
+          ft2_(FenwickTree<_Tp>(data)) {}
 
-    // add value range [left, right)
-    void RangeAdd(int left, int right, T value) {
-      Add(ft1_, left, right, value);
-      Add(ft2_, left, right, -value * static_cast<T>(left - 1));
-      Add(ft2_, right, n_, value * static_cast<T>(right - left));
+    // add value range [l, r)
+    void add(int l, int r, _Tp value) {
+      add(ft1_, l, r, value);
+      add(ft2_, l, r, -value * static_cast<_Tp>(l - 1));
+      add(ft2_, r, n_, value * static_cast<_Tp>(r - l));
     }
 
     // get sum of [0, i]
-    T GetSum(size_t pos) {
-      return ft1_.GetSum(pos) * static_cast<T>(pos) + ft2_.GetSum(pos);
+    _Tp get(int pos) {
+      return ft1_.get(pos) * static_cast<_Tp>(pos) + ft2_.get(pos);
     }
 
-    // get sum of [left, right]
-    T GetRangeSum(int left, int right) {
-      return GetSum(right) - GetSum(left - 1);
-    }
+    // get sum of [l, r]
+    _Tp get(int l, int r) { return get(r) - get(l - 1); }
 
    private:
-    size_t n_;
-    FenwickTree<T> ft1_;
-    FenwickTree<T> ft2_;
-    void Add(FenwickTree<T>& ft, int left, int right, T value) {
-      ft.Add(left, value);
-      ft.Add(right, -value);
+    int n_;
+    FenwickTree<_Tp> ft1_;
+    FenwickTree<_Tp> ft2_;
+    void add(FenwickTree<_Tp>& ft, int l, int r, _Tp value) {
+      ft.add(l, value);
+      ft.add(r, -value);
     }
   };
 
  private:
-  size_t n_;
-  std::vector<T> data_;
-  std::vector<T> node_;
-  void Initialize() {
+  int n_;
+  std::vector<_Tp> data_;
+  std::vector<_Tp> node_;
+  void initialize() {
     node_.assign(n_ + 1, 0);
-    for (size_t i = 0; i < n_ - 1; ++i) Add(i, data_[i]);
+    for (int i = 0; i < n_ - 1; ++i) add(i, data_[i]);
   }
 };
 
 // verification code
 /*
 void DSL_2_B() {
-  int n, q; cin >> n >> q;
+  int n, q;
+  cin >> n >> q;
   FenwickTree<int> ft(vector<int>(n, 0));
   for (int i = 0; i < q; ++i) {
-    int com, x, y; cin >> com >> x >> y;
+    int com, x, y;
+    cin >> com >> x >> y;
     if (com == 0) {
-      ft.Add(x - 1, y);
+      ft.add(x - 1, y);
     } else {
-      cout << ft.GetRangeSum(x - 1, y - 1) << '\n';
+      cout << ft.get(x - 1, y - 1) << '\n';
     }
   }
 }
@@ -99,16 +97,20 @@ void DSL_2_B() {
 
 /*
 void DSL_2_G() {
-  int n, q; cin >> n >> q;
+  int n, q;
+  cin >> n >> q;
   FenwickTree<int64>::RAQ ft(vector<int64>(n, 0));
   for (int i = 0; i < q; ++i) {
-    int com; cin >> com;
+    int com;
+    cin >> com;
     if (com == 0) {
-      int s, t, x; cin >> s >> t >> x;
-      ft.RangeAdd(s - 1, t, x);
+      int s, t, x;
+      cin >> s >> t >> x;
+      ft.add(s - 1, t, x);
     } else {
-      int s, t; cin >> s >> t;
-      cout << ft.GetRangeSum(s - 1, t - 1) << '\n';
+      int s, t;
+      cin >> s >> t;
+      cout << ft.get(s - 1, t - 1) << '\n';
     }
   }
 }
