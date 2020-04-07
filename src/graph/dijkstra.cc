@@ -12,7 +12,7 @@ class Dijkstra {
   using binary_heap = std::priority_queue<_Up, std::vector<_Up>, std::greater<_Up>>;
 
  public:
-  static constexpr _Tp kInfinity = std::numeric_limits<_Tp>::max() / _Tp{2};
+  static constexpr _Tp kInfinity = std::numeric_limits<_Tp>::max() / static_cast<_Tp>(2);
 
   Dijkstra(int node_size) : node_size_(node_size), graph_(node_size) {}
 
