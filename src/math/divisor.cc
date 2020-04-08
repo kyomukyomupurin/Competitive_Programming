@@ -3,13 +3,13 @@
 #include <algorithm>
 #include <vector>
 
-template<class T> std::vector<T> divisor(T n) {
-  std::vector<T> res;
-  for (T i = 1; i * i <= n; ++i) {
+template<class _Tp> std::vector<_Tp> divisor(_Tp n) {
+  std::vector<_Tp> res;
+  for (_Tp i = 1; i * i <= n; ++i) {
     if (n % i == 0){
-      res.push_back(i);
+      res.emplace_back(i);
       if (i * i != n){
-        res.push_back(n / i);
+        res.emplace_back(n / i);
       }
     }
   }
