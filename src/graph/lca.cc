@@ -94,16 +94,16 @@ void GRL_5_C() {
     for (int j = 0; j < k; ++j) {
       int c;
       cin >> c;
-      lca.Add_Edge(i, c);
+      lca.add(i, c);
     }
   }
-  lca.Build();
+  lca.build();
   int q;
   cin >> q;
   for (int i = 0; i < q; ++i) {
     int u, v;
     cin >> u >> v;
-    cout << lca.GetLCA(u, v) << '\n';
+    cout << lca.lca(u, v) << '\n';
   }
 }
 */
@@ -114,14 +114,14 @@ void ABC_14_D() {
   for (int i = 0; i < n - 1; ++i) {
     int x, y; cin >> x >> y;
     --x; --y;
-    lca.Add_Edge(x, y);
+    lca.add(x, y);
   }
-  lca.Build();
+  lca.build();
   int q; cin >> q;
   for (int i = 0; i < q; ++i) {
     int a, b; cin >> a >> b;
     --a; --b;
-    cout << lca.GetDist(a, b) + 1 << '\n';
+    cout << lca.dist(a, b) + 1 << '\n';
   }
 }
 */
