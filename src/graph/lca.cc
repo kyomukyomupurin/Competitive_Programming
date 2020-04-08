@@ -4,54 +4,58 @@
 //      https://atcoder.jp/contests/abc014/tasks/abc014_4
 
 #include <vector>
+#include <cassert>
 
 class LCA {
  public:
   LCA(int node_size, int root = 0)
       : node_size_(node_size),
-        log_node_(std::__lg(node_size) + 1),
+        log_node_(32 - __builtin_clz(node_size_)),
         root_(root) {
-    Initialize();
+    initialize();
   }
 
-  void Add_Edge(int u, int v) {
+  void add(int u, int v) {
+    assert(0 <= u && u < node_size_ && 0 <= v && v < node_size_);
     graph_[u].emplace_back(v);
     graph_[v].emplace_back(u);
   }
 
-  void Build() {
-    DFS(root_, -1, 0);
+  void build() {
+    dfs(root_, -1, 0);
     for (int i = 0; i + 1 < log_node_; ++i) {
       for (int j = 0; j < node_size_; ++j) {
-        if (parent_[i][j] < 0) {
-          parent_[i + 1][j] = -1;
+        if (par_[i][j] < 0) {
+          par_[i + 1][j] = -1;
         } else {
-          parent_[i + 1][j] = parent_[i][parent_[i][j]];
+          par_[i + 1][j] = par_[i][par_[i][j]];
         }
       }
     }
   }
 
-  // use after Build()
-  int GetLCA(int u, int v) {
+  // use after build()
+  int lca(int u, int v) {
+    assert(0 <= u && u < node_size_ && 0 <= v && v < node_size_);
     if (depth_[u] > depth_[v]) std::swap(u, v);
     for (int i = 0; i < log_node_; ++i) {
       if ((depth_[v] - depth_[u]) >> i & 1) {
-        v = parent_[i][v];
+        v = par_[i][v];
       }
     }
     if (u == v) return u;
     for (int i = log_node_ - 1; i >= 0; --i) {
-      if (parent_[i][u] != parent_[i][v]) {
-        u = parent_[i][u];
-        v = parent_[i][v];
+      if (par_[i][u] != par_[i][v]) {
+        u = par_[i][u];
+        v = par_[i][v];
       }
     }
-    return parent_[0][u];
+    return par_[0][u];
   }
 
-  int GetDist(int u, int v) {
-    return depth_[u] + depth_[v] - 2 * depth_[GetLCA(u, v)];
+  int dist(int u, int v) {
+    assert(0 <= u && u < node_size_ && 0 <= v && v < node_size_);
+    return depth_[u] + depth_[v] - 2 * depth_[lca(u, v)];
   }
 
  private:
@@ -59,22 +63,22 @@ class LCA {
   int log_node_;
   int root_;
   std::vector<std::vector<int>> graph_;
-  std::vector<std::vector<int>> parent_;
+  std::vector<std::vector<int>> par_;
   std::vector<int> depth_;
 
-  void DFS(int cur, int prev, int d) {
-    parent_[0][cur] = prev;
+  void dfs(int cur, int prev, int d) {
+    par_[0][cur] = prev;
     depth_[cur] = d;
     for (const int& next : graph_[cur]) {
       if (next == prev) continue;
-      DFS(next, cur, d + 1);
+      dfs(next, cur, d + 1);
     }
   }
 
-  void Initialize() {
+  void initialize() {
     depth_.resize(node_size_);
     graph_.resize(node_size_);
-    parent_.assign(log_node_, std::vector<int>(node_size_, -1));
+    par_.assign(log_node_, std::vector<int>(node_size_, -1));
   }
 };
 
