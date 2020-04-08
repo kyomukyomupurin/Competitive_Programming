@@ -4,44 +4,43 @@
 
 #include <vector>
 
-template <class T>
+template <class _Tp>
 class TreeDiameter {
  public:
-  TreeDiameter(int node_size) : node_size_(node_size) { Initialize(); }
+  TreeDiameter(int node_size) : node_size_(node_size), graph_(node_size_) {}
 
-  void AddEdge(int from, int to, T cost) {
-    graph_[from].push_back({cost, to});
-    graph_[to].push_back({cost, from});
+  void add(int from, int to, _Tp cost) {
+    assert(0 <= from && from < node_size_ && 0 <= to && to < node_size_);
+    graph_[from].emplace_back((edge){cost, to});
+    graph_[to].emplace_back((edge){cost, from});
   }
 
-  T GetDiameter() { return BFS(BFS(0).second).first; }
+  _Tp get() { return bfs(bfs(0).second).first; }
 
  private:
   struct edge {
-    T cost;
+    _Tp cost;
     int to;
   };
   int node_size_;
   std::vector<std::vector<edge>> graph_;
 
-  void Initialize() { graph_.resize(node_size_); }
-
-  std::pair<T, int> BFS(int source) {
-    std::pair<T, int> result = {static_cast<T>(0), 0};
-    std::queue<int> q;
+  std::pair<_Tp, int> bfs(int source) {
+    std::pair<_Tp, int> result = {static_cast<_Tp>(0), 0};
+    std::queue<int> que;
     bool visited[node_size_] = {};
-    vector<T> dist(node_size_, 0);
+    vector<_Tp> dist(node_size_, 0);
     visited[source] = true;
-    q.push(source);
-    while (!q.empty()) {
-      int top = q.front();
-      q.pop();
-      for (const auto& next : graph_[top]) {
+    que.emplace(source);
+    while (!que.empty()) {
+      int cur = que.front();
+      que.pop();
+      for (const auto& next : graph_[cur]) {
         if (visited[next.to]) continue;
         visited[next.to] = true;
-        dist[next.to] += dist[top] + next.cost;
-        q.push(next.to);
-        result = max(result, {dist[next.to], next.to});
+        dist[next.to] += dist[cur] + next.cost;
+        que.emplace(next.to);
+        result = std::max(result, {dist[next.to], next.to});
       }
     }
     return result;
@@ -51,12 +50,14 @@ class TreeDiameter {
 // verification code
 /*
 void GRL_5_A() {
-  int n; cin >> n;
+  int n;
+  cin >> n;
   TreeDiameter<int> td(n);
   for (int i = 0; i < n - 1; ++i) {
-    int s, t, w; cin >> s >> t >> w;
-    td.AddEdge(s, t, w);
+    int s, t, w;
+    cin >> s >> t >> w;
+    td.add(s, t, w);
   }
-  cout << td.GetDiameter() << '\n';
+  cout << td.get() << '\n';
 }
 */
