@@ -6,28 +6,35 @@
 #include <queue>
 #include <vector>
 
-template <class T>
+template <class _Tp>
 class SPFA {
  public:
-  SPFA(int node_size) : node_size_(node_size) { Initialize(); }
+  static constexpr _Tp kInfinity =
+      std::numeric_limits<_Tp>::max() / static_cast<_Tp>(2);
 
-  void AddEdge(int from, int to, T cost) { graph_[from].push_back({to, cost}); }
+  SPFA(int node_size) : node_size_(node_size) { initialize(); }
 
-  // use after Solve()
-  bool ExistNegativeCycle() { return distance_.empty(); }
+  void add(int from, int to, _Tp cost) {
+    assert(0 <= from && from < node_size_ && 0 <= to && to < node_size_);
+    graph_[from].emplace_back((edge){to, cost});
+  }
 
-  void Solve(int source) {
-    std::queue<int> q;
-    q.push(source);
+  // use after solve()
+  bool find_negative_cycle() const noexcept { return distance_.empty(); }
+
+  void solve(int source) {
+    assert(0 <= source && source < node_size_);
+    std::queue<int> que;
+    que.emplace(source);
     pending_[source] = true;
     ++times_[source];
     distance_[source] = 0;
-    while (!q.empty()) {
-      int top = q.front();
-      q.pop();
-      pending_[top] = false;
-      for (const auto& next : graph_[top]) {
-        T next_cost = distance_[top] + next.cost;
+    while (!que.empty()) {
+      int cur = que.front();
+      que.pop();
+      pending_[cur] = false;
+      for (const auto& next : graph_[cur]) {
+        _Tp next_cost = distance_[cur] + next.cost;
         if (next_cost >= distance_[next.to]) continue;
         distance_[next.to] = next_cost;
         if (!pending_[next.to]) {
@@ -36,29 +43,33 @@ class SPFA {
             return;
           }
           pending_[next.to] = true;
-          q.push(next.to);
+          que.emplace(next.to);
         }
       }
     }
     return;
   }
 
-  T operator[](int to) const { return distance_[to]; }
+  _Tp operator[](int to) const {
+    assert(0 <= to && to < node_size_);
+    return distance_[to];
+  }
 
  private:
   struct edge {
     int to;
-    T cost;
+    _Tp cost;
   };
   int node_size_;
   std::vector<std::vector<edge>> graph_;
-  std::vector<T> distance_;
+  std::vector<_Tp> distance_;
   std::vector<int> pending_;
   std::vector<int> times_;
 
-  void Initialize() {
+  void initialize() {
     graph_.resize(node_size_);
-    distance_.assign(node_size_, std::numeric_limits<T>::max() / 2);
+    distance_.assign(node_size_,
+                     std::numeric_limits<_Tp>::max() / static_cast<_Tp>(2));
     pending_.assign(node_size_, 0);
     times_.assign(node_size_, 0);
   }
@@ -67,20 +78,22 @@ class SPFA {
 // verification code
 /*
 void GRL_1_B() {
-  int n, m, r; cin >> n >> m >> r;
+  int n, m, r;
+  cin >> n >> m >> r;
   SPFA<int> spfa(n);
   for (int i = 0; i < m; ++i) {
-    int s, t, d; cin >> s >> t >> d;
-    spfa.AddEdge(s, t, d);
+    int s, t, d;
+    cin >> s >> t >> d;
+    spfa.add(s, t, d);
   }
 
-  spfa.Solve(r);
+  spfa.solve(r);
 
-  if (spfa.ExistNegativeCycle()) {
+  if (spfa.find_negative_cycle()) {
     cout << "NEGATIVE CYCLE" << '\n';
   } else {
     for (int i = 0; i < n; ++i) {
-      if (spfa[i] == std::numeric_limits<int>::max() / 2) {
+      if (spfa[i] == spfa.kInfinity) {
         cout << "INF" << '\n';
       } else {
         cout << spfa[i] << '\n';
