@@ -28,11 +28,11 @@ using namespace std;
 using int64 = long long;
 
 template<class T> using binary_heap = std::priority_queue<T, std::vector<T>, std::greater<T>>;
-template<class T> std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec) { os << '{'; size_t n = vec.size(); for (size_t i = 0; i < n; ++i) { os << vec[i]; if (i != n - 1) os << ','; } os << '}'; return os; }
-template<class T, class U> std::ostream& operator<<(std::ostream& os, const std::pair<T, U>& p) { return os << '{' << p.first << " " << p.second << '}'; }
-template<class T, class U> std::ostream& operator<<(std::ostream& os, const std::map<T, U>& mp) { os << '{'; for (auto it = mp.begin(); it != mp.end(); ++it) { os << '{' << it->first << ':' << it->second << '}'; if (it != --mp.end()) os << ','; } os << '}'; return os; }
-template<class T> std::ostream& operator<<(std::ostream& os, const std::set<T>& st) { os << '{'; for (auto it = st.begin(); it != st.end(); ++it) { os << *it; if (it != --st.end()) os << ','; } os << '}'; return os; }
-template<class T> std::istream& operator>>(std::istream& is, std::vector<T>& vec) { size_t n = vec.size(); for (size_t i = 0; i < n; ++i) is >> vec[i]; return is; }
+template <class T> std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec) { os << '{'; bool first = 0; for (T e : vec) { if (first) os << ", "; os << e; first = 1; } os << '}'; return os; }
+template <class T> std::ostream& operator<<(std::ostream& os, const std::set<T>& st) { os << '{'; bool first = 0; for (T e : st) { if (first) os << ", "; os << e; first = 1; } os << '}'; return os; }
+template <class T, class U> std::ostream& operator<<(std::ostream& os, const std::map<T, U>& mp) { os << '{'; bool first = 0; for (auto it : mp) { if (first) os << ", "; os << '(' << it.first << ", " << it.second << ')'; first = 1; } os << '}'; return os; }
+template <class T, class U> std::ostream& operator<<(std::ostream& os, const std::pair<T, U>& p) { return os << '(' << p.first << ", " << p.second << ')'; }
+template <class T> std::istream& operator>>(std::istream& is, std::vector<T>& vec) { for (T& e : vec) is >> e; return is; }
 
 #define all(_) begin(_), end(_)
 #define rall(_) rbegin(_), rend(_)
