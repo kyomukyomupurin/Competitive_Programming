@@ -5,6 +5,11 @@
 #include <set>
 #include <vector>
 
+template <class T, class U>
+std::ostream& operator<<(std::ostream& os, const std::pair<T, U>& p) {
+  return os << '(' << p.first << ", " << p.second << ')';
+}
+
 template <class T>
 std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec) {
   os << '{';
@@ -35,18 +40,13 @@ template <class T, class U>
 std::ostream& operator<<(std::ostream& os, const std::map<T, U>& mp) {
   os << '{';
   bool first = 0;
-  for (auto [key, value] : mp) {
+  for (auto e : mp) {
     if (first) os << ", ";
-    os << '(' << key << ", " << value << ')';
+    os << e;
     first = 1;
   }
   os << '}';
   return os;
-}
-
-template <class T, class U>
-std::ostream& operator<<(std::ostream& os, const std::pair<T, U>& p) {
-  return os << '(' << p.first << ", " << p.second << ')';
 }
 
 template <class T>

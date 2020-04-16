@@ -28,10 +28,10 @@ using namespace std;
 using int64 = long long;
 
 template<class T> using binary_heap = std::priority_queue<T, std::vector<T>, std::greater<T>>;
+template <class T, class U> std::ostream& operator<<(std::ostream& os, const std::pair<T, U>& p) { return os << '(' << p.first << ", " << p.second << ')'; }
 template <class T> std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec) { os << '{'; bool first = 0; for (T e : vec) { if (first) os << ", "; os << e; first = 1; } os << '}'; return os; }
 template <class T> std::ostream& operator<<(std::ostream& os, const std::set<T>& st) { os << '{'; bool first = 0; for (T e : st) { if (first) os << ", "; os << e; first = 1; } os << '}'; return os; }
-template <class T, class U> std::ostream& operator<<(std::ostream& os, const std::map<T, U>& mp) { os << '{'; bool first = 0; for (auto it : mp) { if (first) os << ", "; os << '(' << it.first << ", " << it.second << ')'; first = 1; } os << '}'; return os; }
-template <class T, class U> std::ostream& operator<<(std::ostream& os, const std::pair<T, U>& p) { return os << '(' << p.first << ", " << p.second << ')'; }
+template <class T, class U> std::ostream& operator<<(std::ostream& os, const std::map<T, U>& mp) { os << '{'; bool first = 0; for (auto e : mp) { if (first) os << ", "; os << e; first = 1; } os << '}'; return os; }
 template <class T> std::istream& operator>>(std::istream& is, std::vector<T>& vec) { for (T& e : vec) is >> e; return is; }
 
 #define all(_) begin(_), end(_)
