@@ -2,39 +2,67 @@
 
 /**
  *    author  : 𝒌𝒚𝒐𝒎𝒖𝒌𝒚𝒐𝒎𝒖𝒑𝒖𝒓𝒊𝒏
- *    created : $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE $CURRENT_HOUR:$CURRENT_MINUTE:$CURRENT_SECOND
-**/
+ *    created : 2020-04-21 16:00:36
+ **/
 
-#include <iostream>
-#include <deque>
-#include <map>
-#include <queue>
-#include <set>
-#include <stack>
-#include <string>
-#include <vector>
 #include <algorithm>
-#include <cmath>
-#include <complex>
-#include <numeric>
 #include <bitset>
 #include <cassert>
 #include <cctype>
-#include <iomanip>
-#include <random>
-#include <utility>
 #include <chrono>
+#include <cmath>
+#include <complex>
+#include <deque>
+#include <iomanip>
+#include <iostream>
+#include <map>
+#include <numeric>
+#include <queue>
+#include <random>
+#include <set>
+#include <stack>
+#include <string>
+#include <utility>
+#include <vector>
 
 using namespace std;
 
 using int64 = long long;
 
-template <class T> using binary_heap = std::priority_queue<T, std::vector<T>, std::greater<T>>;
-template <class T, class U> std::ostream& operator<<(std::ostream& os, const std::pair<T, U>& p) { return os << '(' << p.first << ", " << p.second << ')'; }
-template <class T> std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec) { int flag = 0; for (auto e : vec) os << (flag++ ? ", " : "{") << e; return os << '}'; }
-template <class T> std::ostream& operator<<(std::ostream& os, const std::set<T>& st) { int flag = 0; for (auto e : st) os << (flag++ ? ", " : "{") << e; return os << '}'; }
-template <class T, class U> std::ostream& operator<<(std::ostream& os, const std::map<T, U>& mp) { int flag = 0; for (auto e : mp) os << (flag++ ? ", " : "{") << e; return os << '}'; }
-template <class T> std::istream& operator>>(std::istream& is, std::vector<T>& vec) { for (T& e : vec) is >> e; return is; }
+template <class T>
+using binary_heap = std::priority_queue<T, std::vector<T>, std::greater<T>>;
+
+template <class T, class U>
+std::ostream& operator<<(std::ostream& os, const std::pair<T, U>& p) {
+  return os << '(' << p.first << ", " << p.second << ')';
+}
+
+template <class T>
+std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec) {
+  int flag = 0;
+  for (auto e : vec) os << (flag++ ? ", " : "{") << e;
+  return os << '}';
+}
+
+template <class T>
+std::ostream& operator<<(std::ostream& os, const std::set<T>& st) {
+  int flag = 0;
+  for (auto e : st) os << (flag++ ? ", " : "{") << e;
+  return os << '}';
+}
+
+template <class T, class U>
+std::ostream& operator<<(std::ostream& os, const std::map<T, U>& mp) {
+  int flag = 0;
+  for (auto e : mp) os << (flag++ ? ", " : "{") << e;
+  return os << '}';
+}
+
+template <class T>
+std::istream& operator>>(std::istream& is, std::vector<T>& vec) {
+  for (T& e : vec) is >> e;
+  return is;
+}
 
 #define all(_) begin(_), end(_)
 #define rall(_) rbegin(_), rend(_)
@@ -59,7 +87,6 @@ void debug_out(Head&& head, Tail&&... tail) {
 int main() {
   ios_base::sync_with_stdio(false);
   cin.tie(nullptr);
-
 
   return 0;
 }
