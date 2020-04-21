@@ -1,3 +1,5 @@
+#pragma region kyomukyomupurin
+
 /**
  *    author  : 𝒌𝒚𝒐𝒎𝒖𝒌𝒚𝒐𝒎𝒖𝒑𝒖𝒓𝒊𝒏
  *    created : $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE $CURRENT_HOUR:$CURRENT_MINUTE:$CURRENT_SECOND
@@ -51,6 +53,8 @@ void debug_out(Head&& head, Tail&&... tail) {
   if (sizeof...(Tail) != 0) std::cerr << ", ";
   debug_out(std::forward<Tail>(tail)...);
 }
+
+#pragma endregion kyomukyomupurin
 
 int main() {
   ios_base::sync_with_stdio(false);
