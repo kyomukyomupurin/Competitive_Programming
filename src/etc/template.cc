@@ -2,7 +2,7 @@
 
 /**
  *    author  : 𝒌𝒚𝒐𝒎𝒖𝒌𝒚𝒐𝒎𝒖𝒑𝒖𝒓𝒊𝒏
- *    created : 2020-04-21 16:00:36
+ *    created : $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE $CURRENT_HOUR:$CURRENT_MINUTE:$CURRENT_SECOND
  **/
 
 #include <algorithm>
