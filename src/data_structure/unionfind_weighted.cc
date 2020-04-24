@@ -13,12 +13,12 @@ class UnionFind {
 
   int root(int x) {
     assert(0 <= x && x < n_);
-    if (parent_[x] == -1) {
+    if (par_[x] == -1) {
       return x;
     } else {
-      int r = root(parent_[x]);
-      diff_weight_[x] += diff_weight_[parent_[x]];
-      return parent_[x] = r;
+      int r = root(par_[x]);
+      diff_weight_[x] += diff_weight_[par_[x]];
+      return par_[x] = r;
     }
   }
 
@@ -46,7 +46,7 @@ class UnionFind {
       w = -w;
     }
     if (rank_[x] == rank_[y]) ++rank_[x];
-    parent_[y] = x;
+    par_[y] = x;
     diff_weight_[y] = w;
     return;
   }
@@ -59,12 +59,12 @@ class UnionFind {
  private:
   const int n_;
   const int SUM_UNITY_;
-  std::vector<int> parent_;
+  std::vector<int> par_;
   std::vector<int> rank_;
   std::vector<int> diff_weight_;
 
   void initialize() {
-    parent_.assign(n_, -1);
+    par_.assign(n_, -1);
     rank_.assign(n_, 0);
     diff_weight_.assign(n_, SUM_UNITY_);
   }

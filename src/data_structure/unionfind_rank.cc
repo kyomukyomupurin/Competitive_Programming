@@ -11,10 +11,10 @@ class UnionFind {
 
   int root(int x) {
     assert(0 <= x && x < n_);
-    if (parent_[x] == -1)
+    if (par_[x] == -1)
       return x;
     else
-      return parent_[x] = root(parent_[x]);
+      return par_[x] = root(par_[x]);
   }
 
   bool same(int x, int y) {
@@ -29,17 +29,17 @@ class UnionFind {
     if (x == y) return;
     if (rank_[x] < rank_[y]) std::swap(x, y);
     if (rank_[x] == rank_[y]) ++rank_[x];
-    parent_[y] = x;
+    par_[y] = x;
     return;
   }
 
  private:
   const int n_;
-  std::vector<int> parent_;
+  std::vector<int> par_;
   std::vector<int> rank_;
 
   void initialize() {
-    parent_.assign(n_, -1);
+    par_.assign(n_, -1);
     rank_.assign(n_, 0);
   }
 };
