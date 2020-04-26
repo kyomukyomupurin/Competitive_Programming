@@ -41,21 +41,21 @@ template <class T>
 std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec) {
   int flag = 0;
   for (auto e : vec) os << (flag++ ? ", " : "{") << e;
-  return os << '}';
+  return os << (vec.empty() ? "{}" : "}");
 }
 
 template <class T>
 std::ostream& operator<<(std::ostream& os, const std::set<T>& st) {
   int flag = 0;
   for (auto e : st) os << (flag++ ? ", " : "{") << e;
-  return os << '}';
+  return os << (st.empty() ? "{}" : "}");
 }
 
 template <class T, class U>
 std::ostream& operator<<(std::ostream& os, const std::map<T, U>& mp) {
   int flag = 0;
   for (auto e : mp) os << (flag++ ? ", " : "{") << e;
-  return os << '}';
+  return os << (mp.empty() ? "{}" : "}");
 }
 
 template <class T>
