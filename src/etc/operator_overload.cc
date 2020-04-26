@@ -14,21 +14,21 @@ template <class T>
 std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec) {
   int flag = 0;
   for (auto e : vec) os << (flag++ ? ", " : "{") << e;
-  return os << '}';
+  return os << (vec.empty() ? "{}" : "}");
 }
 
 template <class T>
 std::ostream& operator<<(std::ostream& os, const std::set<T>& st) {
   int flag = 0;
   for (auto e : st) os << (flag++ ? ", " : "{") << e;
-  return os << '}';
+  return os << (st.empty() ? "{}" : "}");
 }
 
 template <class T, class U>
 std::ostream& operator<<(std::ostream& os, const std::map<T, U>& mp) {
   int flag = 0;
   for (auto e : mp) os << (flag++ ? ", " : "{") << e;
-  return os << '}';
+  return os << (mp.empty() ? "{}" : "}");
 }
 
 template <class T>
@@ -57,8 +57,12 @@ int main() {
   std::map<int, int> mp = {{4, 5}, {6, 7}};
   std::set<int> st = {8, 9, 10};
   std::map<std::pair<int, int>, int> mp2 = {{{11, 12}, 13}, {{14, 15}, 16}};
+  std::vector<int> v2;
+  std::set<int> st2;
+  std::map<int, int> mp3;
 
   debug(v, mp, st, mp2);  // output : [v, mp, st, mp2]: {1, 2, 3}, {(4, 5), (6, 7)}, {8, 9, 10}, {((11, 12), 13), ((14, 15), 16)}
+  debug(v2, st2, mp3);    // output : [v2, st2, mp3]: {}, {}, {}
 
   int n;
   std::cin >> n;  // input : 5
