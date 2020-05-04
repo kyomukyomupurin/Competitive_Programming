@@ -6,7 +6,7 @@
 
 - クエリ系の取得は全部 0-indexed でやる  
 - 半開区間のものと両閉区間のものがあるので、気を付ける(関数の上のコメントを見る)  
-- ```g++ -std=c++17 -Wall -Wextra -Wshadow -O2 -DLOCAL main.cc && ./a.exe(Linux/Mac なら ./a.out)``` で実行  
+- ```g++ -std=c++17 -Wall -Wextra -Wshadow -Wno-unknown-pragmas -fsanitize=address -fsanitize=undefined -O2 -DLOCAL main.cc``` でコンパイル (WSL, Ubuntu18.04)
 
 ## TO DO  
 
@@ -28,8 +28,6 @@
 - クラスのメンバ関数を大文字にするか小文字にするかが悩ましい。[Google のスタイルガイド](https://ttsuki.github.io/styleguide/cppguide.ja.html) では大文字にしましょうとあるけど、そもそも STL のコンテナのメンバ関数は小文字だよなあと思ったり(push_back とか)。  
 
 - assert をマメに使う。  
-
-- 短い Build, Initialize 関数はコンストラクタに直書きした方が速くなりそう。  
 
 - AtCoder のジャッジ環境が新しくなったら、timer.cc の clock_frequency_ を 2800000000 から 3000000000 にすること。  
 
