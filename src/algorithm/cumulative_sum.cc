@@ -13,31 +13,15 @@ class CumulativeSum {
   // return the first k where sum of [0, k] >= value
   // use only when all element in vec >= 0
   int lower_bound(_Tp value) {
-    int high = vec_.size(), low = -1;
-    while (high - low > 1) {
-      int mid = (high + low) >> 1;
-      if (get(0, mid) < value) {
-        low = mid;
-      } else {
-        high = mid;
-      }
-    }
-    return high;
+    return std::distance(sum_.begin() + 1,
+                         std::lower_bound(sum_.begin() + 1, sum_.end(), value));
   }
 
   // return the first k where sum of [0, k] > value
   // use only when all element in vec >= 0
   int upper_bound(_Tp value) {
-    int high = vec_.size(), low = -1;
-    while (high - low > 1) {
-      int mid = (high + low) >> 1;
-      if (get(0, mid) <= value) {
-        low = mid;
-      } else {
-        high = mid;
-      }
-    }
-    return high;
+    return std::distance(sum_.begin() + 1,
+                         std::upper_bound(sum_.begin() + 1, sum_.end(), value));
   }
 
  private:
