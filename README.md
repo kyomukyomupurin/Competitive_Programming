@@ -25,8 +25,6 @@
 - FFT をかく  
   - ~~適当にググって出てきたやつをコピペすればヨシ！~~  
 
-- クラスのメンバ関数を大文字にするか小文字にするかが悩ましい。[Google のスタイルガイド](https://ttsuki.github.io/styleguide/cppguide.ja.html) では大文字にしましょうとあるけど、そもそも STL のコンテナのメンバ関数は小文字だよなあと思ったり(push_back とか)。  
-
 - assert をマメに使う。  
 
 - AtCoder のジャッジ環境が新しくなったら、timer.cc の clock_frequency_ を 2800000000 から 3000000000 にすること。  
