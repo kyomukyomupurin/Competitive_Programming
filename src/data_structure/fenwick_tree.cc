@@ -34,6 +34,23 @@ class FenwickTree {
   // return sum of [l, rihgt]
   _Tp get(int l, int r) { return get(r) - get(l - 1); }
 
+  // return the first k where sum of [0, k] >= value
+  // use only when all element in data >= 0
+  int lower_bound(_Tp value) {
+    if (value <= 0) return 0;
+    int pos = 0;
+    int k = 1;
+    while (k < n_ - 1) k <<= 1;
+    while (k > 0) {
+      if (pos + k <= n_ - 1 && node_[pos + k] < value) {
+        value -= node_[pos + k];
+        pos += k;
+      }
+      k >>= 1;
+    }
+    return pos;
+  }
+
   // for range add query
   class RAQ {
    public:
