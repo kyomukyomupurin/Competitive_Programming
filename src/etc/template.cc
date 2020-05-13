@@ -39,23 +39,23 @@ std::ostream& operator<<(std::ostream& os, const std::pair<T, U>& p) {
 
 template <class T>
 std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec) {
-  int flag = 0;
-  for (auto e : vec) os << (flag++ ? ", " : "{") << e;
-  return os << (vec.empty() ? "{}" : "}");
+  int n = 0;
+  for (auto e : vec) os << (n++ ? ", " : "{") << e;
+  return os << (n ? "}" : "{}");
 }
 
 template <class T>
 std::ostream& operator<<(std::ostream& os, const std::set<T>& st) {
-  int flag = 0;
-  for (auto e : st) os << (flag++ ? ", " : "{") << e;
-  return os << (st.empty() ? "{}" : "}");
+  int n = 0;
+  for (auto e : st) os << (n++ ? ", " : "{") << e;
+  return os << (n ? "}" : "{}");
 }
 
 template <class T, class U>
 std::ostream& operator<<(std::ostream& os, const std::map<T, U>& mp) {
-  int flag = 0;
-  for (auto e : mp) os << (flag++ ? ", " : "{") << e;
-  return os << (mp.empty() ? "{}" : "}");
+  int n = 0;
+  for (auto e : mp) os << (n++ ? ", " : "{") << e;
+  return os << (n ? "}" : "{}");
 }
 
 template <class T>
