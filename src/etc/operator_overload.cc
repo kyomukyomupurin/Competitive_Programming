@@ -66,10 +66,10 @@ int main() {
 
   int n;
   std::cin >> n;  // input : 5
-  std::vector<int> v2(n);
-  std::cin >> v2;  // input : 2 4 6 8 10
+  std::vector<int> v3(n);
+  std::cin >> v3;  // input : 2 4 6 8 10
 
-  debug(v2);  // output : [v2] : {2, 4, 6, 8, 10}
+  debug(v3);  // output : [v3] : {2, 4, 6, 8, 10}
 
   return 0;
 }
