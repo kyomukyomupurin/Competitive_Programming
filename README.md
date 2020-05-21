@@ -6,7 +6,7 @@
 
 - クエリ系の取得は全部 0-indexed でやる  
 - 半開区間のものと両閉区間のものがあるので、気を付ける(関数の上のコメントを見る)  
-- ```g++ -std=c++17 -Wall -Wextra -Wshadow -Wno-unknown-pragmas -fsanitize=address -fsanitize=undefined -O2 -DLOCAL main.cc``` でコンパイル (WSL, Ubuntu18.04)
+- ```g++ -std=c++17 -Wall -Wextra -Wshadow -Wno-unknown-pragmas -fsanitize=address -fsanitize=undefined -O2 -D_GLIBCXX_DEBUG -DLOCAL main.cc``` でコンパイル (WSL, Ubuntu18.04)
 
 ## TO DO  
 
