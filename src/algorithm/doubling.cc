@@ -3,7 +3,7 @@
 #include <vector>
 
 using int64 = long long;
-
+// snippet-begin
 class Doubling {
  public:
   Doubling(int n, int64 k) : n_(n), lg_(64 - __builtin_clzll(k)) {
@@ -34,3 +34,4 @@ class Doubling {
   int lg_;
   std::vector<std::vector<int>> table;
 };
+// snippet-end
