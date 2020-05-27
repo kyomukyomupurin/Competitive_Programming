@@ -22,6 +22,7 @@
 #include <set>
 #include <stack>
 #include <string>
+#include <tuple>
 #include <utility>
 #include <vector>
 
@@ -37,6 +38,17 @@ std::ostream& operator<<(std::ostream& os, const std::pair<T, U>& p) {
   return os << '(' << p.first << ", " << p.second << ')';
 }
 
+template <class Ch, class Tr, class Tuple, std::size_t... Is>
+void tuple_out(std::basic_ostream<Ch, Tr>& os, const Tuple& tp, std::index_sequence<Is...>) {
+  ((os << (Is ? ", " : "(") << std::get<Is>(tp)), ...) << ")";
+}
+
+template <class Ch, class Tr, class... Args>
+auto& operator<<(std::basic_ostream<Ch, Tr>& os, const std::tuple<Args...>& tp) {
+  tuple_out(os, tp, std::index_sequence_for<Args...>{});
+  return os;
+}
+
 template <class T>
 std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec) {
   int n = 0;
@@ -44,15 +56,15 @@ std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec) {
   return os << (n ? "}" : "{}");
 }
 
-template <class T>
-std::ostream& operator<<(std::ostream& os, const std::set<T>& st) {
+template <class T, class Compare>
+std::ostream& operator<<(std::ostream& os, const std::set<T, Compare>& st) {
   int n = 0;
   for (auto e : st) os << (n++ ? ", " : "{") << e;
   return os << (n ? "}" : "{}");
 }
 
-template <class T, class U>
-std::ostream& operator<<(std::ostream& os, const std::map<T, U>& mp) {
+template <class T, class U, class Compare>
+std::ostream& operator<<(std::ostream& os, const std::map<T, U, Compare>& mp) {
   int n = 0;
   for (auto e : mp) os << (n++ ? ", " : "{") << e;
   return os << (n ? "}" : "{}");
