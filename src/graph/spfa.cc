@@ -5,7 +5,7 @@
 #include <limits>
 #include <queue>
 #include <vector>
-
+// snippet-begin
 template <class _Tp>
 class SPFA {
  public:
@@ -74,6 +74,7 @@ class SPFA {
     times_.assign(node_size_, 0);
   }
 };
+// snippet-end
 
 // verification code
 /*

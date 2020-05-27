@@ -7,7 +7,7 @@
 #include <string>
 #include <vector>
 #include <random>
-
+// snippet-begin
 using ull = unsigned long long;
 
 class RollingHash {
@@ -56,6 +56,7 @@ ull RollingHash::base1_ = std::uniform_int_distribution<ull>(
     2, RollingHash::mod1_ - 1)(RollingHash::mt_);
 std::vector<ull> RollingHash::pow0_{1};
 std::vector<ull> RollingHash::pow1_{1};
+// snippet-end
 
 // verification code
 /*

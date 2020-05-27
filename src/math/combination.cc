@@ -6,7 +6,7 @@
 #include <array>
 
 using int64 = long long;
-
+// snippet-begin
 class Combination {
  public:
   static constexpr int mod_ = 1000000007;
@@ -38,6 +38,7 @@ class Combination {
     }
   }
 };
+// snippet-end
 
 // verification code
 /*

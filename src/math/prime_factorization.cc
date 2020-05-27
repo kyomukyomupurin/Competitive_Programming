@@ -4,7 +4,7 @@
 #include <map>
 
 using int64 = long long;
-
+// snippet-begin
 template<class _Tp>
 std::map<_Tp, int> prime_fact(_Tp n){
   std::map<_Tp, int> result;
@@ -19,3 +19,4 @@ std::map<_Tp, int> prime_fact(_Tp n){
   if (n != 1) result[n] = 1;
   return result;
 }
+// snippet-end

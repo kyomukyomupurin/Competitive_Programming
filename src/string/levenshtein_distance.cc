@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <string>
 #include <vector>
-
+// snippet-begin
 int Levenshtein_distance(const std::string& s1, const std::string& s2) {
   int n1 = s1.size(), n2 = s2.size();
   std::vector<std::vector<int>> dp(n1 + 1, std::vector<int>(n2 + 1, 0));
@@ -20,3 +20,4 @@ int Levenshtein_distance(const std::string& s1, const std::string& s2) {
   }
   return dp[n1][n2];
 }
+// snippet-end

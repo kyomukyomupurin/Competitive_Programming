@@ -2,7 +2,7 @@
 
 #include <algorithm>
 #include <vector>
-
+// snippet-begin
 template<class _Tp> std::vector<_Tp> divisor(_Tp n) {
   std::vector<_Tp> res;
   for (_Tp i = 1; i * i <= n; ++i) {
@@ -17,3 +17,4 @@ template<class _Tp> std::vector<_Tp> divisor(_Tp n) {
 
   return res;
 }
+// snippet-end

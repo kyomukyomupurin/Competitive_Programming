@@ -6,7 +6,7 @@
 #include <limits>
 #include <queue>
 #include <vector>
-
+// snippet-begin
 template <class _Tp>
 class Dinic {
  public:
@@ -85,6 +85,7 @@ class Dinic {
     return 0;
   }
 };
+// snippet-end
 
 // verification code
 /*

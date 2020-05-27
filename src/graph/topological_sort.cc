@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <vector>
 #include <queue>
-
+// snippet-begin
 class TopologicalSort {
  public:
   TopologicalSort(int node_size) : node_size_(node_size) { Initialize(); }
@@ -48,6 +48,7 @@ class TopologicalSort {
     level_.assign(node_size_, 0);
   }
 };
+// snippet-end
 
 // verification code
 /*

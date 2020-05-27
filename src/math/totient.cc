@@ -2,6 +2,7 @@
 // verified by
 //     https://onlinejudge.u-aizu.ac.jp/courses/library/6/NTL/1/NTL_1_D
 
+// snippet-begin
 template <class _Tp>
 _Tp Totient(_Tp n) {
   _Tp res = n;
@@ -13,3 +14,4 @@ _Tp Totient(_Tp n) {
   if (n != 1) (res /= n) *= (n - 1);
   return res;
 }
+// snippet-end

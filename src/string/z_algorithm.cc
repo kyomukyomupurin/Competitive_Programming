@@ -4,7 +4,7 @@
 
 #include <vector>
 #include <string>
-
+// snippet-begin
 std::vector<int> Zalgorithm(const std::string s) {
   int n = s.size();
   std::vector<int> res(n);
@@ -24,6 +24,7 @@ std::vector<int> Zalgorithm(const std::string s) {
   }
   return res;
 };
+// snippet-end
 
 // verification code
 /*

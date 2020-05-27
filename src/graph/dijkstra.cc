@@ -5,7 +5,7 @@
 #include <queue>
 #include <vector>
 #include <limits>
-
+// snippet-begin
 template <class _Tp>
 class Dijkstra {
   template <class _Up>
@@ -56,6 +56,7 @@ class Dijkstra {
   std::vector<_Tp> distance_;
   std::vector<std::vector<edge>> graph_;
 };
+// snippet-end
 
 // verification code
 /*

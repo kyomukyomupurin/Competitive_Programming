@@ -5,7 +5,7 @@
 
 #include <vector>
 #include <cassert>
-
+// snippet-begin
 class LCA {
  public:
   LCA(int node_size, int root = 0)
@@ -81,6 +81,7 @@ class LCA {
     par_.assign(log_node_, std::vector<int>(node_size_, -1));
   }
 };
+// snippet-end
 
 // verification code
 /*

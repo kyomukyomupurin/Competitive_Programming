@@ -1,5 +1,6 @@
 // Calculate x^n (modulo mod)
 
+// snippet-begin
 template<class T, class U> T mod_pow(T x, U n, T mod) {
   T res = 1;
   while (n > 0) {
@@ -9,3 +10,4 @@ template<class T, class U> T mod_pow(T x, U n, T mod) {
   }
   return res;
 }
+// snippet-end
