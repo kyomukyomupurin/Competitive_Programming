@@ -33,7 +33,7 @@ def make_dict(file_path: str) -> dict:
             elif line == '// snippet-begin\n':
                 start = True
             elif start:
-                body_list.append(line)
+                body_list.append(line.replace('\n', '\r'))
 
     snippets_content["body"] = body_list
 
