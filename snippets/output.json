@@ -644,6 +644,7 @@
             "  cin.tie(nullptr);\r",
             "\r",
             "\r",
+            "\r",
             "  return 0;\r",
             "}\r"
         ]
