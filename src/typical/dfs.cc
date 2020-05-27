@@ -4,13 +4,13 @@
 
 std::vector<std::vector<int>> graph(202020);
 
-auto dfs = [&](const auto& dfs, int cur, int prev) -> void {
+auto dfs = [&](auto&& self, int cur, int pre) -> void {
   for (int next : graph[cur]) {
-    if (next == prev) continue;
+    if (next == pre) continue;
 
     // do something
 
-    dfs(dfs, next, cur);
+    self(self, next, cur);
   }
 };
 
