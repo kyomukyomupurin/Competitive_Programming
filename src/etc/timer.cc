@@ -3,7 +3,7 @@
 //     https://atcoder.jp/contests/abc139/tasks/abc139_f
 
 #include <chrono>
-
+// snippet-begin
 class Timer {
  public:
   // (second)
@@ -24,3 +24,4 @@ class Timer {
     return (static_cast<int64_t>(low)) | (static_cast<int64_t>(high) << 32);
   }
 };
+// snippet-end

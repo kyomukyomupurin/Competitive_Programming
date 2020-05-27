@@ -3,7 +3,7 @@
 **/
 
 #include <iostream>
-
+// snippet-begin
 template<class T> void fastin(T &num) {
   bool negative = false;
   T c;
@@ -16,3 +16,4 @@ template<class T> void fastin(T &num) {
   for (; (c > 47 && c < 58); c = getchar_unlocked()) num = (num << 3) + (num << 1) + c - 48;
   if (negative) num *= -1;
 }
+// snippet-end

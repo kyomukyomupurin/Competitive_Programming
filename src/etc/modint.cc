@@ -1,7 +1,7 @@
 // modint (from tourist's submission)
 
 #include <iostream>
-
+// snippet-begin
 template <typename T>
 class Modular {
  public:
@@ -151,3 +151,4 @@ using Mint = Modular<VarMod>;
 
 constexpr int MOD = (int) 1e9 + 7;
 using Mint = Modular<std::integral_constant<std::decay<decltype(MOD)>::type, MOD>>;
+// snippet-end

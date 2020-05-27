@@ -1,3 +1,4 @@
+// snippet-begin
 #pragma region kyomukyomupurin
 
 /**
@@ -103,3 +104,4 @@ int main() {
 
   return 0;
 }
+// snippet-end

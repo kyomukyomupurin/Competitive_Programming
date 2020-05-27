@@ -2,12 +2,14 @@
 // find_by_order(k) : returns an iterator to the k-th largest element(0-origin)
 // order_of_key(k)  : returns the number of items in a set that are strictly smaller than k
 
+// snippet-begin
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>
 #include <ext/pb_ds/tag_and_trait.hpp>
 
 template<class T> 
 using pbds_tree = __gnu_pbds::tree<T, __gnu_pbds::null_type, std::less<T>, __gnu_pbds::rb_tree_tag, __gnu_pbds::tree_order_statistics_node_update>;
+// snippet-end
 
 // example
 //
