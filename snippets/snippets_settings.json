@@ -1,0 +1,5 @@
+{
+    "root": ".",
+    "output": "./output.json",
+    "extension": [".cc", ".cpp"]
+}
