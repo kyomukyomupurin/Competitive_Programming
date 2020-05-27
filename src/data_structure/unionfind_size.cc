@@ -4,7 +4,7 @@
 
 #include <vector>
 #include <cassert>
-
+// snippet-begin
 class UnionFind {
  public:
   UnionFind(int n) : n_(n) { initialize(); }
@@ -44,6 +44,7 @@ class UnionFind {
 
   void initialize() { par_.assign(n_, -1); }
 };
+// snippet-end
 
 // verification code
 /*

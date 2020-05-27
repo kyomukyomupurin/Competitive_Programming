@@ -5,7 +5,7 @@
 //     https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/all/DSL_2_B
 
 #include <vector>
-
+// snippet-begin
 template <class Monoid, class Function>
 class SegmentTree {
  public:
@@ -63,6 +63,7 @@ class SegmentTree {
     }
   }
 };
+// snippet-end
 
 // verification code
 /*
