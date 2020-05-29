@@ -1,4 +1,4 @@
-[](https://img.shields.io/badge/C++-17-brightgreen.svg)
+https://img.shields.io/badge/C++-17-brightgreen.svg
 
 # Competitive Programming
 
