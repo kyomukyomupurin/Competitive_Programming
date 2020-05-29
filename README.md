@@ -1,3 +1,5 @@
+[](https://img.shields.io/badge/C++-17-brightgreen.svg)
+
 # Competitive Programming
 
 Libraries for competitive programming
