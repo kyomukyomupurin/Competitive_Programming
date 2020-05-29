@@ -5,7 +5,8 @@ Libraries for competitive programming
 ## Information
 
 - **All** functions are 0-indexed.  
-- **Not** every function is for semi-open section(read comments carefully).
+- **Not** every function is for semi-open section(read comments carefully). 
+- [Snippets](https://github.com/kyomukyomupurin/snippets_generator)  
 
 ## Environment
 
@@ -15,7 +16,7 @@ Libraries for competitive programming
 
 ## TO DO
 
-- Modify ```timer.cc```
+- Modify [timer.cc](https://github.com/kyomukyomupurin/competitive_programming/blob/master/src/etc/timer.cc)  
 - Add binary search function on Segment Tree.  
 - Add Lazy Segment Tree.  
 - Add FFT.    
