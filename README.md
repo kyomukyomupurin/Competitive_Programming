@@ -1,4 +1,5 @@
-https://img.shields.io/badge/C++-17-brightgreen.svg
+![https://github.com/kyomukyomupurin/competitive_programming/blob/master/LICENSE](https://img.shields.io/badge/license-CC0-lightgrey.svg?style=flat)
+![](https://img.shields.io/badge/C++-17-brightgreen.svg?style=flat&logo=c%2B%2B)
 
 # Competitive Programming
 
