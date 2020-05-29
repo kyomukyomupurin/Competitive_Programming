@@ -1,6 +1,8 @@
 ![](https://img.shields.io/badge/license-CC0-lightgrey.svg?style=flat)
 ![](https://img.shields.io/badge/C++-17-brightgreen.svg?style=flat&logo=c%2B%2B)
 ![](https://img.shields.io/badge/g++-7.5.0-blue.svg?style=flat)
+![](https://img.shields.io/badge/-VSCode-blue.svg?style=flat&logo=Visual-Studio-Code)
+![](https://img.shields.io/badge/OS-WSL-yellow.svg?style=flat&logo=Linux)
 
 # Competitive Programming
 
