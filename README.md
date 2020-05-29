@@ -6,7 +6,7 @@ Libraries for competitive programming
 
 - **All** functions are 0-indexed.  
 - **Not** every function is for semi-open section(read comments carefully). 
-- [Snippets](https://github.com/kyomukyomupurin/snippets_generator)  
+- [Snippets generator for Visual Studio Code](https://github.com/kyomukyomupurin/snippets_generator)  
 
 ## Environment
 
