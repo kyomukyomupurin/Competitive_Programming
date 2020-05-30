@@ -1,4 +1,4 @@
-![https://github.com/kyomukyomupurin/competitive_programming/blob/master/LICENSE](https://img.shields.io/badge/license-CC0-lightgrey.svg?style=flat&logo=Creative-Commons)
+![](https://img.shields.io/badge/license-CC0-lightgrey.svg?style=flat&logo=Creative-Commons)
 ![](https://img.shields.io/badge/C++-17-brightgreen.svg?style=flat&logo=c%2B%2B)
 ![](https://img.shields.io/badge/Python-3.6.9-brightgreen.svg?style=flat&logo=Python)
 ![](https://img.shields.io/badge/JSON-brightgreen.svg?style=flat&logo=JSON)
