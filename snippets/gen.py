@@ -7,7 +7,7 @@ settings = open('./snippets_settings.json', 'r')
 loaded_settings = json.load(settings)
 
 
-def make_cpp_list() -> list:
+def make_target_list() -> list:
     result = []
 
     for root, dirs, files in os.walk(loaded_settings["root"]):
@@ -42,11 +42,11 @@ def make_dict(file_path: str) -> dict:
 
 if __name__ == '__main__':
     json_content = {}
-    cpp_file_list = make_cpp_list()
+    target_file_list = make_target_list()
 
-    for cpp_file in cpp_file_list:
-        if make_dict(cpp_file)["body"]:
-            json_content[Path(cpp_file).stem] = make_dict(cpp_file)
+    for target_file in target_file_list:
+        if make_dict(target_file)["body"]:
+            json_content[Path(target_file).stem] = make_dict(target_file)
 
     with open(loaded_settings["output"], 'w') as of:
         of.write(json.dumps(json_content, indent=4))
