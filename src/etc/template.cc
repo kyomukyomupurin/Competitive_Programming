@@ -31,6 +31,12 @@ using namespace std;
 
 using int64 = long long;
 
+template<class T>
+void eraque(std::vector<T>& vec) {
+  vec.erase(std::unique(vec.begin(), vec.end()), vec.end());
+  return;
+}
+
 template <class T>
 using binary_heap = std::priority_queue<T, std::vector<T>, std::greater<T>>;
 
