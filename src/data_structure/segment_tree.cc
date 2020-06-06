@@ -26,8 +26,9 @@ class SegmentTree {
   }
 
   // return function_[l, r)
+  // if l >= r, return identity_element_
   Monoid query(int l, int r) {
-    assert(0 <= l && l < n_ && 0 <= r - 1 && r - 1 < n_);
+    assert(0 <= l && l < n_ && 0 <= r && r < n_ + 1);
     Monoid vl = identity_element_, vr = identity_element_;
     for (l += n_, r += n_; l < r; l >>= 1, r >>= 1) {
       if (l & 1) vl = function_(vl, node_[l++]);
