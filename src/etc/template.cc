@@ -32,9 +32,19 @@ using namespace std;
 using int64 = long long;
 
 template<class T>
-void eraque(std::vector<T>& vec) {
+inline void eraque(std::vector<T>& vec) {
   vec.erase(std::unique(vec.begin(), vec.end()), vec.end());
   return;
+}
+
+template<class T>
+inline int lower_position(const std::vector<T>& vec, T value) {
+  return static_cast<int>(distance(vec.begin(), std::lower_bound(vec.begin(), vec.end(), value)));
+}
+
+template<class T>
+inline int upper_position(const std::vector<T>& vec, T value) {
+  return static_cast<int>(distance(vec.begin(), std::upper_bound(vec.begin(), vec.end(), value)));
 }
 
 template <class T>
