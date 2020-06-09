@@ -50,6 +50,22 @@ std::istream& operator>>(std::istream& is, std::vector<T>& vec) {
   return is;
 }
 
+template <class T, class U>
+std::istream& operator>>(std::istream& is, std::pair<T, U>& p) {
+  return is >> p.first >> p.second;
+}
+
+template <class Tuple, std::size_t... Is>
+void tuple_in(std::istream& is, Tuple& tp, std::index_sequence<Is...>) {
+  ((is >> std::get<Is>(tp)), ...);
+}
+
+template <class... Args>
+std::istream& operator>>(std::istream& is, std::tuple<Args...>& tp) {
+  tuple_in(is, tp, std::index_sequence_for<Args...>{});
+  return is;
+}
+
 #ifdef LOCAL
 #define debug(...) std::cerr << "[" << #__VA_ARGS__ << "]: ", debug_out(__VA_ARGS__)
 #else
