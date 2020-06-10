@@ -2,17 +2,19 @@
 // verified by
 //     https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/1/GRL_1_A
 
+#include <limits>
 #include <queue>
 #include <vector>
-#include <limits>
+
+template <class T>
+using binary_heap = std::priority_queue<T, std::vector<T>, std::greater<T>>;
+
 // snippet-begin
 template <class _Tp>
 class Dijkstra {
-  template <class _Up>
-  using binary_heap = std::priority_queue<_Up, std::vector<_Up>, std::greater<_Up>>;
-
  public:
-  static constexpr _Tp kInfinity = std::numeric_limits<_Tp>::max() / static_cast<_Tp>(2);
+  static constexpr _Tp kInfinity =
+      std::numeric_limits<_Tp>::max() / static_cast<_Tp>(2);
 
   Dijkstra(int node_size) : node_size_(node_size), graph_(node_size) {}
 
