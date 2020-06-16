@@ -6,6 +6,7 @@
 #include <array>
 
 using int64 = long long;
+
 // snippet-begin
 class Combination {
  public:

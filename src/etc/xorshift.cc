@@ -8,6 +8,7 @@
 
 #include <chrono>
 #include <iostream>
+
 // snippet-begin
 class Xorshift {
  public:

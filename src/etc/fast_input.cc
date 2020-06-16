@@ -3,6 +3,7 @@
 **/
 
 #include <iostream>
+
 // snippet-begin
 template<class T> void fastin(T &num) {
   bool negative = false;

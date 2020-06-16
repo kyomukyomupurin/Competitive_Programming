@@ -4,6 +4,7 @@
 
 #include <array>
 #include <vector>
+
 // snippet-begin
 std::vector<int> LinearTimeSieve() {
   constexpr int n = 1000000;

@@ -5,6 +5,7 @@
 //     https://lemire.me/blog/2013/12/26/fastest-way-to-compute-the-greatest-common-divisor/
 
 #include <algorithm>
+
 // snippet-begin
 unsigned long long fast_gcd(unsigned long long x, unsigned long long y) {
   int shift;

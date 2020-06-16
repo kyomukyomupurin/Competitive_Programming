@@ -3,6 +3,7 @@
 //     https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_A
 
 #include <vector>
+
 // snippet-begin
 template <class _Tp>
 class TreeDiameter {

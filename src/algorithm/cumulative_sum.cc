@@ -1,6 +1,7 @@
 // Cumulative Sum
 
 #include <vector>
+
 // snippet-begin
 template <class _Tp>
 class CumulativeSum {

@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 #include <random>
+
 // snippet-begin
 using ull = unsigned long long;
 

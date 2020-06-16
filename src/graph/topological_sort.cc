@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <vector>
 #include <queue>
+
 // snippet-begin
 class TopologicalSort {
  public:

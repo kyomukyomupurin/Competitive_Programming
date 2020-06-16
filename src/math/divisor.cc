@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <vector>
+
 // snippet-begin
 template<class _Tp> std::vector<_Tp> divisor(_Tp n) {
   std::vector<_Tp> res;

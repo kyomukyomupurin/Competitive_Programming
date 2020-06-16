@@ -3,6 +3,7 @@
 #include <vector>
 
 using int64 = long long;
+
 // snippet-begin
 class Doubling {
  public:

@@ -1,6 +1,7 @@
 // modint (from tourist's submission)
 
 #include <iostream>
+
 // snippet-begin
 template <typename T>
 class Modular {

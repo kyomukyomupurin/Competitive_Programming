@@ -5,6 +5,7 @@
 
 #include <vector>
 #include <cassert>
+
 // snippet-begin
 class LCA {
  public:

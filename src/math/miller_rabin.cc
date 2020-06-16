@@ -5,6 +5,7 @@
 //     https://cp-algorithms.com/algebra/primality_tests.html
 
 #include <iostream>
+
 // snippet-begin
 class MillerRabinTest {
   using uint64 = uint64_t;

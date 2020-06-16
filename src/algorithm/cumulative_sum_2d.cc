@@ -4,6 +4,7 @@
 
 #include <vector>
 #include <cassert>
+
 // snippet-begin
 template <class _Tp>
 class CumulativeSum2D {

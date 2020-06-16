@@ -4,6 +4,7 @@
 
 #include <limits>
 #include <vector>
+
 // snippet-begin
 template <class _Tp>
 class BellmanFord {

@@ -5,6 +5,7 @@
 #include <vector>
 #include <cassert>
 
+// snippet-begin
 class UnionFind {
  public:
   UnionFind(int n, int SUM_UNITY = 0) : n_(n), SUM_UNITY_(SUM_UNITY) {
@@ -69,6 +70,7 @@ class UnionFind {
     diff_weight_.assign(n_, SUM_UNITY_);
   }
 };
+// snippet-end
 
 // verification code
 /*
