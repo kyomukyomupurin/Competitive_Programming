@@ -1347,6 +1347,28 @@
             "}\r"
         ]
     },
+    "sieve": {
+        "prefix": "sieve",
+        "body": [
+            "std::vector<int> LinearTimeSieve() {\r",
+            "  constexpr int n = 1000000;\r",
+            "  std::array<int, n + 1> lp;\r",
+            "  std::fill(lp.begin(), lp.end(), 0);\r",
+            "  std::vector<int> pr;\r",
+            "  for (int i = 2; i <= n; ++i) {\r",
+            "    if (!lp[i]) {\r",
+            "      lp[i] = i;\r",
+            "      pr.emplace_back(i);\r",
+            "    }\r",
+            "    for (int j = 0; j < (int)pr.size() && pr[j] <= lp[i] && i * pr[j] <= n;\r",
+            "         ++j) {\r",
+            "      lp[i * pr[j]] = pr[j];\r",
+            "    }\r",
+            "  }\r",
+            "  return pr;\r",
+            "}\r"
+        ]
+    },
     "totient": {
         "prefix": "totient",
         "body": [
