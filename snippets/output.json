@@ -1528,6 +1528,42 @@
             "}\r"
         ]
     },
+    "nextchar": {
+        "prefix": "nextchar",
+        "body": [
+            "class NextChar {\r",
+            " public:\r",
+            "  NextChar(const std::string& str) : str_(str) { build(); }\r",
+            "\r",
+            "  // returns the first position in str[pos:n_) that c appears\r",
+            "  // if c is not in str[pos:n_), returns n_\r",
+            "  int find(int pos, char c) const {\r",
+            "    assert(0 <= pos && pos < n_);\r",
+            "    return table_[c - 'a'][pos];\r",
+            "  }\r",
+            "\r",
+            "  // returns whether str contains c or not\r",
+            "  bool contain(char c) const { return find(0, c) != n_; }\r",
+            "\r",
+            " private:\r",
+            "  int n_;\r",
+            "  std::string str_;\r",
+            "  std::vector<std::vector<int>> table_;\r",
+            "\r",
+            "  void build() {\r",
+            "    n_ = str_.size();\r",
+            "    table_.resize(26, std::vector<int>(n_));\r",
+            "    for (char c = 'a'; c <= 'z'; ++c) {\r",
+            "      int nxt = n_;\r",
+            "      for (int i = n_ - 1; i >= 0; --i) {\r",
+            "        if (str_[i] == c) nxt = i;\r",
+            "        table_[c - 'a'][i] = nxt;\r",
+            "      }\r",
+            "    }\r",
+            "  }\r",
+            "};\r"
+        ]
+    },
     "rolling_hash": {
         "prefix": "rolling_hash",
         "body": [
