@@ -55,7 +55,6 @@ std::ostream& operator<<(std::ostream& os, const std::pair<T, U>& p) {
   return os << '(' << p.first << ", " << p.second << ')';
 }
 
-#if __cplusplus >= 201703L
 template <class Ch, class Tr, class Tuple, std::size_t... Is>
 void tuple_out(std::basic_ostream<Ch, Tr>& os, const Tuple& tp, std::index_sequence<Is...>) {
   ((os << (Is ? ", " : "(") << std::get<Is>(tp)), ...) << ")";
@@ -66,7 +65,6 @@ auto& operator<<(std::basic_ostream<Ch, Tr>& os, const std::tuple<Args...>& tp) 
   tuple_out(os, tp, std::index_sequence_for<Args...>{});
   return os;
 }
-#endif
 
 template <class T>
 std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec) {
@@ -100,7 +98,6 @@ std::istream& operator>>(std::istream& is, std::pair<T, U>& p) {
   return is >> p.first >> p.second;
 }
 
-#if __cplusplus >= 201703L
 template <class Tuple, std::size_t... Is>
 void tuple_in(std::istream& is, Tuple& tp, std::index_sequence<Is...>) {
   ((is >> std::get<Is>(tp)), ...);
@@ -111,7 +108,6 @@ std::istream& operator>>(std::istream& is, std::tuple<Args...>& tp) {
   tuple_in(is, tp, std::index_sequence_for<Args...>{});
   return is;
 }
-#endif
 
 #define all(_) begin(_), end(_)
 #define rall(_) rbegin(_), rend(_)
