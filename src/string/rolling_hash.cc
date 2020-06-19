@@ -13,7 +13,7 @@ using ull = unsigned long long;
 
 class RollingHash {
  public:
-  RollingHash(const std::string& s) : s_(s) { build(); }
+  RollingHash(const std::string& str) : str_(str) { build(); }
 
   // get hash value of [l, r)
   std::pair<ull, ull> get(int l, int r) {
@@ -23,7 +23,7 @@ class RollingHash {
   }
 
  private:
-  const std::string s_;
+  const std::string str_;
   static ull base0_;
   static ull base1_;
   static constexpr ull mod0_ = 2020202077;
@@ -35,12 +35,12 @@ class RollingHash {
   static std::mt19937_64 mt_;
 
   void build() {
-    int n = s_.size();
+    int n = str_.size();
     hash0_.assign(n + 1, 0);
     hash1_.assign(n + 1, 0);
     for (int i = 0; i < n; ++i) {
-      hash0_[i + 1] = (hash0_[i] * base0_ + s_[i]) % mod0_;
-      hash1_[i + 1] = (hash1_[i] * base1_ + s_[i]) % mod1_;
+      hash0_[i + 1] = (hash0_[i] * base0_ + str_[i]) % mod0_;
+      hash1_[i + 1] = (hash1_[i] * base1_ + str_[i]) % mod1_;
     }
     for (int i = 0; i < n; ++i) {
       pow0_.emplace_back(pow0_.back() * base0_ % mod0_);

@@ -6,13 +6,13 @@
 #include <string>
 
 // snippet-begin
-std::vector<int> Zalgorithm(const std::string s) {
-  int n = s.size();
+std::vector<int> Zalgorithm(const std::string str) {
+  int n = str.size();
   std::vector<int> res(n);
   res[0] = n;
   int i = 1, j = 0;
   while (i < n) {
-    while (i + j < n && s[j] == s[i + j]) ++j;
+    while (i + j < n && str[j] == str[i + j]) ++j;
     res[i] = j;
     if (j == 0) {
       ++i;
