@@ -9,7 +9,7 @@
 std::vector<int> LinearTimeSieve() {
   constexpr int n = 1000000;
   std::array<int, n + 1> lp;
-  std::fill(lp.begin(), lp.end(), 0);
+  lp.fill(0);
   std::vector<int> pr;
   for (int i = 2; i <= n; ++i) {
     if (!lp[i]) {
