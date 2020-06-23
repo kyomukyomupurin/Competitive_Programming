@@ -1,6 +1,8 @@
 // scanner
 
 #include <iostream>
+#include <string>
+#include <tuple>
 #include <vector>
 
 using int64 = long long;
@@ -16,8 +18,8 @@ class Scanner {
     rb = in;
   }
 
-  template <class Int, std::enable_if_t<std::is_same<Int, int>::value, int> = 0>
-  inline void read(Int& num) {
+  template <class T, std::enable_if_t<std::is_same<T, int>::value, int> = 0>
+  inline void read(T& num) {
     bool neg = false;
     num = 0;
     while (!std::isdigit(*rb) && *rb != '-') ++rb;
@@ -26,9 +28,8 @@ class Scanner {
     if (neg) num = -num;
   }
 
-  template <class Int64,
-            std::enable_if_t<std::is_same<Int64, int64>::value, int> = 0>
-  inline void read(Int64& num) {
+  template <class T, std::enable_if_t<std::is_same<T, int64>::value, int> = 0>
+  inline void read(T& num) {
     bool neg = false;
     num = 0;
     while (!std::isdigit(*rb) && *rb != '-') ++rb;
@@ -37,25 +38,23 @@ class Scanner {
     if (neg) num = -num;
   }
 
-  template <class String,
-            std::enable_if_t<std::is_same<String, std::string>::value, int> = 0>
-  inline void read(String& str) {
+  template <class T,
+            std::enable_if_t<std::is_same<T, std::string>::value, int> = 0>
+  inline void read(T& str) {
     while (std::isspace(*rb)) ++rb;
     auto it = rb;
     while (!std::isspace(*rb)) ++rb;
     str = std::string(it, rb);
   }
 
-  template <class Char,
-            std::enable_if_t<std::is_same<Char, char>::value, int> = 0>
-  inline void read(Char& c) {
+  template <class T, std::enable_if_t<std::is_same<T, char>::value, int> = 0>
+  inline void read(T& c) {
     while (std::isspace(*rb)) ++rb;
     c = *rb, ++rb;
   }
 
-  template <class Double,
-            std::enable_if_t<std::is_same<Double, double>::value, int> = 0>
-  inline void read(Double& num) {
+  template <class T, std::enable_if_t<std::is_same<T, double>::value, int> = 0>
+  inline void read(T& num) {
     while (std::isspace(*rb)) ++rb;
     auto it = rb;
     while (!std::isspace(*rb)) ++rb;
@@ -63,10 +62,9 @@ class Scanner {
     num = std::stod(str);
   }
 
-  template <
-      class LongDouble,
-      std::enable_if_t<std::is_same<LongDouble, long double>::value, int> = 0>
-  inline void read(LongDouble& num) {
+  template <class T,
+            std::enable_if_t<std::is_same<T, long double>::value, int> = 0>
+  inline void read(T& num) {
     while (std::isspace(*rb)) ++rb;
     auto it = rb;
     while (!std::isspace(*rb)) ++rb;
@@ -74,24 +72,37 @@ class Scanner {
     num = std::stold(str);
   }
 
-  template <class Type>
-  inline void read(std::vector<Type>& vec) {
-    for (Type& e : vec) read(e);
+  template <class T>
+  inline void read(std::vector<T>& vec) {
+    for (T& e : vec) read(e);
   }
 
-  /*
-    void read() {}
+  template <class T, class U>
+  inline void read(std::pair<T, U>& p) {
+    read(p.first, p.second);
+  }
 
-    template <class Head, class... Tail>
-    inline void read(Head&& head, Tail&&... tail) {
-      read(head);
-      read(std::forward<Tail>(tail)...);
-    }
-  */
+  template <class Tuple, std::size_t... Is>
+  inline void tuple_scan(Tuple& tp, std::index_sequence<Is...>) {
+    (read(std::get<Is>(tp)), ...);
+  }
 
-  template <class Type>
-  inline Scanner& operator>>(Type& value) {
-    read(value);
+  template <class... Args>
+  inline void read(std::tuple<Args...>& tp) {
+    tuple_scan(tp, std::index_sequence_for<Args...>{});
+  }
+
+  inline void read() {}
+
+  template <class Head, class... Tail>
+  inline void read(Head&& head, Tail&&... tail) {
+    read(head);
+    read(std::forward<Tail>(tail)...);
+  }
+
+  template <class T>
+  inline Scanner& operator>>(T& val) {
+    read(val);
     return *this;
   }
 };
