@@ -18,13 +18,24 @@ class Scanner {
     rb = in;
   }
 
+  template <class T>
+  inline Scanner& operator>>(T& val) {
+    read(val);
+    return *this;
+  }
+
+ private:
+  inline void skip_space() {
+    while (std::isspace(*rb)) ++rb;
+  }
+
   template <class T, std::enable_if_t<std::is_same<T, int>::value, int> = 0>
   inline void read(T& num) {
     bool neg = false;
     num = 0;
     while (!std::isdigit(*rb) && *rb != '-') ++rb;
     if (*rb == '-') neg = true, ++rb;
-    while (std::isdigit(*rb)) num = (num << 3) + (num << 1) + (*rb - '0'), ++rb;
+    while (std::isdigit(*rb)) num = num * 10 + (*rb - '0'), ++rb;
     if (neg) num = -num;
   }
 
@@ -34,14 +45,14 @@ class Scanner {
     num = 0;
     while (!std::isdigit(*rb) && *rb != '-') ++rb;
     if (*rb == '-') neg = true, ++rb;
-    while (std::isdigit(*rb)) num = (num << 3) + (num << 1) + (*rb - '0'), ++rb;
+    while (std::isdigit(*rb)) num = num * 10 + (*rb - '0'), ++rb;
     if (neg) num = -num;
   }
 
   template <class T,
             std::enable_if_t<std::is_same<T, std::string>::value, int> = 0>
   inline void read(T& str) {
-    while (std::isspace(*rb)) ++rb;
+    skip_space();
     auto it = rb;
     while (!std::isspace(*rb)) ++rb;
     str = std::string(it, rb);
@@ -49,27 +60,44 @@ class Scanner {
 
   template <class T, std::enable_if_t<std::is_same<T, char>::value, int> = 0>
   inline void read(T& c) {
-    while (std::isspace(*rb)) ++rb;
+    skip_space();
     c = *rb, ++rb;
   }
 
   template <class T, std::enable_if_t<std::is_same<T, double>::value, int> = 0>
   inline void read(T& num) {
-    while (std::isspace(*rb)) ++rb;
-    auto it = rb;
-    while (!std::isspace(*rb)) ++rb;
-    const std::string str = std::string(it, rb);
-    num = std::stod(str);
+    skip_space();
+    bool neg = false;
+    num = 0;
+    if (*rb == '-') neg = true, ++rb;
+    while (std::isdigit(*rb)) num = num * 10 + (*rb - '0'), ++rb;
+    if (*rb != '.') return;
+    ++rb;
+    T base = 0.1;
+    while (std::isdigit(*rb)) {
+      num += base * (*rb - '0');
+      ++rb;
+      base /= 10;
+    }
+    if (neg) num = -num;
   }
 
-  template <class T,
-            std::enable_if_t<std::is_same<T, long double>::value, int> = 0>
+  template <class T, std::enable_if_t<std::is_same<T, long double>::value, int> = 0>
   inline void read(T& num) {
-    while (std::isspace(*rb)) ++rb;
-    auto it = rb;
-    while (!std::isspace(*rb)) ++rb;
-    const std::string str = std::string(it, rb);
-    num = std::stold(str);
+    skip_space();
+    bool neg = false;
+    num = 0;
+    if (*rb == '-') neg = true, ++rb;
+    while (std::isdigit(*rb)) num = num * 10 + (*rb - '0'), ++rb;
+    if (*rb != '.') return;
+    ++rb;
+    T base = 0.1;
+    while (std::isdigit(*rb)) {
+      num += base * (*rb - '0');
+      ++rb;
+      base /= 10;
+    }
+    if (neg) num = -num;
   }
 
   template <class T>
@@ -98,12 +126,6 @@ class Scanner {
   inline void read(Head&& head, Tail&&... tail) {
     read(head);
     read(std::forward<Tail>(tail)...);
-  }
-
-  template <class T>
-  inline Scanner& operator>>(T& val) {
-    read(val);
-    return *this;
   }
 };
 // snippet-end
