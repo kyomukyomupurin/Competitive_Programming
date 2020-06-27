@@ -77,7 +77,7 @@ class Scanner {
     while (std::isdigit(*rb)) {
       num += base * (*rb - '0');
       ++rb;
-      base /= 10;
+      base *= 0.1;
     }
     if (neg) num = -num;
   }
@@ -95,7 +95,7 @@ class Scanner {
     while (std::isdigit(*rb)) {
       num += base * (*rb - '0');
       ++rb;
-      base /= 10;
+      base *= 0.1;
     }
     if (neg) num = -num;
   }
