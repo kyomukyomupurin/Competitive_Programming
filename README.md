@@ -21,7 +21,7 @@ Libraries for competitive programming
 
 - Windows subsystem for Linux, Ubuntu 18.04  
 - g++ 7.5.0  
-- compilation command :  ```g++ -std=c++17 -Wall -Wextra -Wshadow -Wno-unknown-pragmas -fsanitize=address -fsanitize=undefined -O2 -D_GLIBCXX_DEBUG -DLOCAL main.cc```
+- Compilation command :  ```g++ -std=c++17 -Wall -Wextra -Wshadow -Wno-unknown-pragmas -fsanitize=address -fsanitize=undefined -O2 -D_GLIBCXX_DEBUG -DLOCAL main.cc```
 
 ## TO DO
 
@@ -30,3 +30,6 @@ Libraries for competitive programming
 - Add Lazy Segment Tree.  
 - Add FFT.    
 - Add Self-Balancing Binary Search Tree(Treap, Splay Tree, or AVL Tree).   
+- Make [FastIO](https://github.com/kyomukyomupurin/competitive_programming/blob/master/src/etc/fastio.cc) faster.  
+  - Replace ```std::isspace(*cur)``` with ```if (*cur == ' ' || *cur == '\n')``` .
+  - Replace ```std::isdigit(*cur)``` with ```if (*cur >= 0 && *cur <= '9')``` .
