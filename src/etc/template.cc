@@ -13,6 +13,7 @@
 #include <chrono>
 #include <cmath>
 #include <complex>
+#include <cstring>
 #include <deque>
 #include <iomanip>
 #include <iostream>
