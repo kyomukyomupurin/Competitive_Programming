@@ -1,4 +1,8 @@
 // fastio
+// Scanner for int, int64(long long), std::string, char double, long double and
+// std::vector or std::pair or std::tuple of them.
+// Printer for int, int64, std::string, char.
+// It provides the same format as std::cin and std::cout.
 
 #include <cstring>
 #include <iostream>
