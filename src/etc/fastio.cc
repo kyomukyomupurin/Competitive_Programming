@@ -53,9 +53,9 @@ class Scanner {
     if (cur + integer_size >= ed) flush();
     bool neg = false;
     num = 0;
-    while (!('0' <= *cur && *cur <= '9') && *cur != '-') ++cur;
+    while (!(*cur >= 0 && *cur <= '9') && *cur != '-') ++cur;
     if (*cur == '-') neg = true, ++cur;
-    while ('0' <= *cur && *cur <= '9') num = num * 10 + (*cur - '0'), ++cur;
+    while (*cur >= '0' && *cur <= '9') num = num * 10 + (*cur - '0'), ++cur;
     if (neg) num = -num;
   }
 
@@ -65,9 +65,9 @@ class Scanner {
     if (cur + integer_size >= ed) flush();
     bool neg = false;
     num = 0;
-    while (!('0' <= *cur && *cur <= '9') && *cur != '-') ++cur;
+    while (!(*cur >= 0 && *cur <= '9') && *cur != '-') ++cur;
     if (*cur == '-') neg = true, ++cur;
-    while ('0' <= *cur && *cur <= '9') num = num * 10 + (*cur - '0'), ++cur;
+    while (*cur >= '0' && *cur <= '9') num = num * 10 + (*cur - '0'), ++cur;
     if (neg) num = -num;
   }
 
@@ -95,11 +95,11 @@ class Scanner {
     bool neg = false;
     num = 0;
     if (*cur == '-') neg = true, ++cur;
-    while ('0' <= *cur && *cur <= '9') num = num * 10 + (*cur - '0'), ++cur;
+    while (*cur >= '0' && *cur <= '9') num = num * 10 + (*cur - '0'), ++cur;
     if (*cur != '.') return;
     ++cur;
     T base = 0.1;
-    while ('0' <= *cur && *cur <= '9') {
+    while (*cur >= '0' && *cur <= '9') {
       num += base * (*cur - '0');
       ++cur;
       base *= 0.1;
@@ -115,11 +115,11 @@ class Scanner {
     bool neg = false;
     num = 0;
     if (*cur == '-') neg = true, ++cur;
-    while ('0' <= *cur && *cur <= '9') num = num * 10 + (*cur - '0'), ++cur;
+    while (*cur >= '0' && *cur <= '9') num = num * 10 + (*cur - '0'), ++cur;
     if (*cur != '.') return;
     ++cur;
     T base = 0.1;
-    while ('0' <= *cur && *cur <= '9') {
+    while (*cur >= '0' && *cur <= '9') {
       num += base * (*cur - '0');
       ++cur;
       base *= 0.1;
