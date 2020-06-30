@@ -53,7 +53,6 @@ class Scanner {
     if (cur + integer_size >= ed) flush();
     bool neg = false;
     num = 0;
-    while (!(*cur >= 0 && *cur <= '9') && *cur != '-') ++cur;
     if (*cur == '-') neg = true, ++cur;
     while (*cur >= '0' && *cur <= '9') num = num * 10 + (*cur - '0'), ++cur;
     if (neg) num = -num;
@@ -65,7 +64,6 @@ class Scanner {
     if (cur + integer_size >= ed) flush();
     bool neg = false;
     num = 0;
-    while (!(*cur >= 0 && *cur <= '9') && *cur != '-') ++cur;
     if (*cur == '-') neg = true, ++cur;
     while (*cur >= '0' && *cur <= '9') num = num * 10 + (*cur - '0'), ++cur;
     if (neg) num = -num;
