@@ -1,5 +1,5 @@
 // fastio
-// Scanner for int, int64(long long), std::string, char double, long double and
+// Scanner for int, int64(long long), std::string, char, double, long double and
 // std::vector or std::pair or std::tuple of them.
 // Printer for int, int64, std::string, char.
 // It provides the same format as std::cin and std::cout.
@@ -42,7 +42,7 @@ class Scanner {
   inline void skip_space() {
     while (true) {
       if (cur == ed) flush();
-      while (std::isspace(*cur)) ++cur;
+      while (*cur == ' ' || *cur == '\n') ++cur;
       if (__builtin_expect(cur != ed, 1)) return;
     }
   }
@@ -77,7 +77,7 @@ class Scanner {
     skip_space();
     if (cur + str.size() >= ed) flush();
     auto it = cur;
-    while (!std::isspace(*cur)) ++cur;
+    while (!(*cur == ' ' || *cur == '\n')) ++cur;
     str = std::string(it, cur);
   }
 
