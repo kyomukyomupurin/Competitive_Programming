@@ -32,4 +32,5 @@ Libraries for competitive programming
 - Add Self-Balancing Binary Search Tree(Treap, Splay Tree, or AVL Tree).   
 - Make [FastIO](https://github.com/kyomukyomupurin/competitive_programming/blob/master/src/etc/fastio.cc) faster.  
   - Replace ```std::isspace(*cur)``` with ```*cur == ' ' || *cur == '\n'``` .
-  - Replace ```std::isdigit(*cur)``` with ```*cur >= 0 && *cur <= '9'``` .
+  - Replace ```std::isdigit(*cur)``` with ```*cur >= '0' && *cur <= '9'``` .
+  - Replace ```*cur >= '0' && *cur <= '9'``` with ```*cur >= '0'```
