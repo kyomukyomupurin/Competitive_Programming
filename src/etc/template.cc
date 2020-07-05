@@ -48,6 +48,15 @@ inline int upper_position(const std::vector<T>& vec, T value) {
   return static_cast<int>(std::distance(vec.begin(), std::upper_bound(vec.begin(), vec.end(), value)));
 }
 
+template<class T>
+std::string to_binary(T n) {
+  assert(n > 0);
+  std::string ret = "";
+  while (n) ret += (n & 1) ? '1' : '0', n >>= 1;
+  std::reverse(ret.begin(), ret.end());
+  return ret;
+}
+
 template <class T>
 using binary_heap = std::priority_queue<T, std::vector<T>, std::greater<T>>;
 
