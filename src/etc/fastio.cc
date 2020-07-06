@@ -304,6 +304,13 @@ class Printer {
     if (__builtin_expect(cur + str.size() >= buf + buf_size, 0)) flush();
     for (char c : str) write(c);
   }
+
+  template <class T,
+            std::enable_if_t<std::is_same<T, const char*>::value, int> = 0>
+  inline void write(T str) {
+    if (cur + string_size >= buf + buf_size) flush();
+    for (int i = 0; str[i]; ++i) write(str[i]);
+  }
 };
 }  // namespace FastIO
 
