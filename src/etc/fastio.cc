@@ -17,6 +17,7 @@ namespace FastIO {
 class Scanner {
   static constexpr int buf_size = (1 << 18);
   static constexpr int integer_size = 20;
+  static constexpr int string_size = 1000; // default
   char buf[buf_size] = {};
   char *cur = buf, *ed = buf;
 
@@ -175,6 +176,12 @@ class Printer {
     return *this;
   }
 
+  template<class T>
+  inline void println(T val) {
+    write(val);
+    write('\n');
+  }
+
  private:
   constexpr void build() {
     for (int i = 0; i < 10000; ++i) {
@@ -197,7 +204,7 @@ class Printer {
       if (n >= (int)1e8) return 9;
       if (n >= (int)1e7) return 8;
       if (n >= (int)1e6) return 7;
-      if (n >= (int)1e5) return 6;
+      return 6;
     } else {
       if (n >= (int)1e4) return 5;
       if (n >= (int)1e3) return 4;
