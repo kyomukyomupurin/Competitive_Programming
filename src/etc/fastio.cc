@@ -158,10 +158,10 @@ class Scanner {
 class Printer {
   static constexpr int buf_size = (1 << 18);
   static constexpr int integer_size = 20;
+  static constexpr int string_size = (1 << 6);
   static constexpr int margin = 1;
   static constexpr int n = 10000;
   char buf[buf_size + margin] = {};
-  char integer[integer_size + margin] = {};
   char table[n * 4] = {};
   char* cur = buf;
 
