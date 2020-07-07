@@ -94,12 +94,12 @@ class Scanner {
     bool neg = false;
     num = 0;
     if (*cur == '-') neg = true, ++cur;
-    while (*cur >= '0' && *cur <= '9') num = num * 10 + (*cur - '0'), ++cur;
+    while (*cur >= '0' && *cur <= '9') num = num * 10 + (*cur ^ 48), ++cur;
     if (*cur != '.') return;
     ++cur;
     T base = 0.1;
     while (*cur >= '0' && *cur <= '9') {
-      num += base * (*cur - '0');
+      num += base * (*cur ^ 48);
       ++cur;
       base *= 0.1;
     }
@@ -114,12 +114,12 @@ class Scanner {
     bool neg = false;
     num = 0;
     if (*cur == '-') neg = true, ++cur;
-    while (*cur >= '0' && *cur <= '9') num = num * 10 + (*cur - '0'), ++cur;
+    while (*cur >= '0' && *cur <= '9') num = num * 10 + (*cur ^ 48), ++cur;
     if (*cur != '.') return;
     ++cur;
     T base = 0.1;
     while (*cur >= '0' && *cur <= '9') {
-      num += base * (*cur - '0');
+      num += base * (*cur ^ 48);
       ++cur;
       base *= 0.1;
     }
