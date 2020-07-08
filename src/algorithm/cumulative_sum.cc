@@ -13,16 +13,16 @@ class CumulativeSum {
 
   // return the first k where sum of [0, k] >= value
   // use only when all element in vec >= 0
-  int lower_bound(_Tp value) {
+  int lower_bound(_Tp val) {
     return std::distance(sum_.begin() + 1,
-                         std::lower_bound(sum_.begin() + 1, sum_.end(), value));
+                         std::lower_bound(sum_.begin() + 1, sum_.end(), val));
   }
 
   // return the first k where sum of [0, k] > value
   // use only when all element in vec >= 0
-  int upper_bound(_Tp value) {
+  int upper_bound(_Tp val) {
     return std::distance(sum_.begin() + 1,
-                         std::upper_bound(sum_.begin() + 1, sum_.end(), value));
+                         std::upper_bound(sum_.begin() + 1, sum_.end(), val));
   }
 
  private:
@@ -30,10 +30,9 @@ class CumulativeSum {
   std::vector<_Tp> sum_;
 
   void build() {
-    sum_.assign(vec_.size() + 1, static_cast<_Tp>(0));
-    for (size_t i = 0; i < vec_.size(); ++i) {
-      sum_[i + 1] = sum_[i] + vec_[i];
-    }
+    sum_.resize(vec_.size() + 1);
+    sum_[0] = 0;
+    std::partial_sum(vec_.begin(), vec_.end(), sum_.begin() + 1);
   }
 };
 // snippet-end
