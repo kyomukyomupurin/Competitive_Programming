@@ -32,29 +32,34 @@ using namespace std;
 
 using int64 = long long;
 
-template<class T>
+template <class T>
 inline void eraque(std::vector<T>& vec) {
   vec.erase(std::unique(vec.begin(), vec.end()), vec.end());
   return;
 }
 
-template<class T>
-inline int lower_position(const std::vector<T>& vec, T value) {
-  return static_cast<int>(std::distance(vec.begin(), std::lower_bound(vec.begin(), vec.end(), value)));
+template <class T>
+inline int lower_position(const std::vector<T>& vec, T val) {
+  return static_cast<int>(std::distance(vec.begin(), std::lower_bound(vec.begin(), vec.end(), val)));
+}
+
+template <class T>
+inline int upper_position(const std::vector<T>& vec, T val) {
+  return static_cast<int>(std::distance(vec.begin(), std::upper_bound(vec.begin(), vec.end(), val)));
 }
 
 template<class T>
-inline int upper_position(const std::vector<T>& vec, T value) {
-  return static_cast<int>(std::distance(vec.begin(), std::upper_bound(vec.begin(), vec.end(), value)));
-}
-
-template<class T>
-std::string to_binary(T n) {
+inline std::string to_binary(T n) {
   assert(n > 0);
   std::string ret = "";
   while (n) ret += (n & 1) ? '1' : '0', n >>= 1;
   std::reverse(ret.begin(), ret.end());
   return ret;
+}
+
+template <class T>
+inline void println(T val) {
+  std::cout << val << '\n';
 }
 
 template <class T>
