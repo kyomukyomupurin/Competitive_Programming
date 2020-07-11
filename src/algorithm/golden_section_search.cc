@@ -3,17 +3,19 @@
 //     https://atcoder.jp/contests/arc054/tasks/arc054_b
 
 #include <cmath>
+#include <string>
 
 // snippet-begin
 template <class F>
-double GoldenSectionSearch(double low, double high, F f) {
+double GoldenSectionSearch(double low, double high, F f, std::string type = "min") {
   constexpr double phi = (1 + std::sqrt(5)) / 2;
   double c1 = (phi * low + high) / (1 + phi);
   double c2 = (low + phi * high) / (1 + phi);
   double cache_f1 = f(c1), cache_f2 = f(c2);
 
   for (int i = 0; i < 150; ++i) {
-    if (cache_f1 > cache_f2) {
+    if ((type == "min" && cache_f1 > cache_f2) ||
+        (type == "max" && cache_f1 < cache_f2)) {
       low = c1;
       cache_f1 = cache_f2;
       c1 = c2;
