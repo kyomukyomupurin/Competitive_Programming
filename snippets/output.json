@@ -118,6 +118,7 @@
         "body": [
             "template <class F>\r",
             "double GoldenSectionSearch(double low, double high, F f, std::string type = \"min\") {\r",
+            "  assert(type == \"min\" || type == \"max\");\r",
             "  constexpr double phi = (1 + std::sqrt(5)) / 2;\r",
             "  double c1 = (phi * low + high) / (1 + phi);\r",
             "  double c2 = (low + phi * high) / (1 + phi);\r",

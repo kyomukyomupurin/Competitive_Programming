@@ -2,12 +2,14 @@
 // verified by
 //     https://atcoder.jp/contests/arc054/tasks/arc054_b
 
+#include <cassert>
 #include <cmath>
 #include <string>
 
 // snippet-begin
 template <class F>
 double GoldenSectionSearch(double low, double high, F f, std::string type = "min") {
+  assert(type == "min" || type == "max");
   constexpr double phi = (1 + std::sqrt(5)) / 2;
   double c1 = (phi * low + high) / (1 + phi);
   double c2 = (low + phi * high) / (1 + phi);
