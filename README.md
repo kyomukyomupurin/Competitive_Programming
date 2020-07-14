@@ -31,4 +31,4 @@ Libraries for competitive programming
 - Add FFT.    
 - Add Self-Balancing Binary Search Tree(Treap, Splay Tree, or AVL Tree).   
 - Make [FastIO](https://github.com/kyomukyomupurin/competitive_programming/blob/master/src/etc/fastio.cc) faster.  
-
+- Add graph class.
