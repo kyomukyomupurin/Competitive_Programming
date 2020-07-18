@@ -4,7 +4,7 @@
 
 // snippet-begin
 namespace Graph {
-template <class T> 
+template <class T>
 class graph {
  public:
   graph(int n) : n_(n) { data_.resize(n_); }
@@ -17,6 +17,24 @@ class graph {
   std::vector<edge> edges_;
 
   virtual void add(int from, int to, T cost) = 0;
+};
+
+template <class T>
+class forest : public graph<T> {
+ public:
+  using Graph::graph<T>::n_;
+  using Graph::graph<T>::data_;
+  using Graph::graph<T>::edges_;
+
+  forest(int n) : graph<T>(n) {}
+
+  void add(int from, int to, T cost = 1) {
+    int id = edges_.size();
+    assert(id < n_ - 1);
+    data_[from].emplace_back(id);
+    data_[to].emplace_back(id);
+    edges_.push_back({from, to, cost});
+  }
 };
 
 template <class T>
@@ -59,7 +77,7 @@ class undigraph : public graph<T> {
     edges_.push_back({from, to, cost});
   }
 };
-}
+}  // namespace Graph
 
 using namespace Graph;
 // snippet-end
