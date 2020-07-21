@@ -3,7 +3,6 @@
 #include <vector>
 
 // snippet-begin
-namespace Graph {
 template <class T>
 class graph {
  public:
@@ -22,9 +21,9 @@ class graph {
 template <class T>
 class forest : public graph<T> {
  public:
-  using Graph::graph<T>::n_;
-  using Graph::graph<T>::data_;
-  using Graph::graph<T>::edges_;
+  using graph<T>::n_;
+  using graph<T>::data_;
+  using graph<T>::edges_;
 
   forest(int n) : graph<T>(n) {}
 
@@ -40,9 +39,9 @@ class forest : public graph<T> {
 template <class T>
 class digraph : public graph<T> {
  public:
-  using Graph::graph<T>::n_;
-  using Graph::graph<T>::data_;
-  using Graph::graph<T>::edges_;
+  using graph<T>::n_;
+  using graph<T>::data_;
+  using graph<T>::edges_;
 
   digraph(int n) : graph<T>(n) {}
 
@@ -77,7 +76,4 @@ class undigraph : public graph<T> {
     edges_.push_back({from, to, cost});
   }
 };
-}  // namespace Graph
-
-using namespace Graph;
 // snippet-end
