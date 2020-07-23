@@ -1,4 +1,4 @@
-// Fenwick Tree(Binary Indexed Tree) (for point add query)
+// Fenwick Tree(Binary Indexed Tree) (for range add query)
 // verified by 
 //     https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_G
 
