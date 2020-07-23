@@ -3,6 +3,7 @@
 //     https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/1/GRL_1_A
 
 #include <algorithm>
+#include <cassert>
 #include <limits>
 #include <queue>
 #include <vector>
@@ -15,6 +16,7 @@ using binary_heap = std::priority_queue<T, std::vector<T>, std::greater<T>>;
 // snippet-begin
 template <class _Tp>
 std::vector<_Tp> dijkstra(const graph<_Tp>& g, int s) {
+  assert(0 <= s && s < g.n_);
   std::vector<_Tp> dist(g.n_, std::numeric_limits<_Tp>::max());
   binary_heap<std::pair<_Tp, int>> pq;
   dist[s] = 0;
