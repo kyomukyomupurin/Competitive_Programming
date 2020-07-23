@@ -15,9 +15,9 @@ class Combination {
 
   Combination() { build(); }
 
-  std::array<int64, n_> fact_;
-  std::array<int64, n_> inv_;
-  std::array<int64, n_> finv_;
+  int64 fact_[n_];
+  int64 inv_[n_];
+  int64 finv_[n_];
 
   // return nCk
   int64 get(int n, int k) const noexcept {
