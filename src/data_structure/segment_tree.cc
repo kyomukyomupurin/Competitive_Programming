@@ -10,8 +10,7 @@
 template <class M, class F>
 class SegmentTree {
  public:
-  SegmentTree(const std::vector<M>& data, M ie,
-              F f)
+  SegmentTree(const std::vector<M>& data, M ie, F f)
       : ie_(ie), data_(data), f_(f) {
     build();
   }
