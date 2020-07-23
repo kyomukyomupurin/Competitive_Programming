@@ -5,82 +5,51 @@
 #include <limits>
 #include <vector>
 
+#include "./graph.cc"
+
 // snippet-begin
-template <class _Tp>
-class BellmanFord {
- public:
-  static constexpr _Tp kInfinity =
-      std::numeric_limits<_Tp>::max() / static_cast<_Tp>(2);
-
-  BellmanFord(int node_size) : node_size_(node_size) { init(); }
-
-  void add(int from, int to, _Tp cost) {
-    assert(0 <= from && from < node_size_ && 0 <= to && to < node_size_);
-    es_.emplace_back((edge){from, to, cost});
-  }
-
-  // use after bf.solve(source)
-  bool find_negative_cycle() const {
-    for (const edge& e : es_) {
-      if (distance_[e.from] == kInfinity) continue;
-      if (distance_[e.from] + e.cost < distance_[e.to]) return true;
-    }
-    return false;
-  }
-
-  void solve(int source) {
-    assert(0 <= source && source < node_size_);
-    distance_[source] = 0;
-    for (int i = 0; i < node_size_ - 1; ++i) {
-      for (const edge& e : es_) {
-        if (distance_[e.from] == kInfinity) continue;
-        if (distance_[e.to] > distance_[e.from] + e.cost) {
-          distance_[e.to] = distance_[e.from] + e.cost;
-        }
+template <class T>
+std::vector<T> bellmanford(const graph<T>& g, int s) {
+  constexpr T kInfinity = std::numeric_limits<T>::max();
+  std::vector<T> dist(g.n_, kInfinity);
+  dist[s] = 0;
+  for (int i = 0; i < g.n_; ++i) {
+    for (auto& e : g.edges_) {
+      if (dist[e.from] == kInfinity) continue;
+      if (dist[e.to] > dist[e.from] + e.cost) {
+        dist[e.to] = dist[e.from] + e.cost;
       }
     }
   }
-
-  _Tp operator[](int to) const {
-    assert(0 <= to && to < node_size_);
-    return distance_[to];
+  for (auto& e : g.edges_) {
+    if (dist[e.from] == kInfinity) continue;
+    if (dist[e.to] > dist[e.from] + e.cost) return {};
   }
-
- private:
-  struct edge {
-    int from, to;
-    _Tp cost;
-  };
-  int node_size_;
-  std::vector<_Tp> distance_;
-  std::vector<edge> es_;
-
-  void init() { distance_.assign(node_size_, kInfinity); }
-};
+  return dist;
+}
 // snippet-end
 
 // verification code
 /*
 void GRL_1_B() {
-  int n, m, r;
-  cin >> n >> m >> r;
-  BellmanFord<int> bf(n);
+  int n, m, r; cin >> n >> m >> r;
+  digraph<int> g(n);
   for (int i = 0; i < m; ++i) {
-    int s, t, d;
-    cin >> s >> t >> d;
-    bf.add(s, t, d);
+    int s, t, d; cin >> s >> t >> d;
+    g.add(s, t, d);
   }
 
-  bf.solve(r);
+  constexpr int kInfinity = numeric_limits<int>::max();
 
-  if (bf.find_negative_cycle()) {
+  vector<int> dist = bellmanford(g, r);
+  if (dist.empty()) {
     cout << "NEGATIVE CYCLE" << '\n';
   } else {
-    for (int i = 0; i < n; ++i) {
-      if (bf[i] == bf.kInfinity) {
+    for (int e : dist) {
+      if (e == kInfinity) {
         cout << "INF" << '\n';
       } else {
-        cout << bf[i] << '\n';
+        cout << e << '\n';
       }
     }
   }
