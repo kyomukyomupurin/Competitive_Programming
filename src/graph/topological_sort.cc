@@ -6,65 +6,45 @@
 #include <vector>
 #include <queue>
 
+#include "./graph.cc"
+
 // snippet-begin
-class TopologicalSort {
- public:
-  TopologicalSort(int node_size) : node_size_(node_size) { Initialize(); }
-
-  void AddEdge(int from, int to) {
-    graph_[from].emplace_back(to);
-    ++level_[to];
+template <class T>
+std::vector<int> topological_sort(const digraph<T>& g) {
+  std::vector<int> lev(g.n_, 0);
+  std::vector<int> res;
+  for (auto e : g.edges_) ++lev[e.to];
+  std::queue<int> que;
+  for (int i = 0; i < g.n_; ++i) {
+    if (lev[i] == 0) que.emplace(i);
   }
-
-  void Sort() {
-    std::queue<int> que;
-    for (int i = 0; i < node_size_; ++i) {
-      if (level_[i] == 0) que.push(i);
-    }
-    while (!que.empty()) {
-      int top = que.front();
-      que.pop();
-      result_.emplace_back(top);
-      for (int next : graph_[top]) {
-        if (--level_[next] == 0) que.push(next);
-      }
+  while (!que.empty()) {
+    int cur = que.front(); que.pop();
+    res.emplace_back(cur);
+    for (int id : g.data_[cur]) {
+      auto& e = g.edges_[id];
+      int nxt = e.from ^ e.to ^ cur;
+      if (--lev[nxt] == 0) que.emplace(nxt);
     }
   }
-
-  // use after Sort()!
-  bool IsDAG() {
-    return all_of(level_.begin(), level_.end(), [](int x) { return x == 0; });
+  if (std::all_of(lev.begin(), lev.end(), [](int e){ return e == 0; })) {
+    return res;
+  } else {
+    return {};
   }
-
-  int operator[](int position) const { return result_[position]; }
-
- private:
-  int node_size_;
-  std::vector<std::vector<int>> graph_;
-  std::vector<int> level_;
-  std::vector<int> result_;
-
-  void Initialize() {
-    graph_.resize(node_size_);
-    level_.assign(node_size_, 0);
-  }
-};
+}
 // snippet-end
 
 // verification code
 /*
 void GRL_4_B() {
   int n, m; cin >> n >> m;
-  TopologicalSort ts(n);
+  digraph<int> g(n);
   for (int i = 0; i < m; ++i) {
     int s, t; cin >> s >> t;
-    ts.AddEdge(s, t);
+    g.add(s, t);
   }
-  ts.Sort();
-  if (ts.IsDAG()) {
-    for (int i = 0; i < n; ++i) {
-      cout << ts[i] << '\n';
-    }
-  }
+  vector<int> ts = topological_sort(g);
+  for (int e : ts) cout << e << '\n';
 }
 */
