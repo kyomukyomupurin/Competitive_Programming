@@ -30,7 +30,7 @@ class CumulativeSum2D {
   std::vector<vector<_Tp>> sum_;
 
   void build() {
-    sum_.assign(x_ + 1, vector<_Tp>(y_ + 1, static_cast<_Tp>(0)));
+    sum_.assign(x_ + 1, vector<_Tp>(y_ + 1, 0));
     for (int i = 0; i < x_; ++i) {
       for (int j = 0; j < y_; ++j) {
         sum_[i + 1][j + 1] = sum_[i + 1][j] + vec_[i][j];
