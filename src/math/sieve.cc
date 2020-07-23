@@ -8,8 +8,8 @@
 // snippet-begin
 std::vector<int> LinearTimeSieve() {
   constexpr int n = 1000000;
-  std::array<int, n + 1> lp;
-  lp.fill(0);
+  int lp[n + 1];
+  std::fill(lp, lp + n + 1, 0);
   std::vector<int> pr;
   for (int i = 2; i <= n; ++i) {
     if (!lp[i]) {
