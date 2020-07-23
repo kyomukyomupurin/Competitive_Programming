@@ -2,16 +2,18 @@
 // verified by
 //     https://onlinejudge.u-aizu.ac.jp/courses_/library/5/GRL/1/GRL_1_B
 
+#include <cassert>
 #include <limits>
 #include <vector>
 
 #include "./graph.cc"
 
 // snippet-begin
-template <class T>
-std::vector<T> bellmanford(const graph<T>& g, int s) {
-  constexpr T kInfinity = std::numeric_limits<T>::max();
-  std::vector<T> dist(g.n_, kInfinity);
+template <class _Tp>
+std::vector<_Tp> bellmanford(const graph<_Tp>& g, int s) {
+  assert(0 <= s && s < g.n_);
+  constexpr _Tp kInfinity = std::numeric_limits<_Tp>::max();
+  std::vector<_Tp> dist(g.n_, kInfinity);
   dist[s] = 0;
   for (int i = 0; i < g.n_; ++i) {
     for (auto& e : g.edges_) {
