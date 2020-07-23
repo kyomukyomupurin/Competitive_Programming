@@ -13,7 +13,7 @@ class SPFA {
   static constexpr _Tp kInfinity =
       std::numeric_limits<_Tp>::max() / static_cast<_Tp>(2);
 
-  SPFA(int node_size) : node_size_(node_size) { initialize(); }
+  SPFA(int node_size) : node_size_(node_size) { init(); }
 
   void add(int from, int to, _Tp cost) {
     assert(0 <= from && from < node_size_ && 0 <= to && to < node_size_);
@@ -67,7 +67,7 @@ class SPFA {
   std::vector<int> pending_;
   std::vector<int> times_;
 
-  void initialize() {
+  void init() {
     graph_.resize(node_size_);
     distance_.assign(node_size_,
                      std::numeric_limits<_Tp>::max() / static_cast<_Tp>(2));

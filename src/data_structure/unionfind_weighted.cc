@@ -9,7 +9,7 @@
 class UnionFind {
  public:
   UnionFind(int n, int SUM_UNITY = 0) : n_(n), SUM_UNITY_(SUM_UNITY) {
-    initialize();
+    init();
   }
 
   int root(int x) {
@@ -64,7 +64,7 @@ class UnionFind {
   std::vector<int> rank_;
   std::vector<int> diff_weight_;
 
-  void initialize() {
+  void init() {
     par_.assign(n_, -1);
     rank_.assign(n_, 0);
     diff_weight_.assign(n_, SUM_UNITY_);

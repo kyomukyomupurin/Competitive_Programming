@@ -7,48 +7,48 @@
 #include <vector>
 
 // snippet-begin
-template <class Monoid, class Function>
+template <class M, class F>
 class SegmentTree {
  public:
-  SegmentTree(const std::vector<Monoid>& data, Monoid identity_element,
-              Function function)
-      : identity_element_(identity_element), data_(data), function_(function) {
+  SegmentTree(const std::vector<M>& data, M ie,
+              F f)
+      : ie_(ie), data_(data), f_(f) {
     build();
   }
 
-  void update(int pos, Monoid new_value) {
+  void update(int pos, M val) {
     assert(0 <= pos && pos < n_);
     pos += n_;
-    node_[pos] = new_value;
+    node_[pos] = val;
     while (pos > 0) {
       pos >>= 1;
-      node_[pos] = function_(node_[2 * pos], node_[2 * pos + 1]);
+      node_[pos] = f_(node_[2 * pos], node_[2 * pos + 1]);
     }
   }
 
   // return function_[l, r)
   // if l >= r, return identity_element_
-  Monoid query(int l, int r) {
+  M query(int l, int r) {
     assert(0 <= l && l < n_ && 0 <= r && r < n_ + 1);
-    Monoid vl = identity_element_, vr = identity_element_;
+    M vl = ie_, vr = ie_;
     for (l += n_, r += n_; l < r; l >>= 1, r >>= 1) {
-      if (l & 1) vl = function_(vl, node_[l++]);
-      if (r & 1) vr = function_(node_[--r], vr);
+      if (l & 1) vl = f_(vl, node_[l++]);
+      if (r & 1) vr = f_(node_[--r], vr);
     }
-    return function_(vl, vr);
+    return f_(vl, vr);
   }
 
-  Monoid operator[](int pos) const {
+  M operator[](int pos) const {
     assert(0 <= pos && pos < n_);
     return node_[n_ + pos];
   }
 
  private:
   int n_;
-  Monoid identity_element_;
-  std::vector<Monoid> data_;
-  std::vector<Monoid> node_;
-  Function function_;
+  M ie_;
+  std::vector<M> data_;
+  std::vector<M> node_;
+  F f_;
 
   void build() {
     int SIZE = data_.size();
@@ -56,12 +56,12 @@ class SegmentTree {
     while (n_ < SIZE) {
       n_ <<= 1;
     }
-    node_.assign(2 * n_, identity_element_);
+    node_.assign(2 * n_, ie_);
     for (int i = 0; i < SIZE; ++i) {
       node_[i + n_] = data_[i];
     }
     for (int i = n_ - 1; i > 0; --i) {
-      node_[i] = function_(node_[2 * i], node_[2 * i + 1]);
+      node_[i] = f_(node_[2 * i], node_[2 * i + 1]);
     }
   }
 };

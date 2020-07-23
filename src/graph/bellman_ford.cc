@@ -12,7 +12,7 @@ class BellmanFord {
   static constexpr _Tp kInfinity =
       std::numeric_limits<_Tp>::max() / static_cast<_Tp>(2);
 
-  BellmanFord(int node_size) : node_size_(node_size) { initialize(); }
+  BellmanFord(int node_size) : node_size_(node_size) { init(); }
 
   void add(int from, int to, _Tp cost) {
     assert(0 <= from && from < node_size_ && 0 <= to && to < node_size_);
@@ -55,7 +55,7 @@ class BellmanFord {
   std::vector<_Tp> distance_;
   std::vector<edge> es_;
 
-  void initialize() { distance_.assign(node_size_, kInfinity); }
+  void init() { distance_.assign(node_size_, kInfinity); }
 };
 // snippet-end
 

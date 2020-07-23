@@ -8,7 +8,7 @@
 // snippet-begin
 class UnionFind {
  public:
-  UnionFind(int n) : n_(n) { initialize(); }
+  UnionFind(int n) : n_(n) { init(); }
 
   int root(int x) {
     assert(0 <= x && x < n_);
@@ -43,7 +43,7 @@ class UnionFind {
   const int n_;
   std::vector<int> par_;
 
-  void initialize() { par_.assign(n_, -1); }
+  void init() { par_.assign(n_, -1); }
 };
 // snippet-end
 

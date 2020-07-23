@@ -10,13 +10,13 @@ template <class _Tp>
 class FenwickTree {
  public:
   FenwickTree(const std::vector<_Tp>& data) : n_(data.size() + 1), data_(data) {
-    initialize();
+    init();
   }
 
-  void add(int pos, _Tp value) {
+  void add(int pos, _Tp val) {
     ++pos;
     while (pos < n_) {
-      node_[pos] += value;
+      node_[pos] += val;
       pos += pos & -pos;
     }
   }
@@ -35,16 +35,16 @@ class FenwickTree {
   // return sum of [l, rihgt]
   _Tp get(int l, int r) { return get(r) - get(l - 1); }
 
-  // return the first k where sum of [0, k] >= value
+  // return the first k where sum of [0, k] >= val
   // use only when all element in data >= 0
-  int lower_bound(_Tp value) {
-    if (value <= 0) return 0;
+  int lower_bound(_Tp val) {
+    if (val <= 0) return 0;
     int pos = 0;
     int k = 1;
     while (k < n_ - 1) k <<= 1;
     while (k > 0) {
-      if (pos + k <= n_ - 1 && node_[pos + k] < value) {
-        value -= node_[pos + k];
+      if (pos + k <= n_ - 1 && node_[pos + k] < val) {
+        val -= node_[pos + k];
         pos += k;
       }
       k >>= 1;
@@ -60,16 +60,16 @@ class FenwickTree {
           ft1_(FenwickTree<_Tp>(data)),
           ft2_(FenwickTree<_Tp>(data)) {}
 
-    // add value range [l, r)
-    void add(int l, int r, _Tp value) {
-      add(ft1_, l, r, value);
-      add(ft2_, l, r, -value * static_cast<_Tp>(l - 1));
-      add(ft2_, r, n_, value * static_cast<_Tp>(r - l));
+    // add val range [l, r)
+    void add(int l, int r, _Tp val) {
+      add(ft1_, l, r, val);
+      add(ft2_, l, r, -val * (l - 1));
+      add(ft2_, r, n_, val * (r - l));
     }
 
     // get sum of [0, i]
     _Tp get(int pos) {
-      return ft1_.get(pos) * static_cast<_Tp>(pos) + ft2_.get(pos);
+      return ft1_.get(pos) * pos + ft2_.get(pos);
     }
 
     // get sum of [l, r]
@@ -79,9 +79,9 @@ class FenwickTree {
     int n_;
     FenwickTree<_Tp> ft1_;
     FenwickTree<_Tp> ft2_;
-    void add(FenwickTree<_Tp>& ft, int l, int r, _Tp value) {
-      ft.add(l, value);
-      ft.add(r, -value);
+    void add(FenwickTree<_Tp>& ft, int l, int r, _Tp val) {
+      ft.add(l, val);
+      ft.add(r, -val);
     }
   };
 
@@ -89,7 +89,7 @@ class FenwickTree {
   int n_;
   std::vector<_Tp> data_;
   std::vector<_Tp> node_;
-  void initialize() {
+  void init() {
     node_.assign(n_ + 1, 0);
     for (int i = 0; i < n_ - 1; ++i) add(i, data_[i]);
   }

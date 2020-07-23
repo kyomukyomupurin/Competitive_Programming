@@ -11,7 +11,7 @@
 template <class _Tp>
 class Dinic {
  public:
-  Dinic(int node_size) : node_size_(node_size) { initialize(); }
+  Dinic(int node_size) : node_size_(node_size) { init(); }
 
   void add(int from, int to, _Tp cost) {
     assert(0 <= from && from < node_size_ && 0 <= to && to < node_size_);
@@ -47,7 +47,7 @@ class Dinic {
   std::vector<int> level_;
   std::vector<int> iter_;
 
-  void initialize() {
+  void init() {
     graph_.resize(node_size_);
     level_.assign(node_size_, 0);
     iter_.assign(node_size_, 0);

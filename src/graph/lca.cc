@@ -13,7 +13,7 @@ class LCA {
       : node_size_(node_size),
         log_node_(32 - __builtin_clz(node_size_)),
         root_(root) {
-    initialize();
+    init();
   }
 
   void add(int u, int v) {
@@ -76,7 +76,7 @@ class LCA {
     }
   }
 
-  void initialize() {
+  void init() {
     depth_.resize(node_size_);
     graph_.resize(node_size_);
     par_.assign(log_node_, std::vector<int>(node_size_, -1));
