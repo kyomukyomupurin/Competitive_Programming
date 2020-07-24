@@ -23,7 +23,6 @@ std::vector<_Tp> dijkstra(const graph<_Tp>& g, int s) {
   pq.emplace(0, s);
   while (!pq.empty()) {
     auto [d, v] = pq.top();
-    int v = tp.second;
     pq.pop();
     if (dist[v] < d) continue;
     for (int id : g.data_[v]) {
