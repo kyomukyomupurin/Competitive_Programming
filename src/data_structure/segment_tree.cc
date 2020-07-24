@@ -25,8 +25,8 @@ class SegmentTree {
     }
   }
 
-  // return function_[l, r)
-  // if l >= r, return identity_element_
+  // return f_[l, r)
+  // if l >= r, return ie_
   M query(int l, int r) {
     assert(0 <= l && l < n_ && 0 <= r && r < n_ + 1);
     M vl = ie_, vr = ie_;
