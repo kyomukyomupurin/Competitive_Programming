@@ -302,6 +302,45 @@
             "};\r"
         ]
     },
+    "sparse_table": {
+        "prefix": "sparse_table",
+        "body": [
+            "template <class T, class F>\r",
+            "class SaprseTable {\r",
+            "  // F must be idempotent function!\r",
+            " public:\r",
+            "  SaprseTable(const std::vector<T>& data, F f)\r",
+            "      : n_((int)data.size()), lg_(32 - __builtin_clz(n_)), f_(f), data_(data) {\r",
+            "    build();\r",
+            "  }\r",
+            "\r",
+            "  // return f_[l, r]\r",
+            "  T query(int l, int r) {\r",
+            "    assert(0 <= l && l <= r && r < n_);\r",
+            "    int lg = 32 - __builtin_clz(r - l + 1) - 1;\r",
+            "    return f_(tab_[lg][l], tab_[lg][r - (1 << lg) + 1]);\r",
+            "  }\r",
+            "\r",
+            " private:\r",
+            "  int n_;\r",
+            "  int lg_;\r",
+            "  F f_;\r",
+            "  std::vector<T> data_;\r",
+            "  std::vector<std::vector<T>> tab_;\r",
+            "\r",
+            "  void build() {\r",
+            "    tab_.resize(lg_);\r",
+            "    tab_[0] = data_;\r",
+            "    for (int j = 1; j < lg_; ++j) {\r",
+            "      tab_[j].resize(n_ - (1 << j) + 1);\r",
+            "      for (int i = 0; i <= n_ - (1 << j); ++i) {\r",
+            "        tab_[j][i] = f_(tab_[j - 1][i], tab_[j - 1][i + (1 << (j - 1))]);\r",
+            "      }\r",
+            "    }\r",
+            "  }\r",
+            "};\r"
+        ]
+    },
     "unionfind_rank": {
         "prefix": "unionfind_rank",
         "body": [
@@ -1216,7 +1255,6 @@
             "  pq.emplace(0, s);\r",
             "  while (!pq.empty()) {\r",
             "    auto [d, v] = pq.top();\r",
-            "    int v = tp.second;\r",
             "    pq.pop();\r",
             "    if (dist[v] < d) continue;\r",
             "    for (int id : g.data_[v]) {\r",
