@@ -7,10 +7,10 @@
 
 // snippet-begin
 template <class T, class F>
-class SaprseTable {
+class SparseTable {
   // F must be idempotent function!
  public:
-  SaprseTable(const std::vector<T>& data, F f)
+  SparseTable(const std::vector<T>& data, F f)
       : n_((int)data.size()), lg_(32 - __builtin_clz(n_)), f_(f), data_(data) {
     build();
   }
@@ -50,7 +50,7 @@ void Static_RMQ() {
   vector<int> a(n);
   for (int& e : a) cin >> e;
   auto f = [](int x, int y) { return min(x, y); };
-  SaprseTable st(a, f);
+  SparseTable st(a, f);
   while (q--) {
     int l, r;
     cin >> l >> r;
