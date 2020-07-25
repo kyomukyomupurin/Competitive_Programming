@@ -6,16 +6,16 @@
 #include <cassert>
 
 // snippet-begin
-template <class _Tp>
+template <class T>
 class CumulativeSum2D {
  public:
-  CumulativeSum2D(const std::vector<vector<_Tp>>& vec)
+  CumulativeSum2D(const std::vector<vector<T>>& vec)
       : x_(vec.size()), y_(vec[0].size()), vec_(vec) {
     build();
   }
 
   // return sum of [sx, gx] * [sy, gy]
-  _Tp get(int sx, int sy, int gx, int gy) {
+  T get(int sx, int sy, int gx, int gy) {
     assert(sx <= gx && sy <= gy);
     assert(0 <= sx && sx < x_ && 0 <= gx && gx < x_ && 0 <= sy && sy < y_ &&
            0 <= gy && gy < y_);
@@ -26,11 +26,11 @@ class CumulativeSum2D {
  private:
   int x_;
   int y_;
-  std::vector<vector<_Tp>> vec_;
-  std::vector<vector<_Tp>> sum_;
+  std::vector<vector<T>> vec_;
+  std::vector<vector<T>> sum_;
 
   void build() {
-    sum_.assign(x_ + 1, vector<_Tp>(y_ + 1, 0));
+    sum_.assign(x_ + 1, vector<T>(y_ + 1, 0));
     for (int i = 0; i < x_; ++i) {
       for (int j = 0; j < y_; ++j) {
         sum_[i + 1][j + 1] = sum_[i + 1][j] + vec_[i][j];

@@ -14,11 +14,11 @@ template <class T>
 using binary_heap = std::priority_queue<T, std::vector<T>, std::greater<T>>;
 
 // snippet-begin
-template <class _Tp>
-std::vector<_Tp> dijkstra(const graph<_Tp>& g, int s) {
+template <class T>
+std::vector<T> dijkstra(const graph<T>& g, int s) {
   assert(0 <= s && s < g.n_);
-  std::vector<_Tp> dist(g.n_, std::numeric_limits<_Tp>::max());
-  binary_heap<std::pair<_Tp, int>> pq;
+  std::vector<T> dist(g.n_, std::numeric_limits<T>::max());
+  binary_heap<std::pair<T, int>> pq;
   dist[s] = 0;
   pq.emplace(0, s);
   while (!pq.empty()) {
@@ -34,7 +34,7 @@ std::vector<_Tp> dijkstra(const graph<_Tp>& g, int s) {
       }
     }
   }
-  std::replace(dist.begin(), dist.end(), std::numeric_limits<_Tp>::max(), -1);
+  std::replace(dist.begin(), dist.end(), std::numeric_limits<T>::max(), -1);
   return dist;
 }
 // snippet-end

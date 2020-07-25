@@ -6,10 +6,10 @@
 using int64 = long long;
 
 // snippet-begin
-template<class _Tp>
-std::map<_Tp, int> prime_fact(_Tp n){
-  std::map<_Tp, int> result;
-  for (_Tp i = 2; i * i <= n; ++i){
+template<class T>
+std::map<T, int> prime_fact(T n){
+  std::map<T, int> result;
+  for (T i = 2; i * i <= n; ++i){
     if (n % i != 0) continue;
     int cnt = 0;
     while (n % i == 0){

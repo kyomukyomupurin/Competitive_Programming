@@ -8,28 +8,28 @@
 #include <vector>
 
 // snippet-begin
-template <class _Tp>
+template <class T>
 class Dinic {
  public:
   Dinic(int node_size) : node_size_(node_size) { init(); }
 
-  void add(int from, int to, _Tp cost) {
+  void add(int from, int to, T cost) {
     assert(0 <= from && from < node_size_ && 0 <= to && to < node_size_);
     graph_[from].emplace_back(
         (edge){to, cost, static_cast<int>(graph_[to].size())});
-    graph_[to].emplace_back((edge){from, static_cast<_Tp>(0),
+    graph_[to].emplace_back((edge){from, static_cast<T>(0),
                                    static_cast<int>(graph_[from].size()) - 1});
   }
 
-  _Tp max_flow(int s, int t) {
-    _Tp flow = 0;
+  T max_flow(int s, int t) {
+    T flow = 0;
     for (;;) {
       bfs(s);
       if (level_[t] < 0) return flow;
       std::fill(iter_.begin(), iter_.end(), 0);
-      _Tp f;
+      T f;
       while ((f = dfs(s, t,
-                      std::numeric_limits<_Tp>::max() / static_cast<_Tp>(2))) >
+                      std::numeric_limits<T>::max() / static_cast<T>(2))) >
              0) {
         flow += f;
       }
@@ -39,7 +39,7 @@ class Dinic {
  private:
   struct edge {
     int to;
-    _Tp cap;
+    T cap;
     int rev;
   };
   int node_size_;
@@ -70,12 +70,12 @@ class Dinic {
     }
   }
 
-  _Tp dfs(int v, int t, int f) {
+  T dfs(int v, int t, int f) {
     if (v == t) return f;
     for (int& i = iter_[v]; i < (int)graph_[v].size(); ++i) {
       edge& e = graph_[v][i];
       if (e.cap > 0 && level_[v] < level_[e.to]) {
-        _Tp d = dfs(e.to, t, min(f, e.cap));
+        T d = dfs(e.to, t, min(f, e.cap));
         if (d > 0) {
           e.cap -= d;
           graph_[e.to][e.rev].cap += d;

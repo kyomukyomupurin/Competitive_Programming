@@ -9,10 +9,10 @@
 #include "./graph.cc"
 
 // snippet-begin
-template <class _Tp>
-std::vector<_Tp> SPFA(const graph<_Tp>& g, int s) {
+template <class T>
+std::vector<T> SPFA(const graph<T>& g, int s) {
   assert(0 <= s && s < g.n_);
-  std::vector<_Tp> dist(g.n_, std::numeric_limits<_Tp>::max());
+  std::vector<T> dist(g.n_, std::numeric_limits<T>::max());
   std::vector<int> pend(g.n_, 0);
   std::vector<int> times(g.n_, 0);
   std::queue<int> que;
@@ -26,7 +26,7 @@ std::vector<_Tp> SPFA(const graph<_Tp>& g, int s) {
     for (int id : g.data_[cur]) {
       auto& e = g.edges_[id];
       int nxt = e.from ^ e.to ^ cur;
-      _Tp ncost = dist[cur] + e.cost;
+      T ncost = dist[cur] + e.cost;
       if (ncost >= dist[nxt]) continue;
       dist[nxt] = ncost;
       if (!pend[nxt]) {

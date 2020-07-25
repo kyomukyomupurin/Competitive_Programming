@@ -5,14 +5,14 @@
 #include <vector>
 
 // snippet-begin
-template <class _Tp>
+template <class T>
 class FenwickTree {
  public:
-  FenwickTree(const std::vector<_Tp>& data) : n_(data.size() + 1), data_(data) {
+  FenwickTree(const std::vector<T>& data) : n_(data.size() + 1), data_(data) {
     init();
   }
 
-  void add(int pos, _Tp val) {
+  void add(int pos, T val) {
     ++pos;
     while (pos < n_) {
       node_[pos] += val;
@@ -21,9 +21,9 @@ class FenwickTree {
   }
 
   // return sum of [0, i]
-  _Tp get(int pos) {
+  T get(int pos) {
     ++pos;
-    _Tp sum = 0;
+    T sum = 0;
     while (pos > 0) {
       sum += node_[pos];
       pos -= pos & -pos;
@@ -32,11 +32,11 @@ class FenwickTree {
   }
 
   // return sum of [l, rihgt]
-  _Tp get(int l, int r) { return get(r) - get(l - 1); }
+  T get(int l, int r) { return get(r) - get(l - 1); }
 
   // return the first k where sum of [0, k] >= val
   // use only when all element in data >= 0
-  int lower_bound(_Tp val) {
+  int lower_bound(T val) {
     if (val <= 0) return 0;
     int pos = 0;
     int k = 1;
@@ -53,8 +53,8 @@ class FenwickTree {
 
  private:
   int n_;
-  std::vector<_Tp> data_;
-  std::vector<_Tp> node_;
+  std::vector<T> data_;
+  std::vector<T> node_;
   void init() {
     node_.assign(n_ + 1, 0);
     for (int i = 0; i < n_ - 1; ++i) add(i, data_[i]);
