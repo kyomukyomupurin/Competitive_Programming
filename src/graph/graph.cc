@@ -1,5 +1,6 @@
 // Graph template
 
+#include <cassert>
 #include <vector>
 
 // snippet-begin
@@ -28,6 +29,7 @@ class forest : public graph<T> {
   forest(int n) : graph<T>(n) {}
 
   void add(int from, int to, T cost = 1) {
+    assert(0 <= from && from < n_ && 0 <= to && to < n_);
     int id = edges_.size();
     assert(id < n_ - 1);
     data_[from].emplace_back(id);
@@ -46,6 +48,7 @@ class digraph : public graph<T> {
   digraph(int n) : graph<T>(n) {}
 
   void add(int from, int to, T cost = 1) {
+    assert(0 <= from && from < n_ && 0 <= to && to < n_);
     int id = edges_.size();
     data_[from].emplace_back(id);
     edges_.push_back({from, to, cost});
@@ -70,6 +73,7 @@ class undigraph : public graph<T> {
   undigraph(int n) : graph<T>(n) {}
 
   void add(int from, int to, T cost = 1) {
+    assert(0 <= from && from < n_ && 0 <= to && to < n_);
     int id = edges_.size();
     data_[from].emplace_back(id);
     data_[to].emplace_back(id);
