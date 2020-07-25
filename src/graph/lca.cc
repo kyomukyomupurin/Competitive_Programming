@@ -3,8 +3,8 @@
 //      https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_C
 //      https://atcoder.jp/contests/abc014/tasks/abc014_4
 
-#include <vector>
 #include <cassert>
+#include <vector>
 
 #include "./graph.cc"
 
@@ -16,20 +16,10 @@ class lca_forest : public forest<T> {
   using forest<T>::data_;
   using forest<T>::edges_;
 
-  lca_forest(int n, int r = 0)
-      : forest<T>(n), lg_(32 - __builtin_clz(n)), r_(r) {
-    init();
-  }
+  lca_forest(int n) : forest<T>(n), lg_(32 - __builtin_clz(n)) { init(); }
 
-  void add(int from, int to, T cost = 1) {
-    int id = edges_.size();
-    data_[from].emplace_back(id);
-    data_[to].emplace_back(id);
-    edges_.push_back({from, to, cost});
-  }
-
-  void build() {
-    dfs(r_, -1, 0);
+  void build(int r = 0) {
+    dfs(r, -1, 0);
     for (int i = 0; i + 1 < lg_; ++i) {
       for (int j = 0; j < n_; ++j) {
         if (par_[i][j] < 0) {
@@ -67,7 +57,6 @@ class lca_forest : public forest<T> {
 
  private:
   int lg_;
-  int r_;
   std::vector<std::vector<int>> par_;
   std::vector<int> dep_;
 
