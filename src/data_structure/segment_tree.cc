@@ -50,13 +50,13 @@ class SegmentTree {
   F f_;
 
   void build() {
-    int SIZE = data_.size();
+    int sz = data_.size();
     n_ = 1;
-    while (n_ < SIZE) {
+    while (n_ < sz) {
       n_ <<= 1;
     }
     node_.assign(2 * n_, ie_);
-    for (int i = 0; i < SIZE; ++i) {
+    for (int i = 0; i < sz; ++i) {
       node_[i + n_] = data_[i];
     }
     for (int i = n_ - 1; i > 0; --i) {
