@@ -10,7 +10,7 @@ template <class T>
 class CumulativeSum2D {
  public:
   CumulativeSum2D(const std::vector<vector<T>>& vec)
-      : x_(vec.size()), y_(vec[0].size()), vec_(vec) {
+      : x_((int)vec.size()), y_((int)vec[0].size()), vec_(vec) {
     build();
   }
 
@@ -30,11 +30,9 @@ class CumulativeSum2D {
   std::vector<vector<T>> sum_;
 
   void build() {
-    sum_.assign(x_ + 1, vector<T>(y_ + 1, 0));
+    sum_.assign(x_ + 1, std::vector<T>(y_ + 1, 0));
     for (int i = 0; i < x_; ++i) {
-      for (int j = 0; j < y_; ++j) {
-        sum_[i + 1][j + 1] = sum_[i + 1][j] + vec_[i][j];
-      }
+      std::partial_sum(vec_[i].begin(), vec_[i].end(), sum_[i + 1].begin() + 1);
     }
     for (int i = 0; i < y_; ++i) {
       for (int j = 0; j < x_; ++j) {
