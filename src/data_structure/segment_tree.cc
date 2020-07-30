@@ -52,16 +52,10 @@ class SegmentTree {
   void build() {
     int sz = data_.size();
     n_ = 1;
-    while (n_ < sz) {
-      n_ <<= 1;
-    }
+    while (n_ < sz) n_ <<= 1;
     node_.assign(2 * n_, ie_);
-    for (int i = 0; i < sz; ++i) {
-      node_[i + n_] = data_[i];
-    }
-    for (int i = n_ - 1; i > 0; --i) {
-      node_[i] = f_(node_[2 * i], node_[2 * i + 1]);
-    }
+    for (int i = 0; i < sz; ++i) node_[i + n_] = data_[i];
+    for (int i = n_ - 1; i > 0; --i) node_[i] = f_(node_[2 * i], node_[2 * i + 1]);
   }
 };
 // snippet-end
