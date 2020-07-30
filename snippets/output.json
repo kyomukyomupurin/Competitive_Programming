@@ -286,16 +286,10 @@
             "  void build() {\r",
             "    int sz = data_.size();\r",
             "    n_ = 1;\r",
-            "    while (n_ < sz) {\r",
-            "      n_ <<= 1;\r",
-            "    }\r",
+            "    while (n_ < sz) n_ <<= 1;\r",
             "    node_.assign(2 * n_, ie_);\r",
-            "    for (int i = 0; i < sz; ++i) {\r",
-            "      node_[i + n_] = data_[i];\r",
-            "    }\r",
-            "    for (int i = n_ - 1; i > 0; --i) {\r",
-            "      node_[i] = f_(node_[2 * i], node_[2 * i + 1]);\r",
-            "    }\r",
+            "    for (int i = 0; i < sz; ++i) node_[i + n_] = data_[i];\r",
+            "    for (int i = n_ - 1; i > 0; --i) node_[i] = f_(node_[2 * i], node_[2 * i + 1]);\r",
             "  }\r",
             "};\r"
         ]
@@ -1791,6 +1785,23 @@
             "  std::sort(res.begin(), res.end());\r",
             "\r",
             "  return res;\r",
+            "}\r"
+        ]
+    },
+    "extgcd": {
+        "prefix": "extgcd",
+        "body": [
+            "// find x, y such that a * x + b * y = gcd(a, b)\r",
+            "template <class T>\r",
+            "T extgcd(T a, T b, T& x, T& y) {\r",
+            "  T d = a;\r",
+            "  if (b) {\r",
+            "    d = extgcd(b, a % b, y, x);\r",
+            "    y -= (a / b) * x;\r",
+            "  } else {\r",
+            "    x = 1, y = 0;\r",
+            "  }\r",
+            "  return d;\r",
             "}\r"
         ]
     },
