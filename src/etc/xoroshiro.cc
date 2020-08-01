@@ -1,4 +1,4 @@
-// Xorshiro128+ 1.0
+// Xoroshiro128+ 1.0
 // reference : http://prng.di.unimi.it/xoroshiro128plus.c
 //             https://cpplover.blogspot.com/2013/03/blog-post_22.html
 
@@ -6,7 +6,7 @@
 #include <iostream>
 
 // snippet-begin
-// This is xorshiro128+ 1.0
+// This is xoroshiro128+ 1.0
 // Reference : http://prng.di.unimi.it/xoroshiro128plus.c
 class Xoroshiro {
  public:
