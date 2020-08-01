@@ -8,9 +8,9 @@
 // snippet-begin
 // This is xorshiro128+ 1.0
 // Reference : http://prng.di.unimi.it/xoroshiro128plus.c
-class Xorshiro {
+class Xoroshiro {
  public:
-  Xorshiro() {
+  Xoroshiro() {
     s[0] = static_cast<uint64_t>(std::chrono::steady_clock::now().time_since_epoch().count());
     s[1] = static_cast<uint64_t>(std::chrono::steady_clock::now().time_since_epoch().count());
     for (int i = 0; i < (1 << 6); ++i) next();
