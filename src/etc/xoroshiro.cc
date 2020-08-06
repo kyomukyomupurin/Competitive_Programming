@@ -12,7 +12,7 @@ class Xoroshiro {
  public:
   Xoroshiro() {
     s[0] = static_cast<uint64_t>(std::chrono::steady_clock::now().time_since_epoch().count());
-    s[1] = static_cast<uint64_t>(std::chrono::steady_clock::now().time_since_epoch().count());
+    s[1] = s[0] ^ 0xffffffffful;
     for (int i = 0; i < (1 << 6); ++i) next();
   }
 
