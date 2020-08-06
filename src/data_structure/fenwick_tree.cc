@@ -31,7 +31,25 @@ class FenwickTree {
     return sum;
   }
 
-  // return sum of [l, rihgt]
+/*
+  // this code works faster
+  // return sum of [l, r)
+  T get(int l, int r) {
+    T sum = 0;
+    while (l < r) {
+      sum += node_[r];
+      r -= (r & (~r + 1));
+    }
+    while (r < l) {
+      sum -= node_[l];
+      l -= (l & (~l + 1));
+    }
+
+    return sum;
+  }
+*/
+
+  // return sum of [l, r]
   T get(int l, int r) { return get(r) - get(l - 1); }
 
   // return the first k where sum of [0, k] >= val
