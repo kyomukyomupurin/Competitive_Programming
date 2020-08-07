@@ -38,13 +38,12 @@ class FenwickTree {
     T sum = 0;
     while (l < r) {
       sum += node_[r];
-      r -= (r & (~r + 1));
+      r -= r & -r;
     }
     while (r < l) {
       sum -= node_[l];
-      l -= (l & (~l + 1));
+      l -= l & -l;
     }
-
     return sum;
   }
 */
