@@ -17,7 +17,10 @@ class Timer {
 
  private:
   int64_t start_;
-  static constexpr int64_t clock_frequency_ = 3000000000;
+  static constexpr int64_t clock_frequency_ = 1800000000; // Local
+  //static constexpr int64_t clock_frequency_ = 3000000000; // AtCoder
+  //static constexpr int64_t clock_frequency_ = 3600000000; // Codeforces
+  //static constexpr int64_t clock_frequency_ = 2300000000; // yukicoder
 
   int64_t get_cycle() {
     uint32_t low, high;
