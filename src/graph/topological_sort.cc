@@ -22,8 +22,8 @@ std::vector<int> topological_sort(const digraph<T>& g) {
     int cur = que.front(); que.pop();
     res.emplace_back(cur);
     for (int id : g.data_[cur]) {
-      auto& e = g.edges_[id];
-      int nxt = e.from ^ e.to ^ cur;
+      const auto& [from, to, cost] = g.edges_[id];
+      int nxt = from ^ to ^ cur;
       if (--lev[nxt] == 0) que.emplace(nxt);
     }
   }

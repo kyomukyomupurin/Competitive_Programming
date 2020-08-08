@@ -64,8 +64,8 @@ class lca_forest : public forest<T> {
     par_[0][cur] = pre;
     dep_[cur] = d;
     for (int id : data_[cur]) {
-      auto& e = edges_[id];
-      int nxt = e.to ^ e.from ^ cur;
+      const auto& [from, to, cost] = edges_[id];
+      int nxt = from ^ to ^ cur;
       if (nxt == pre) continue;
       dfs(nxt, cur, d + 1);
     }

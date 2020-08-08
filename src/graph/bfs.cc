@@ -16,10 +16,10 @@ std::vector<T> bfs(const graph<T>& g, int s) {
     int cur = que.front();
     que.pop();
     for (int id : g.data_[cur]) {
-      auto& e = g.edges_[id];
-      int nxt = e.from ^ e.to ^ cur;
+      const auto& [from, to, cost] = g.edges_[id];
+      int nxt = from ^ to ^ cur;
       if (dist[nxt] != -1) continue;
-      dist[nxt] = dist[cur] + e.cost;
+      dist[nxt] = dist[cur] + cost;
       que.emplace(nxt);
     }
   }

@@ -16,16 +16,16 @@ std::vector<T> bellmanford(const graph<T>& g, int s) {
   std::vector<T> dist(g.n_, kInfinity);
   dist[s] = 0;
   for (int i = 0; i < g.n_; ++i) {
-    for (auto& e : g.edges_) {
-      if (dist[e.from] == kInfinity) continue;
-      if (dist[e.to] > dist[e.from] + e.cost) {
-        dist[e.to] = dist[e.from] + e.cost;
+    for (const auto& [from, to, cost] : g.edges_) {
+      if (dist[from] == kInfinity) continue;
+      if (dist[to] > dist[from] + cost) {
+        dist[to] = dist[from] + cost;
       }
     }
   }
-  for (auto& e : g.edges_) {
-    if (dist[e.from] == kInfinity) continue;
-    if (dist[e.to] > dist[e.from] + e.cost) return {};
+  for (const auto& [from, to, cost] : g.edges_) {
+    if (dist[from] == kInfinity) continue;
+    if (dist[to] > dist[from] + cost) return {};
   }
   return dist;
 }

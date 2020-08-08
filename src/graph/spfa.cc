@@ -24,9 +24,9 @@ std::vector<T> SPFA(const graph<T>& g, int s) {
     int cur = que.front(); que.pop();
     pend[cur] = false;
     for (int id : g.data_[cur]) {
-      auto& e = g.edges_[id];
-      int nxt = e.from ^ e.to ^ cur;
-      T ncost = dist[cur] + e.cost;
+      const auto& [from, to, cost] = g.edges_[id];
+      int nxt = from ^ to ^ cur;
+      T ncost = dist[cur] + cost;
       if (ncost >= dist[nxt]) continue;
       dist[nxt] = ncost;
       if (!pend[nxt]) {

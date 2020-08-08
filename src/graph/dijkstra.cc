@@ -26,15 +26,14 @@ std::vector<T> dijkstra(const graph<T>& g, int s) {
     pq.pop();
     if (dist[v] < d) continue;
     for (int id : g.data_[v]) {
-      auto& e = g.edges_[id];
-      int nxt = e.from ^ e.to ^ v;
-      if (dist[nxt] > dist[v] + e.cost) {
-        dist[nxt] = dist[v] + e.cost;
+      const auto& [from, to, cost] = g.edges_[id];
+      int nxt = from ^ to ^ v;
+      if (dist[nxt] > dist[v] + cost) {
+        dist[nxt] = dist[v] + cost;
         pq.emplace(dist[nxt], nxt);
       }
     }
   }
-  std::replace(dist.begin(), dist.end(), std::numeric_limits<T>::max(), -1);
   return dist;
 }
 // snippet-end
