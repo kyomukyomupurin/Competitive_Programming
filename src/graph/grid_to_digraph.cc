@@ -16,7 +16,7 @@ digraph<int> grid_to_digraph(const std::vector<std::string>& sv) {
       for (int k = 0; k < 4; ++k) {
         int nx = i + dx[k], ny = j + dy[k];
         if (Out(nx, ny)) continue;
-        if (sv[i][j] == '.' && sv[nx][ny] == '.') {
+        if (/* edit here */) {
           g.add(Compress(i, j), Compress(nx, ny));
         }
       }
