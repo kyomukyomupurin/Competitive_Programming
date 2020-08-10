@@ -18,7 +18,8 @@ template <class T>
 std::vector<T> dijkstra(const graph<T>& g, int s) {
   assert(0 <= s && s < g.n_);
   std::vector<T> dist(g.n_, std::numeric_limits<T>::max());
-  binary_heap<std::pair<T, int>> pq;
+  using Pair = std::pair<T, int>;
+  std::priority_queue<Pair, std::vector<Pair>, std::greater<Pair>> pq;
   dist[s] = 0;
   pq.emplace(0, s);
   while (!pq.empty()) {
