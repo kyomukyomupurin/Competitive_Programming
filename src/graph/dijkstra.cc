@@ -51,7 +51,7 @@ void GRL_1_A() {
 
   vector<int> dist = dijkstra(g, r);
   for (int e : dist) {
-    if (e == -1) {
+    if (e == numeric_limits<int>::max()) {
       cout << "INF" << '\n';
     } else {
       cout << e << '\n';
