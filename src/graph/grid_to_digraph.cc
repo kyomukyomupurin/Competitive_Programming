@@ -5,6 +5,7 @@
 
 #include "./graph.cc"
 
+// snippet-begin
 digraph<int> grid_to_digraph(const std::vector<std::string>& sv) {
   int h = sv.size(), w = sv[0].size();
   digraph<int> g(h * w);
@@ -24,3 +25,4 @@ digraph<int> grid_to_digraph(const std::vector<std::string>& sv) {
   }
   return g;
 }
+// snippet-end
