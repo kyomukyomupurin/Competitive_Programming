@@ -11,6 +11,8 @@ class graph {
   struct edge {
     int from, to;
     T cost;
+
+    edge(int from_, int to_, T cost_) : from(from_), to(to_), cost(cost_) {}
   };
   int n_;
   std::vector<std::vector<int>> data_;
@@ -34,7 +36,7 @@ class forest : public graph<T> {
     assert(id < n_ - 1);
     data_[from].emplace_back(id);
     data_[to].emplace_back(id);
-    edges_.push_back({from, to, cost});
+    edges_.emplace_back(from, to, cost);
   }
 };
 
@@ -51,7 +53,7 @@ class digraph : public graph<T> {
     assert(0 <= from && from < n_ && 0 <= to && to < n_);
     int id = edges_.size();
     data_[from].emplace_back(id);
-    edges_.push_back({from, to, cost});
+    edges_.emplace_back(from, to, cost);
   }
 
   digraph<T> reverse() const {
@@ -77,7 +79,7 @@ class undigraph : public graph<T> {
     int id = edges_.size();
     data_[from].emplace_back(id);
     data_[to].emplace_back(id);
-    edges_.push_back({from, to, cost});
+    edges_.emplace_back(from, to, cost);
   }
 };
 // snippet-end
