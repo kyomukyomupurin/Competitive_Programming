@@ -48,7 +48,7 @@ void GRL_1_A() {
     int s, t, d; cin >> s >> t >> d;
     g.add(s, t, d);
   }
-p
+
   vector<int> dist = dijkstra(g, r);
   for (int e : dist) {
     if (e == -1) {
