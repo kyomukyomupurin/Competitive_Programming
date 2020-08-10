@@ -1605,6 +1605,30 @@
             "};\r"
         ]
     },
+    "grid_to_digraph": {
+        "prefix": "grid_to_digraph",
+        "body": [
+            "digraph<int> grid_to_digraph(const std::vector<std::string>& sv) {\r",
+            "  int h = sv.size(), w = sv[0].size();\r",
+            "  digraph<int> g(h * w);\r",
+            "  constexpr int dx[4] = {1, 0, -1, 0}, dy[4] = {0, 1, 0, -1};\r",
+            "  auto Out = [&](int x, int y) { return (x < 0 || x >= h || y < 0 || y >= w); };\r",
+            "  auto Compress = [&](int x, int y) { return x * w + y; };\r",
+            "  for (int i = 0; i < h; ++i) {\r",
+            "    for (int j = 0; j < w; ++j) {\r",
+            "      for (int k = 0; k < 4; ++k) {\r",
+            "        int nx = i + dx[k], ny = j + dy[k];\r",
+            "        if (Out(nx, ny)) continue;\r",
+            "        if (/* edit here */) {\r",
+            "          g.add(Compress(i, j), Compress(nx, ny));\r",
+            "        }\r",
+            "      }\r",
+            "    }\r",
+            "  }\r",
+            "  return g;\r",
+            "}\r"
+        ]
+    },
     "lca": {
         "prefix": "lca",
         "body": [
