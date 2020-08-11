@@ -58,8 +58,8 @@ class digraph : public graph<T> {
 
   digraph<T> reverse() const {
     digraph<T> rev(n_);
-    for (auto& e : edges_) {
-      rev.add(e.to, e.from, e.cost);
+    for (const auto& [to, from, cost] : edges_) {
+      rev.add(to, from, cost);
     }
     return rev;
   }
