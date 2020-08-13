@@ -12,30 +12,31 @@
 Libraries for competitive programming
 
 <details>
-  <summary> Information </summary>
+  <summary markdown="span"> Information </summary>
 
 - **All** functions are 0-indexed.  
 - **Not** every function is for semi-open section(read comments carefully). 
-- [Snippets generator for Visual Studio Code](https://github.com/kyomukyomupurin/snippets_generator)  
+- [Snippets generator for Visual Studio Code](https://github.com/kyomukyomupurin/snippets_generator)
 
 </details>
 
 <details>
-  <summary> Environment </summary>
+  <summary markdown="span"> Environment </summary>
 
 - Windows subsystem for Linux, Ubuntu 18.04  
 - g++ 7.5.0  
 - Compilation command :  ```g++ -std=c++17 -Wall -Wextra -Wshadow -Wno-unknown-pragmas -fsanitize=address -fsanitize=undefined -O2 -D_GLIBCXX_DEBUG -DLOCAL main.cc```
+
 </details>
 
 <details>
-  <summary> TO DO </summary>
+  <summary markdown="span"> TO DO </summary>
 
 - Add binary search function on Segment Tree.  
 - Add Lazy Segment Tree.  
 - Add FFT(and NTT).  
 - Add Self-Balancing Binary Search Tree(Treap, Splay Tree, or AVL Tree).   
 - Make [FastIO](https://github.com/kyomukyomupurin/competitive_programming/blob/master/src/etc/fastio.cc) faster.  
-- Add graph libraries(hld_forest, dfs_forest, scc_digraph, ...).  
+- Add graph libraries(hld_forest, dfs_forest, scc_digraph, ...).
 
 </details>
