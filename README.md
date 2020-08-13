@@ -25,7 +25,7 @@ Libraries for competitive programming
 
 - Windows subsystem for Linux, Ubuntu 18.04  
 - g++ 7.5.0  
-- Compilation command :  ```g++ -std=c++17 -Wall -Wextra -Wshadow -Wno-unknown-pragmas -fsanitize=address -fsanitize=undefined -O2 -D_GLIBCXX_DEBUG -DLOCAL main.cc```
+- Compilation command :  ```g++ -std=c++17 -Wall -Wextra -Wshadow -Wno-unknown-pragmas -fsanitize=address -fsanitize=undefined -fsplit-stack -O2 -D_GLIBCXX_DEBUG -DLOCAL main.cc```
 
 </details>
 
