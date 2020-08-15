@@ -5,6 +5,7 @@
 
 #include <vector>
 
+// snippet-begin
 template <class OM, class F>
 class DualSegmentTree {
  public:
@@ -56,6 +57,7 @@ class DualSegmentTree {
     for (int i = h_; i > 0; --i) propagate(pos >> i);
   }
 };
+// snippet-end
 
 // verification code
 /*
