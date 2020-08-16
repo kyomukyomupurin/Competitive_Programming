@@ -2,6 +2,7 @@
 
 #include <vector>
 
+// snippet-begin
 template <class M, class OM, class F1, class F2, class F3>
 class LazySegmentTree {
  public:
@@ -80,3 +81,4 @@ class LazySegmentTree {
     for (int i = h_; i > 0; --i) propagate(pos >> i);
   }
 };
+// snippet-end
