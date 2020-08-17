@@ -44,6 +44,7 @@
   座標圧縮したい vector を用意し(vec とする)、```CoodinateCompression cc(vec);``` と宣言する。 ```cc[i].before, cc[i].after``` はそれぞれ座標圧縮前、座標圧縮後の値を返す。
   
   #### 計算量
+  (<img src="https://render.githubusercontent.com/render/math?math=N"> を vec のサイズとして)  
   CoodinateCompression() : <img src="https://render.githubusercontent.com/render/math?math=O(N\log N)">
 </details>
 
@@ -58,15 +59,36 @@
 
   累積和をとりたい vector を用意し(vec とする)、```CumulativeSum cs(vec);``` と宣言する。
 
-  get(int l, int r) : <img src="https://render.githubusercontent.com/render/math?math=\sum_{i=l}^{r} vec[i]"> を返す。  
-  lower_bound(T val) : 初めて <img src="https://render.githubusercontent.com/render/math?math=\sum_{i=0}^{pos}\geq val"> となるような pos を返す。  
-  upper_bound(T val) : 初めて <img src="https://render.githubusercontent.com/render/math?math=\sum_{i=0}^{pos}> val"> となるような pos を返す。 
+  get(l, r) : <img src="https://render.githubusercontent.com/render/math?math=\sum_{i=l}^{r} vec[i]"> を返す。  
+  lower_bound(val) : 初めて <img src="https://render.githubusercontent.com/render/math?math=\sum_{i=0}^{pos}\geq val"> となるような pos を返す。  
+  upper_bound(val) : 初めて <img src="https://render.githubusercontent.com/render/math?math=\sum_{i=0}^{pos}> val"> となるような pos を返す。 
   
   #### 計算量
 
+  (<img src="https://render.githubusercontent.com/render/math?math=N"> を vec のサイズとして)  
   CumulativeSum() : <img src="https://render.githubusercontent.com/render/math?math=O(N)">  
-  get(int l, int r) : <img src="https://render.githubusercontent.com/render/math?math=O(1)">  
-  lower_bound(T val) : <img src="https://render.githubusercontent.com/render/math?math=O(log N)">  
-  upper_bound(T val) : <img src="https://render.githubusercontent.com/render/math?math=O(\log N)">  
+  get(l, r) : <img src="https://render.githubusercontent.com/render/math?math=O(1)">  
+  lower_bound(val) : <img src="https://render.githubusercontent.com/render/math?math=O(\log N)">  
+  upper_bound(val) : <img src="https://render.githubusercontent.com/render/math?math=O(\log N)">  
+
+</details>
+
+<details>
+  <summary>cumulative_sum_2d.cc</summary>
+
+  #### 概要
+
+  二次元の累積和をとる。  
+
+  #### 使い方
+
+  累積和をとりたい二次元の vector を用意し(vec とする)、```CumulativeSum2D cs(vec);``` と宣言する。
+  -  get(sx, sy, gx, gy) : 長方形の閉区間 <img src="https://render.githubusercontent.com/render/math?math=[sx, gx]\times[sy, gy]"> の和を返す。
+
+  #### 計算量
+
+  (<img src="https://render.githubusercontent.com/render/math?math=H"> を vec のサイズ、<img src="https://render.githubusercontent.com/render/math?math=W"> を vec[0] のサイズとして)  
+  -  CumulativeSum2D : <img src="https://render.githubusercontent.com/render/math?math=O(HW)">  
+  -  get(sx, sy, gx, gy) : <img src="https://render.githubusercontent.com/render/math?math=O(1)">  
 
 </details>
