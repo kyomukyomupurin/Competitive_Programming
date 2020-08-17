@@ -58,7 +58,7 @@ class LazySegmentTree {
 
   inline void propagate(int pos) {
     if (lazy_[pos] != oie_) {
-      lazy_[2 * pos + 0] = f3_(lazy_[2 * pos + 0], lazy_[pos]);
+      lazy_[2 * pos] = f3_(lazy_[2 * pos], lazy_[pos]);
       lazy_[2 * pos + 1] = f3_(lazy_[2 * pos + 1], lazy_[pos]);
       node_[pos] = apply(pos);
       lazy_[pos] = oie_;
@@ -74,7 +74,7 @@ class LazySegmentTree {
   }
 
   inline void recalc(int pos) {
-    while (pos >>= 1) node_[pos] = f1_(apply(2 * pos + 0), apply(2 * pos + 1));
+    while (pos >>= 1) node_[pos] = f1_(apply(2 * pos), apply(2 * pos + 1));
   }
 
   inline void thrust(int pos) {
