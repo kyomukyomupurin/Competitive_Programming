@@ -27,7 +27,7 @@ class SegmentTree {
 
   // return f_[l, r)
   // if l >= r, return ie_
-  M query(int l, int r) {
+  M get(int l, int r) {
     assert(0 <= l && l < n_ && 0 <= r && r < n_ + 1);
     M vl = ie_, vr = ie_;
     for (l += n_, r += n_; l < r; l >>= 1, r >>= 1) {
@@ -74,7 +74,7 @@ void DSL_2_A() {
     if (com == 0) {
       seg.update(x, y);
     } else {
-      cout << seg.query(x, y + 1) << '\n';
+      cout << seg.get(x, y + 1) << '\n';
     }
   }
 }
@@ -95,7 +95,7 @@ void DSL_2_B() {
     } else {
       --x;
       --y;
-      cout << seg.query(x, y + 1) << '\n';
+      cout << seg.get(x, y + 1) << '\n';
     }
   }
 }

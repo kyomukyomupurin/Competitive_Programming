@@ -16,7 +16,7 @@ class SparseTable {
   }
 
   // return f_[l, r]
-  T query(int l, int r) {
+  T get(int l, int r) {
     assert(0 <= l && l <= r && r < n_);
     int lg = 32 - __builtin_clz(r - l + 1) - 1;
     return f_(tab_[lg][l], tab_[lg][r - (1 << lg) + 1]);
@@ -54,7 +54,7 @@ void Static_RMQ() {
   while (q--) {
     int l, r;
     cin >> l >> r;
-    cout << st.query(l, r - 1) << '\n';
+    cout << st.get(l, r - 1) << '\n';
   }
 }
 */
