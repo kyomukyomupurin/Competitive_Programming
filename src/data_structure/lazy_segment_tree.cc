@@ -11,6 +11,7 @@ class LazySegmentTree {
     build();
   }
 
+  // modify data_[l, r) -> f3_(data_[l], val), ... , f3_(data[r - 1], val)
   void modify(int l, int r, OM val) {
     if (l >= r) return;
     thrust(l += n_);
@@ -23,6 +24,7 @@ class LazySegmentTree {
     recalc(r);
   }
 
+  // return f1_[l, r)
   M get(int l, int r) {
     if (l >= r) return ie_;
     thrust(l + n_);
