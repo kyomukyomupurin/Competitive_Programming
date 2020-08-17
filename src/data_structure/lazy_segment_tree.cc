@@ -82,3 +82,97 @@ class LazySegmentTree {
   }
 };
 // snippet-end
+
+// verification code
+/*
+// RMQ and RUQ
+void DSL_2_F() {
+  int n, q; cin >> n >> q;
+  auto f1 = [](int e1, int e2){ return min(e1, e2); };
+  auto f2 = [](int e, int x){ return x; };
+  auto f3 = [](int x1, int x2){ return x2; };
+  constexpr int inf = 2147483647;
+  vector<int> v(n, inf);
+  LazySegmentTree<int, int, decltype(f1), decltype(f2), decltype(f3)> seg(v, inf, -1, f1, f2, f3);
+  while (q--) {
+    int op; cin >> op;
+    if (op == 0) {
+      int s, t, x; cin >> s >> t >> x;
+      seg.modify(s, t + 1, x);
+    } else {
+      int s, t; cin >> s >> t;
+      cout << seg.get(s, t + 1) << '\n';
+    }
+  }
+}
+*/
+/*
+// RSQ and RAQ
+void DSL_2_G() {
+  int n, q; cin >> n >> q;
+  struct Node {
+    int64 val, len;
+  };
+  auto f1 = [](Node e1, Node e2) { return (Node){e1.val + e2.val, e1.len + e2.len}; };
+  auto f2 = [](Node e, int64 x){ return (Node){e.val + e.len * x, e.len}; };
+  auto f3 = [](int64 x1, int64 x2){ return x1 + x2; };
+  vector<Node> v(n, (Node){0, 1});
+  LazySegmentTree<Node, int64, decltype(f1), decltype(f2), decltype(f3)> seg(v, (Node){0, 1}, 0, f1, f2, f3);
+  while (q--) {
+    int op; cin >> op;
+    if (op == 0) {
+      int s, t; int64 x; cin >> s >> t >> x;
+      seg.modify(s - 1, t, x);
+    } else {
+      int s, t; cin >> s >> t;
+      cout << seg.get(s - 1, t).val << '\n';
+    }
+  }
+}
+*/
+/*
+// RMQ and RAQ
+void DSL_2_H() {
+  int n, q; cin >> n >> q;
+  auto f1 = [](int e1, int e2){ return min(e1, e2); };
+  auto f2 = [](int e, int x){ return e + x; };
+  auto f3 = [](int x1, int x2){ return x1 + x2; };
+  constexpr int inf = (int)1e9;
+  vector<int> v(n, 0);
+  LazySegmentTree<int, int, decltype(f1), decltype(f2), decltype(f3)> seg(v, inf, 0, f1, f2, f3);
+  while (q--) {
+    int op; cin >> op;
+    if (op == 0) {
+      int s, t, x; cin >> s >> t >> x;
+      seg.modify(s, t + 1, x);
+    } else {
+      int s, t; cin >> s >> t;
+      cout << seg.get(s, t + 1) << '\n';
+    }
+  }
+}
+*/
+/*
+// RSQ and RUQ
+void DSL_2_I() {
+  int n, q; cin >> n >> q;
+  struct Node {
+    int64 val, len;
+  };
+  auto f1 = [](Node e1, Node e2) { return (Node){e1.val + e2.val, e1.len + e2.len}; };
+  auto f2 = [](Node e, int64 x){ return (Node){e.len * x, e.len}; };
+  auto f3 = [](int64 x1, int64 x2){ return x2; };
+  vector<Node> v(n, (Node){0, 1});
+  LazySegmentTree<Node, int64, decltype(f1), decltype(f2), decltype(f3)> seg(v, (Node){0, 1}, -(int64)1e18, f1, f2, f3);
+  while (q--) {
+    int op; cin >> op;
+    if (op == 0) {
+      int s, t; int64 x; cin >> s >> t >> x;
+      seg.modify(s, t + 1, x);
+    } else {
+      int s, t; cin >> s >> t;
+      cout << seg.get(s, t + 1).val << '\n';
+    }
+  }
+}
+*/
