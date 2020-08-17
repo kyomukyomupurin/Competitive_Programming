@@ -41,6 +41,12 @@ inline void println(T val) {
 }
 
 template <class T>
+inline void println(const std::vector<T>& vec) {
+  int sz = vec.size();
+  for (int i = 0; i < sz; ++i) std::cout << vec[i] << " \n"[i == sz - 1];
+}
+
+template <class T>
 using binary_heap = std::priority_queue<T, std::vector<T>, std::greater<T>>;
 
 template <class T>
