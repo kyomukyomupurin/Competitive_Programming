@@ -17,6 +17,56 @@
 
 ## TO DO
 
-追加したいものがたくさん。
+これから追加したいものたち。
 
-- セグ木上の二分探索(<img src="https://render.githubusercontent.com/render/math?math=O(\log^2 N)\to O(\log N))"> に落とせるやつ)
+-  セグ木上の二分探索( <img src="https://render.githubusercontent.com/render/math?math=O(\log^2 N)\to O(\log N)"> に落とせるやつ)
+-  FFT(高速フーリエ変換)、NTT (余裕があれば(なさそう))
+-  平衡二分探索木(Treap, Splay 木、AVL 木のどれか or 複数書いてみたい、でも実装辛そう)
+- [FastIO](https://github.com/kyomukyomupurin/competitive_programming/blob/master/src/etc/fastio.cc) をさらに高速化したい。Scanner の ```memmove``` を ```memcpy``` で置き換えられたら速くなるはず。他の箇所はどうすればこれ以上速くなるかわからない...。
+- グラフ関連のライブラリ(HL 分解、強連結成分分解、DFS 木)の整備
+- Pollard's rho 高速素因数分解
+
+## 各ライブラリの使い方
+
+随時更新していきます。
+
+### algorithm
+
+<details>
+  <summary>coodinate_compression.cc</summary>
+
+  #### 概要
+
+  座標圧縮を行う。最近は、これ別にいらないのではという気持ちになっており、今後も使うことはなさそう。  
+
+  #### 使い方
+
+  座標圧縮したい vector を用意し(vec とする)、```CoodinateCompression cc(vec);``` と宣言する。 ```cc[i].before, cc[i].after``` はそれぞれ座標圧縮前、座標圧縮後の値を返す。
+  
+  #### 計算量
+  CoodinateCompression() : <img src="https://render.githubusercontent.com/render/math?math=O(N\log N)">
+</details>
+
+<details>
+  <summary>cumulative_sum.cc</summary>
+
+  #### 概要
+
+  一次元の累積和をとる。  
+
+  #### 使い方
+
+  累積和をとりたい vector を用意し(vec とする)、```CumulativeSum cs(vec);``` と宣言する。
+
+  get(int l, int r) : <img src="https://render.githubusercontent.com/render/math?math=\sum_{i=l}^{r} vec[i]"> を返す。  
+  lower_bound(T val) : 初めて <img src="https://render.githubusercontent.com/render/math?math=\sum_{i=0}^{pos}\geq val"> となるような pos を返す。  
+  upper_bound(T val) : 初めて <img src="https://render.githubusercontent.com/render/math?math=\sum_{i=0}^{pos}> val"> となるような pos を返す。 
+  
+  #### 計算量
+
+  CumulativeSum() : <img src="https://render.githubusercontent.com/render/math?math=O(N)">  
+  get(int l, int r) : <img src="https://render.githubusercontent.com/render/math?math=O(1)">  
+  lower_bound(T val) : <img src="https://render.githubusercontent.com/render/math?math=O(log N)">  
+  upper_bound(T val) : <img src="https://render.githubusercontent.com/render/math?math=O(\log N)">  
+
+</details>
