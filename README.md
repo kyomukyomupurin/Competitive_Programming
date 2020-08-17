@@ -33,7 +33,6 @@ Libraries for competitive programming
   <summary markdown="span"> TO DO </summary>
 
 - Add binary search function on Segment Tree.  
-- Add Lazy Segment Tree.  
 - Add FFT(and NTT).  
 - Add Self-Balancing Binary Search Tree(Treap, Splay Tree, or AVL Tree).   
 - Make [FastIO](https://github.com/kyomukyomupurin/competitive_programming/blob/master/src/etc/fastio.cc) faster.  
