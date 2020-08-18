@@ -11,7 +11,7 @@ class Doubling {
     table.assign(lg_, std::vector<int>(n_, -1));
   }
 
-  void set(int pos, int value) { table[0][pos] = value; }
+  void set(int pos, int val) { table[0][pos] = val; }
 
   void build() {
     for (int i = 0; i + 1 < lg_; ++i) {
