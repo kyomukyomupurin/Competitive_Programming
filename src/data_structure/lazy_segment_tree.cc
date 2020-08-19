@@ -1,4 +1,10 @@
 // Lazy segment tree
+// verified by
+//     https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/all/DSL_2_F
+//     https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/all/DSL_2_G
+//     https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/all/DSL_2_H
+//     https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/all/DSL_2_I
+//     https://judge.yosupo.jp/problem/range_affine_range_sum
 
 #include <vector>
 
@@ -174,6 +180,66 @@ void DSL_2_I() {
     } else {
       int s, t; cin >> s >> t;
       cout << seg.get(s, t + 1).val << '\n';
+    }
+  }
+}
+*/
+/*
+void Range_Affine_Range_Sum() {
+  int n, q;
+  cin >> n >> q;
+  vector<int64> a(n);
+  for (int64& e : a) cin >> e;
+
+  struct Node {
+    int64 val, len;
+
+    Node(int64 val_, int64 len_) : val(val_), len(len_) {}
+  };
+
+  struct Op {
+    int64 op1, op2;
+
+    Op(int64 op1_, int64 op2_) : op1(op1_), op2(op2_) {}
+
+    bool operator==(const Op& rhs) const {
+      return rhs.op1 == op1 && rhs.op2 == op2;
+    };
+
+    bool operator!=(const Op& rhs) const {
+      return rhs.op1 != op1 || rhs.op2 != op2;
+    };
+  };
+
+  constexpr int mod = 998244353;
+
+  auto f1 = [](Node e1, Node e2) -> Node {
+    return (Node){(e1.val + e2.val) % mod, e1.len + e2.len};
+  };
+  auto f2 = [](Node e, Op x) -> Node {
+    return (Node){(e.val * x.op1 + e.len * x.op2) % mod, e.len};
+  };
+  auto f3 = [](Op x1, Op x2) -> Op {
+    return (Op){(x1.op1 * x2.op1) % mod, (x1.op2 * x2.op1 + x2.op2) % mod};
+  };
+
+  vector<Node> v;
+  for (int64 e : a) v.emplace_back(e, 1);
+  Node ie = {0, 1};
+  Op oie = {1, 0};
+  LazySegmentTree seg(v, ie, oie, f1, f2, f3);
+
+  while (q--) {
+    int com;
+    cin >> com;
+    if (com == 0) {
+      int l, r, b, c;
+      cin >> l >> r >> b >> c;
+      seg.modify(l, r, (Op){b, c});
+    } else {
+      int l, r;
+      cin >> l >> r;
+      cout << seg.get(l, r).val << '\n';
     }
   }
 }
