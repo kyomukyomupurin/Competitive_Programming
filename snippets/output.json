@@ -85,7 +85,7 @@
             "    table.assign(lg_, std::vector<int>(n_, -1));\r",
             "  }\r",
             "\r",
-            "  void set(int pos, int value) { table[0][pos] = value; }\r",
+            "  void set(int pos, int val) { table[0][pos] = val; }\r",
             "\r",
             "  void build() {\r",
             "    for (int i = 0; i + 1 < lg_; ++i) {\r",
@@ -140,6 +140,39 @@
             "\r",
             "  return {low, cache_f1};\r",
             "}\r"
+        ]
+    },
+    "run_length_encoding": {
+        "prefix": "run_length_encoding",
+        "body": [
+            "std::vector<std::pair<char, int>> RunLengthEncoding(const std::string& str) {\r",
+            "  std::vector<std::pair<char, int>> ret;\r",
+            "  int sz = str.size();\r",
+            "  int beg = 0;\r",
+            "  while (beg < sz) {\r",
+            "    int ed = beg;\r",
+            "    while (ed + 1 < sz && str[beg] == str[ed + 1]) ++ed;\r",
+            "    int len = ed - beg + 1;\r",
+            "    ret.emplace_back(str[beg], len);\r",
+            "    beg = ed + 1;\r",
+            "  }\r",
+            "  return ret;\r",
+            "};\r",
+            "\r",
+            "template <class T>\r",
+            "std::vector<std::pair<T, int>> RunLengthEncoding(const std::vector<T>& vec) {\r",
+            "  std::vector<std::pair<T, int>> ret;\r",
+            "  int sz = vec.size();\r",
+            "  int beg = 0;\r",
+            "  while (beg < sz) {\r",
+            "    int ed = beg;\r",
+            "    while (ed + 1 < sz && vec[beg] == vec[ed + 1]) ++ed;\r",
+            "    int len = ed - beg + 1;\r",
+            "    ret.emplace_back(vec[beg], len);\r",
+            "    beg = ed + 1;\r",
+            "  }\r",
+            "  return ret;\r",
+            "};\r"
         ]
     },
     "dual_segment_tree": {
