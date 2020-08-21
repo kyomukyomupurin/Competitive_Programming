@@ -2106,6 +2106,33 @@
             "}\r"
         ]
     },
+    "fast_divisor": {
+        "prefix": "fast_divisor",
+        "body": [
+            "template <class T>\r",
+            "std::vector<T> divisor(T n) {\r",
+            "  std::vector<T> v1 = factor(n);\r",
+            "  auto v2 = RunLengthEncoding(v1);\r",
+            "  std::vector<T> div;\r",
+            "  int sz = v2.size();\r",
+            "  auto dfs = [&](auto&& self, T val, int d) -> void {\r",
+            "    if (d == sz) {\r",
+            "      div.emplace_back(val);\r",
+            "      return;\r",
+            "    }\r",
+            "    int cur = 1;\r",
+            "    auto [pr, cnt] = v2[d];\r",
+            "    for (int i = 0; i < cnt + 1; ++i, cur *= pr) {\r",
+            "      self(self, val * cur, d + 1);\r",
+            "    }\r",
+            "  };\r",
+            "  dfs(dfs, 1, 0);\r",
+            "  std::sort(div.begin(), div.end());\r",
+            "\r",
+            "  return div;\r",
+            "}\r"
+        ]
+    },
     "fast_gcd": {
         "prefix": "fast_gcd",
         "body": [
