@@ -15,7 +15,7 @@ int128 power(int128 base, int128 e, int128 mod) {
   int128 res = 1;
   base %= mod;
   while (e) {
-    if (e & 1) res = res * base % mod;
+    if (e & 1) (res *= base) %= mod;
     (base *= base) %= mod;
     e >>= 1;
   }
