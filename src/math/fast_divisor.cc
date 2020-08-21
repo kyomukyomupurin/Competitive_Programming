@@ -6,6 +6,7 @@
 #include "./../algorithm/run_length_encoding.cc"
 #include "./factor.cc"
 
+// snippet-begin
 template <class T>
 std::vector<T> divisor(T n) {
   std::vector<T> v1 = factor(n);
@@ -28,3 +29,4 @@ std::vector<T> divisor(T n) {
 
   return div;
 }
+// snippet-end
