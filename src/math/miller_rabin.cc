@@ -6,50 +6,40 @@
 
 #include <iostream>
 
+using int64 = long long;
+
 // snippet-begin
-class MillerRabinTest {
-  using uint64 = uint64_t;
-  using uint128 = __uint128_t;
+using int128 = __int128_t;
 
- public:
-  MillerRabinTest() {}
-
-  bool isprime(uint64 n) {
-    if (n < 2) return false;
-    int r = 0;
-    uint64 d = n - 1;
-    while ((d & 1) == 0) {
-      d >>= 1;
-      r++;
-    }
-
-    for (int a : {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37}) {
-      if (n == (uint64)a) return true;
-      if (check(n, a, d, r)) return false;
-    }
-    return true;
+int128 power(int128 base, int128 e, int128 mod) {
+  int128 res = 1;
+  base %= mod;
+  while (e) {
+    if (e & 1) res = res * base % mod;
+    (base *= base) %= mod;
+    e >>= 1;
   }
+  return res;
+}
 
- private:
-  uint64 power(uint64 base, uint64 e, uint64 mod) {
-    uint64 res = 1;
-    base %= mod;
-    while (e) {
-      if (e & 1) res = (uint128)res * base % mod;
-      base = (uint128)base * base % mod;
-      e >>= 1;
+bool is_prime(int64 n) {
+  if (n < 2 || ~n & 1) return n == 2;
+  int s = __builtin_ctzll(n - 1);
+  int64 d = (n - 1) >> s;
+  for (int64 base : {2, 325, 9375, 28178, 450775, 9780504, 1795265022}) {
+    int128 x = base % n;
+    if (!x) continue;
+    x = power(x, d, n);
+    if (x == 1 || x == n - 1) continue;
+    bool ok = false;
+    for (int i = 0; i < s - 1; ++i) {
+      (x *= x) %= n;
+      if (x == n - 1) {
+        ok = true; break;
+      }
     }
-    return res;
+    if (!ok) return false;
   }
-
-  bool check(uint64 n, uint64 a, uint64 d, int s) {
-    uint64 x = power(a, d, n);
-    if (x == 1 || x == n - 1) return false;
-    for (int r = 1; r < s; r++) {
-      x = (uint128)x * x % n;
-      if (x == n - 1) return false;
-    }
-    return true;
-  };
-};
+  return true;
+}
 // snippet-end
