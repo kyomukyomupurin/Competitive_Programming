@@ -6,18 +6,21 @@
 
 #include <algorithm>
 
+using int64 = long long;
+
 // snippet-begin
-unsigned long long fast_gcd(unsigned long long x, unsigned long long y) {
-  int shift;
-  if (x == 0) return y;
-  if (y == 0) return x;
-  shift = __builtin_ctzll(x | y);
+int64 fast_gcd(int64 x, int64 y) {
+  if (x < 0) x = -x;
+  if (y < 0) y = -y;
+  if (!x) return y;
+  if (!y) return x;
+  int s = __builtin_ctzll(x | y);
   x >>= __builtin_ctzll(x);
   do {
     y >>= __builtin_ctzll(y);
     if (x > y) std::swap(x, y);
     y -= x;
   } while (y);
-  return x << shift;
+  return x << s;
 }
 // snippet-end
