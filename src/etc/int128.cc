@@ -8,16 +8,16 @@
 using int128 = __int128_t;
 
 std::istream& operator>>(std::istream& is, int128& val) {
-  std::string s;
-  is >> s;
+  std::string str;
+  is >> str;
   val = 0;
   bool neg = false;
-  int sz = s.size();
+  int sz = str.size();
   for (int i = 0; i < sz; ++i) {
-    if (!i && s[i] == '-') {
+    if (!i && str[i] == '-') {
       neg = true;
     } else {
-      val = val * 10 + (s[i] ^ 48);
+      val = val * 10 + (str[i] ^ 48);
     }
   }
   if (neg) val = -val;
@@ -38,5 +38,20 @@ std::ostream& operator<<(std::ostream& os, const int128& val) {
   }
   std::reverse(str.begin(), str.end());
   return os << str;
+}
+
+int128 to_int128(const std::string& str) {
+  int sz = str.size();
+  int128 val = 0;
+  bool neg = false;
+  for (int i = 0; i < sz; ++i) {
+    if (!i && str[i] == '-') {
+      neg = true;
+    } else {
+      val = val * 10 + (str[i] ^ 48);
+    }
+  }
+  if (neg) val = -val;
+  return val;
 }
 // snippet-end
