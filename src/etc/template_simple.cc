@@ -25,8 +25,8 @@ using namespace std;
 
 using int64 = long long;
 
-#define all(_) begin(_), end(_)
-#define rall(_) rbegin(_), rend(_)
+#define all($) begin($), end($)
+#define rall($) rbegin($), rend($)
 
 int main() {
   ios_base::sync_with_stdio(false);

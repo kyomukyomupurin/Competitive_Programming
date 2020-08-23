@@ -124,8 +124,8 @@ std::istream& operator>>(std::istream& is, std::tuple<Args...>& tp) {
   return is;
 }
 
-#define all(_) begin(_), end(_)
-#define rall(_) rbegin(_), rend(_)
+#define all($) begin($), end($)
+#define rall($) rbegin($), rend($)
 
 #ifdef LOCAL
 #define debug(...) cerr << "[" << #__VA_ARGS__ << "]: ", debug_out(__VA_ARGS__)
