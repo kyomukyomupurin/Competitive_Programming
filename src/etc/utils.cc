@@ -46,6 +46,14 @@ inline void println(const std::vector<T>& vec) {
   for (int i = 0; i < sz; ++i) std::cout << vec[i] << " \n"[i == sz - 1];
 }
 
+inline void Yes(bool cond) {
+  println(cond ? "Yes" : "No");
+}
+
+inline void YES(bool cond) {
+  println(cond ? "YES" : "NO");
+}
+
 template <class T>
 using binary_heap = std::priority_queue<T, std::vector<T>, std::greater<T>>;
 
