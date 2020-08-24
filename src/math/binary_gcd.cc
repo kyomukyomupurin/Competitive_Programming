@@ -1,4 +1,4 @@
-// fast gcd
+// binary gcd
 // verified by
 //     https://atcoder.jp/contests/abc162/tasks/abc162_c
 // reference:
@@ -9,7 +9,7 @@
 using int64 = long long;
 
 // snippet-begin
-int64 fast_gcd(int64 x, int64 y) {
+int64 binary_gcd(int64 x, int64 y) {
   if (x < 0) x = -x;
   if (y < 0) y = -y;
   if (!x) return y;
