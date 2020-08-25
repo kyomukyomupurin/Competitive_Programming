@@ -54,4 +54,35 @@ int128 to_int128(const std::string& str) {
   if (neg) val = -val;
   return val;
 }
+
+int128 to_int128(const char* str) {
+  int128 val = 0;
+  bool neg = false;
+  for (int i = 0; str[i]; ++i) {
+    if (!i && str[i] == '-') {
+      neg = true;
+    } else {
+      val = val * 10 + (str[i] ^ 48);
+    }
+  }
+  if (neg) val = -val;
+  return val;
+}
+
+std::string to_string(const int128& val) {
+  std::string str = "";
+  int128 t = val;
+  bool neg = false;
+  if (t < 0) {
+    neg = true;
+    t = -t;
+  }
+  while (t) {
+    str += (char)(t % 10 | 48);
+    t /= 10;
+  }
+  if (neg) str += '-';
+  std::reverse(str.begin(), str.end());
+  return str;
+}
 // snippet-end
