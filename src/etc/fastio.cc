@@ -1,8 +1,9 @@
-// fastio
+// Fastio
 // Scanner for int, int64(long long), std::string, char, double, long double and
 // std::vector or std::pair or std::tuple of them.
 // Printer for int, int64, std::string, char.
 // It provides the same format as std::cin and std::cout.
+// 54ms in https://judge.yosupo.jp/problem/many_aplusb
 
 #include <cstring>
 #include <iostream>
@@ -17,7 +18,7 @@ namespace FastIO {
 class Scanner {
   static constexpr int buf_size = (1 << 18);
   static constexpr int integer_size = 20;
-  static constexpr int string_size = 1000; // default
+  static constexpr int string_size = 1000; // the maximum possible size of input string
   char buf[buf_size] = {};
   char *cur = buf, *ed = buf;
 
@@ -31,6 +32,8 @@ class Scanner {
   }
 
  private:
+
+  // TO DO : memmove -> memcpy
   inline void reload() {
     size_t len = ed - cur;
     memmove(buf, cur, len);
@@ -184,11 +187,12 @@ class Printer {
 
  private:
   constexpr void build() {
-    for (int i = 0; i < 10000; ++i) {
+    constexpr int base = 10;
+    for (int i = 0; i < n; ++i) {
       int tmp = i;
       for (int j = 3; j >= 0; --j) {
-        table[i * 4 + j] = tmp % 10 + '0';
-        tmp /= 10;
+        table[i * 4 + j] = tmp % base | 48;
+        tmp /= base;
       }
     }
   }
@@ -260,9 +264,9 @@ class Printer {
     }
     int len = get_digit(num);
     int digits = len;
-    while (num >= 10000) {
-      memcpy(cur + len - 4, table + (num % 10000) * 4, 4);
-      num /= 10000;
+    while (num >= n) {
+      memcpy(cur + len - 4, table + (num % n) * 4, 4);
+      num /= n;
       len -= 4;
     }
     memcpy(cur, table + num * 4 + (4 - len), len);
@@ -282,9 +286,9 @@ class Printer {
     }
     int len = get_digit(num);
     int digits = len;
-    while (num >= 10000) {
-      memcpy(cur + len - 4, table + (num % 10000) * 4, 4);
-      num /= 10000;
+    while (num >= n) {
+      memcpy(cur + len - 4, table + (num % n) * 4, 4);
+      num /= n;
       len -= 4;
     }
     memcpy(cur, table + num * 4 + (4 - len), len);
