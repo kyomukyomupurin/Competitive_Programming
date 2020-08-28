@@ -39,3 +39,8 @@ Libraries for competitive programming
 - Add Brent's version of Pollard's rho.
 
 </details>
+
+<details>
+  <summary markdown="span"> etc </summary>
+  つらい
+</details>
