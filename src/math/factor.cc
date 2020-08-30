@@ -30,7 +30,7 @@ std::vector<T> factor(T n) {
       x = ((int128)x * x + c) % n;
       y = ((int128)y * y + c) % n;
       y = ((int128)y * y + c) % n;
-      d = fast_gcd(x - y, n);
+      d = binary_gcd(x - y, n);
     } while (d == 1);
     if (d < n) return connect(factor(d), factor(n / d));
   }
