@@ -1,5 +1,5 @@
 // osa_k
-// precompute : O(N loglog N), prime factorization query : O(log N)
+// precompute : O(N), prime factorization query : O(log N)
 
 #include <algorithm>
 #include <vector>
