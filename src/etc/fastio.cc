@@ -169,7 +169,7 @@ class Printer {
   char* cur = buf;
 
  public:
-  constexpr Printer() { build(); }
+  Printer() { build(); }
 
   ~Printer() { flush(); }
 
@@ -186,7 +186,7 @@ class Printer {
   }
 
  private:
-  constexpr void build() {
+  void build() {
     constexpr int base = 10;
     for (int i = 0; i < n; ++i) {
       int tmp = i;
