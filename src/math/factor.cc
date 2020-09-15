@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <vector>
 
-#include "./fast_gcd.cc"
+#include "./binary_gcd.cc"
 #include "./miller_rabin.cc"
 
 using int64 = long long;
