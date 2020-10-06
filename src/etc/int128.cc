@@ -17,7 +17,7 @@ std::istream& operator>>(std::istream& is, int128& val) {
     if (!i && str[i] == '-') {
       neg = true;
     } else {
-      val = val * 10 + (str[i] ^ 48);
+      val = val * 10 + (str[i] & 15);
     }
   }
   if (neg) val = -val;
@@ -48,7 +48,7 @@ int128 to_int128(const std::string& str) {
     if (!i && str[i] == '-') {
       neg = true;
     } else {
-      val = val * 10 + (str[i] ^ 48);
+      val = val * 10 + (str[i] & 15);
     }
   }
   if (neg) val = -val;
@@ -62,7 +62,7 @@ int128 to_int128(const char* str) {
     if (!i && str[i] == '-') {
       neg = true;
     } else {
-      val = val * 10 + (str[i] ^ 48);
+      val = val * 10 + (str[i] & 15);
     }
   }
   if (neg) val = -val;
