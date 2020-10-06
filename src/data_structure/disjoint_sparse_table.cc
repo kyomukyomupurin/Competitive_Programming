@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <vector>
 
+// snippet-begin
 template <class T, class F>
 class DisjointSparseTable {
  public:
@@ -53,3 +54,4 @@ class DisjointSparseTable {
     }
   }
 };
+// snippet-end
