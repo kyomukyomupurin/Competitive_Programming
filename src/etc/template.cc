@@ -62,6 +62,14 @@ inline void println(T val) {
   std::cout << val << '\n';
 }
 
+inline void println(double val) {
+  std::cout << std::setprecision(17) << val << '\n';
+}
+
+inline void println(long double val) {
+  std::cout << std::setprecision(17) << val << '\n';
+}
+
 template <class T>
 inline void println(const std::vector<T>& vec) {
   int sz = vec.size();

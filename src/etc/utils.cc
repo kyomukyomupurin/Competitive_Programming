@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <cassert>
+#include <iomanip>
 #include <iostream>
 #include <string>
 #include <tuple>
@@ -38,6 +39,14 @@ inline std::string to_binary(T n) {
 template <class T>
 inline void println(T val) {
   std::cout << val << '\n';
+}
+
+inline void println(double val) {
+  std::cout << std::setprecision(17) << val << '\n';
+}
+
+inline void println(long double val) {
+  std::cout << std::setprecision(17) << val << '\n';
 }
 
 template <class T>
