@@ -18,7 +18,7 @@ std::vector<T> divisor(T n) {
       div.emplace_back(val);
       return;
     }
-    int cur = 1;
+    T cur = 1;
     auto [pr, cnt] = v2[d];
     for (int i = 0; i < cnt + 1; ++i, cur *= pr) {
       self(self, val * cur, d + 1);
