@@ -2380,7 +2380,7 @@
             "      div.emplace_back(val);\r",
             "      return;\r",
             "    }\r",
-            "    int cur = 1;\r",
+            "    T cur = 1;\r",
             "    auto [pr, cnt] = v2[d];\r",
             "    for (int i = 0; i < cnt + 1; ++i, cur *= pr) {\r",
             "      self(self, val * cur, d + 1);\r",
