@@ -50,9 +50,14 @@ inline void println(long double val) {
 }
 
 template <class T>
-inline void println(const std::vector<T>& vec) {
-  int sz = vec.size();
-  for (int i = 0; i < sz; ++i) std::cout << vec[i] << " \n"[i == sz - 1];
+inline void println(const std::vector<T>& vec, const char del = ' ') {
+  bool first = true;
+  for (T e : vec) {
+    if (!first) std::cout << del;
+    first = false;
+    std::cout << e;
+  } 
+  std::cout << '\n';
 }
 
 inline void Yes(bool cond) {
