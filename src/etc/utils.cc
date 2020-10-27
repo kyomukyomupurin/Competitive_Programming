@@ -10,21 +10,27 @@
 
 // snippet-begin
 template <class T>
-inline void eraque(std::vector<T>& vec) {
-  vec.erase(std::unique(vec.begin(), vec.end()), vec.end());
-  return;
-}
-
-template <class T>
 inline int lower_position(const std::vector<T>& vec, T val) {
-  return static_cast<int>(std::distance(
-      vec.begin(), std::lower_bound(vec.begin(), vec.end(), val)));
+  return std::distance(vec.begin(),
+                       std::lower_bound(vec.begin(), vec.end(), val));
 }
 
 template <class T>
 inline int upper_position(const std::vector<T>& vec, T val) {
-  return static_cast<int>(std::distance(
-      vec.begin(), std::upper_bound(vec.begin(), vec.end(), val)));
+  return std::distance(vec.begin(),
+                       std::upper_bound(vec.begin(), vec.end(), val));
+}
+
+template <class T>
+inline std::vector<int> compressed(const std::vector<T>& vec) {
+  std::vector<T> t = vec;
+  std::sort(t.begin(), t.end());
+  t.erase(std::unique(t.begin(), t.end()), t.end());
+  std::vector<int> compressed(vec.size());
+  for (size_t i = 0; i < vec.size(); ++i)
+    compressed[i] =
+        std::distance(t.begin(), std::lower_bound(t.begin(), t.end(), vec[i]));
+  return compressed;
 }
 
 template <class T>
