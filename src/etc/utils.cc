@@ -48,11 +48,11 @@ inline void println(T val) {
 }
 
 inline void println(double val) {
-  std::cout << std::setprecision(17) << val << '\n';
+  std::cout << std::fixed << std::setprecision(17) << val << '\n';
 }
 
 inline void println(long double val) {
-  std::cout << std::setprecision(17) << val << '\n';
+  std::cout << std::fixed << std::setprecision(17) << val << '\n';
 }
 
 template <class T>
