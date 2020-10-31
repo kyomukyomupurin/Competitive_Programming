@@ -27,12 +27,12 @@ using namespace std;
 
 using int64 = long long;
 
-#define all($) begin($), end($)
-#define rall($) rbegin($), rend($)
+#define all($) std::begin($), std::end($)
+#define rall($) std::rbegin($), std::rend($)
 
 int main() {
-  ios_base::sync_with_stdio(false);
-  cin.tie(nullptr);
+  std::ios_base::sync_with_stdio(false);
+  std::cin.tie(nullptr);
 
   int t; cin >> t;
 

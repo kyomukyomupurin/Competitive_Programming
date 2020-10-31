@@ -45,7 +45,7 @@ std::ostream& operator<<(std::ostream& os, const std::map<T, U, Compare>& mp) {
 }
 
 #ifdef LOCAL
-#define debug(...) cerr << "[" << #__VA_ARGS__ << "]: ", debug_out(__VA_ARGS__)
+#define debug(...) std::cerr << "[" << #__VA_ARGS__ << "]: ", debug_out(__VA_ARGS__)
 #else
 #define debug(...)
 #endif
