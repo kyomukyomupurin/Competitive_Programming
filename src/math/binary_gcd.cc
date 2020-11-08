@@ -9,18 +9,18 @@
 using int64 = long long;
 
 // snippet-begin
-int64 binary_gcd(int64 x, int64 y) {
-  if (x < 0) x = -x;
-  if (y < 0) y = -y;
-  if (!x) return y;
-  if (!y) return x;
-  int s = __builtin_ctzll(x | y);
-  x >>= __builtin_ctzll(x);
+template <class T>
+T binary_gcd(T x, T y) {
+  assert(x >= 0 && y >= 0);
+  unsigned long long tx = x, ty = y;
+  if (!tx || !ty) return tx ^ ty ^ 0;
+  int s = __builtin_ctzll(tx | ty);
+  tx >>= __builtin_ctzll(tx);
   do {
-    y >>= __builtin_ctzll(y);
-    if (x > y) std::swap(x, y);
-    y -= x;
-  } while (y);
-  return x << s;
+    ty >>= __builtin_ctzll(ty);
+    if (tx > ty) std::swap(tx, ty);
+    ty -= tx;
+  } while (ty);
+  return static_cast<T>(tx << s);
 }
 // snippet-end
