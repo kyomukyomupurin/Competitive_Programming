@@ -30,7 +30,7 @@ def make_dict(file_path: str) -> dict:
         for line in lines:
             if line.startswith('// snippet-end'):
                 break
-            if line.startswith('// snippet-begin'):
+            elif line.startswith('// snippet-begin'):
                 start = True
             elif start:
                 body_list.append(line.replace('\n', '\r'))
