@@ -23,14 +23,14 @@ def make_dict(file_path: str) -> dict:
     snippets_content["prefix"] = Path(file_path).stem
     body_list = []
 
-    with open(file_path) as f:
+    with open(file_path, 'r') as f:
         lines = f.readlines()
         start = False
 
         for line in lines:
-            if line == '// snippet-end\n':
+            if line.startswith('// snippet-end'):
                 break
-            elif line == '// snippet-begin\n':
+            if line.startswith('// snippet-begin'):
                 start = True
             elif start:
                 body_list.append(line.replace('\n', '\r'))
