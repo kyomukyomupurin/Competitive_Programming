@@ -25,9 +25,17 @@ template <class T>
 inline std::vector<int> compressed(const std::vector<T>& vec) {
   std::vector<T> t = vec;
   std::sort(t.begin(), t.end());
-  t.erase(std::unique(t.begin(), t.end()), t.end());
-  std::vector<int> compressed(vec.size());
-  for (size_t i = 0; i < vec.size(); ++i)
+  int n = vec.size();
+  int w = 0;
+  for (int i = 0; i < n; ++i) {
+    if (!(w > 0 && t[w - 1] == t[i])) {
+      std::swap(t[w], t[i]);
+      ++w;
+    }
+  }
+  t.resize(w);
+  std::vector<int> compressed(n);
+  for (int i = 0; i < n; ++i)
     compressed[i] =
         std::distance(t.begin(), std::lower_bound(t.begin(), t.end(), vec[i]));
   return compressed;
