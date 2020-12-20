@@ -1,10 +1,11 @@
-#include <charconv>
 #include <cstring>
 #include <iostream>
 
 using int64 = long long;
 
 // snippet-begin
+#include <charconv>
+
 namespace kyomukyomuIO {
 class Scanner {
   static constexpr int sz = 1 << 18;
@@ -33,14 +34,14 @@ class Scanner {
 
   inline void read(int& num) {
     skip();
-    if (cur + 20 >= buf + sz) reload();
-    cur = const_cast<char*>(std::from_chars(cur, cur + 20, num).ptr);
+    if (std::next(cur, 20) >= std::end(buf)) reload();
+    cur = const_cast<char*>(std::from_chars(cur, std::next(cur, 20), num).ptr);
   }
 
   inline void read(int64& num) {
     skip();
-    if (cur + 20 >= buf + sz) reload();
-    cur = const_cast<char*>(std::from_chars(cur, cur + 20, num).ptr);
+    if (std::next(cur, 20) >= std::end(buf)) reload();
+    cur = const_cast<char*>(std::from_chars(cur, std::next(cur, 20), num).ptr);
   }
 };
 
@@ -73,29 +74,35 @@ class Printer {
 
  private:
   inline void write(int num) {
-    if (cur + 20 >= buf + sz) flush();
+    if (std::next(cur, 20) >= std::end(buf)) flush();
     cur = std::to_chars(cur, cur + 20, num).ptr;
   }
 
   inline void write(int64 num) {
-    if (cur + 20 >= buf + sz) flush();
+    if (std::next(cur, 20) >= std::end(buf)) flush();
     cur = std::to_chars(cur, cur + 20, num).ptr;
   }
 
   inline void write(char c) {
-    if (cur + 1 >= buf + sz) flush();
+    if (std::next(cur) >= std::end(buf)) flush();
     *cur = c;
-    ++cur;
+    std::advance(cur, 1);
   }
 
   inline void write(std::string str) {
-    if (cur + str.size() >= buf + sz) flush();
-    for (char c : str) *cur = c, ++cur;
+    if (std::next(cur, str.size()) >= std::end(buf)) flush();
+    for (char c : str) {
+      *cur = c;
+      std::advance(cur, 1);
+    }
   }
 
   inline void write(const char* str) {
-    if (cur + strlen(str) >= buf + sz) flush();
-    for (int i = 0; str[i]; ++i) *cur = str[i], ++cur;
+    if (cur + std::strlen(str) >= std::end(buf)) flush();
+    for (int i = 0; str[i]; ++i) {
+      *cur = str[i];
+      std::advance(cur, 1);
+    }
   }
 };
 }  // namespace kyomukyomuIO
