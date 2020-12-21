@@ -10,7 +10,7 @@ using int64 = long long;
 
 namespace kyomukyomuIO {
 class Scanner {
-  static constexpr int sz = 1 << 18;
+  static constexpr int sz = 1 << 19;
   char buf[sz];
   char* cur = buf;
 
@@ -25,9 +25,9 @@ class Scanner {
 
  private:
   inline void reload() {
-    int res = sz - (cur - buf);
+    size_t res = std::distance(cur, std::end(buf));
     memcpy(buf, cur, res);
-    fread(buf + res, 1, sz - res, stdin);
+    fread(std::next(buf, res), 1, sz - res, stdin);
     cur = buf;
   }
 
