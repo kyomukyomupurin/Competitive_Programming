@@ -25,7 +25,7 @@ class Scanner {
 
  private:
   inline void reload() {
-    size_t res = std::distance(cur, std::end(buf));
+    int res = std::distance(cur, std::end(buf));
     memcpy(buf, cur, res);
     fread(std::next(buf, res), 1, sz - res, stdin);
     cur = buf;
@@ -49,7 +49,7 @@ class Scanner {
 };
 
 class Printer {
-  static constexpr int sz = 1 << 18;
+  static constexpr int sz = 1 << 19;
   char buf[sz];
   char* cur = buf;
 
@@ -72,7 +72,7 @@ class Printer {
 
  private:
   void flush() {
-    fwrite(buf, 1, cur - buf, stdout);
+    fwrite(buf, 1, std::distance(buf, cur), stdout);
     cur = buf;
   }
 
@@ -94,15 +94,13 @@ class Printer {
 
   inline void write(const std::string& str) {
     if (std::next(cur, str.size()) >= std::end(buf)) flush();
-    for (char c : str) {
-      *cur = c;
-      std::advance(cur, 1);
-    }
+    strcpy(cur, str.data());
+    std::advance(cur, str.size());
   }
 
   inline void write(const char* str) {
     if (std::next(cur, std::strlen(str)) >= std::end(buf)) flush();
-    memcpy(cur, str, std::strlen(str));
+    strcpy(cur, str);
     std::advance(cur, std::strlen(str));
   }
 };
