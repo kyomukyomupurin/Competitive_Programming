@@ -19,7 +19,8 @@ class Scanner {
 
   template <class T>
   inline Scanner& operator>>(T& val) {
-    read(val);
+    skip();
+    scan(val);
     return *this;
   }
 
@@ -35,14 +36,12 @@ class Scanner {
     while (*cur == ' ' || *cur == '\n') ++cur;
   }
 
-  inline void read(int& num) {
-    skip();
+  inline void scan(int& num) {
     if (std::next(cur, 20) >= std::end(buf)) reload();
     cur = const_cast<char*>(std::from_chars(cur, std::next(cur, 20), num).ptr);
   }
 
-  inline void read(int64& num) {
-    skip();
+  inline void scan(int64& num) {
     if (std::next(cur, 20) >= std::end(buf)) reload();
     cur = const_cast<char*>(std::from_chars(cur, std::next(cur, 20), num).ptr);
   }
@@ -60,14 +59,14 @@ class Printer {
 
   template <class T>
   inline Printer& operator<<(T val) {
-    write(val);
+    print(val);
     return *this;
   }
 
   template <class T>
   inline void println(T val) {
-    write(val);
-    write('\n');
+    print(val);
+    print('\n');
   }
 
  private:
@@ -76,29 +75,29 @@ class Printer {
     cur = buf;
   }
 
-  inline void write(int num) {
+  inline void print(int num) {
     if (std::next(cur, 20) >= std::end(buf)) flush();
     cur = std::to_chars(cur, std::next(cur, 20), num).ptr;
   }
 
-  inline void write(int64 num) {
+  inline void print(int64 num) {
     if (std::next(cur, 20) >= std::end(buf)) flush();
     cur = std::to_chars(cur, std::next(cur, 20), num).ptr;
   }
 
-  inline void write(char c) {
+  inline void print(char c) {
     if (std::next(cur) >= std::end(buf)) flush();
     *cur = c;
     std::advance(cur, 1);
   }
 
-  inline void write(const std::string& str) {
+  inline void print(const std::string& str) {
     if (std::next(cur, str.size()) >= std::end(buf)) flush();
     strcpy(cur, str.data());
     std::advance(cur, str.size());
   }
 
-  inline void write(const char* str) {
+  inline void print(const char* str) {
     if (std::next(cur, std::strlen(str)) >= std::end(buf)) flush();
     strcpy(cur, str);
     std::advance(cur, std::strlen(str));
