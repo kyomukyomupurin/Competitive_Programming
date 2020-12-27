@@ -10,7 +10,7 @@ template <class OM, class F>
 class DualSegmentTree {
  public:
   DualSegmentTree(const std::vector<OM>& data, OM oie, F f)
-      : oie_(oie), data_(data), f_(f) {
+      : data_(data), oie_(oie), f_(f) {
     build();
   }
 
