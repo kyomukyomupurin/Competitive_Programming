@@ -34,8 +34,8 @@ class DualSegmentTree {
   int n_, h_;
   std::vector<OM> data_;
   std::vector<OM> lazy_;
-  F f_;
   OM oie_;
+  F f_;
 
   void build() {
     int sz = data_.size();
