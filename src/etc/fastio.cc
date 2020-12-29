@@ -1,9 +1,7 @@
-// Fastio
-// Scanner for int, int64(long long), std::string, char, double, long double and
-// std::vector or std::pair or std::tuple of them.
-// Printer for int, int64, std::string, char.
-// It provides the same format as std::cin and std::cout.
-// 54ms in https://judge.yosupo.jp/problem/many_aplusb
+// Fast input for integer
+// Fast output for integer, char, std::string, char*
+// 2x faster than kyomukyomuIO
+// 51ms in https://judge.yosupo.jp/problem/many_aplusb
 
 #include <cstring>
 #include <iostream>
@@ -16,156 +14,54 @@ using int64 = long long;
 // snippet-begin
 namespace FastIO {
 class Scanner {
-  static constexpr int buf_size = (1 << 18);
-  static constexpr int integer_size = 20;
-  static constexpr int string_size = 1000; // the maximum possible size of input string
-  char buf[buf_size] = {};
-  char *cur = buf, *ed = buf;
+  char buf[1 << 19];
+  char* cur = buf;
 
  public:
-  Scanner() {}
+  Scanner() { fread(buf, 1, std::size(buf), stdin); }
 
   template <class T>
   inline Scanner& operator>>(T& val) {
-    read(val);
+    skip();
+    scan(val);
     return *this;
   }
 
  private:
-
-  // TO DO : memmove -> memcpy
   inline void reload() {
-    size_t len = ed - cur;
-    memmove(buf, cur, len);
-    char* tmp = buf + len;
-    ed = tmp + fread(tmp, 1, buf_size - len, stdin);
-    *ed = 0;
+    int res = std::distance(cur, std::end(buf));
+    memcpy(buf, cur, res);
+    fread(std::next(buf, res), 1, std::size(buf) - res, stdin);
     cur = buf;
   }
 
-  inline void skip_space() {
-    while (true) {
-      if (cur == ed) reload();
-      while (*cur == ' ' || *cur == '\n') ++cur;
-      if (__builtin_expect(cur != ed, 1)) return;
-    }
+  inline void skip() {
+    while (*cur == ' ' || *cur == '\n') ++cur;
   }
 
-  template <class T, std::enable_if_t<std::is_same<T, int>::value, int> = 0>
-  inline void read(T& num) {
-    skip_space();
-    if (cur + integer_size >= ed) reload();
-    bool neg = false;
+  inline void scan(int& num) {
+    if (std::next(cur, 20) >= std::end(buf)) reload();
+    bool neg = (*cur == '-');
+    if (neg) ++cur;
     num = 0;
-    if (*cur == '-') neg = true, ++cur;
     while (*cur >= '0') num = num * 10 + (*cur & 15), ++cur;
     if (neg) num = -num;
   }
 
-  template <class T, std::enable_if_t<std::is_same<T, int64>::value, int> = 0>
-  inline void read(T& num) {
-    skip_space();
-    if (cur + integer_size >= ed) reload();
-    bool neg = false;
+  inline void scan(int64& num) {
+    if (std::next(cur, 20) >= std::end(buf)) reload();
+    bool neg = (*cur == '-');
+    if (neg) ++cur;
     num = 0;
-    if (*cur == '-') neg = true, ++cur;
     while (*cur >= '0') num = num * 10 + (*cur & 15), ++cur;
     if (neg) num = -num;
-  }
-
-  template <class T,
-            std::enable_if_t<std::is_same<T, std::string>::value, int> = 0>
-  inline void read(T& str) {
-    skip_space();
-    if (cur + str.size() >= ed) reload();
-    auto it = cur;
-    while (!(*cur == ' ' || *cur == '\n')) ++cur;
-    str = std::string(it, cur);
-  }
-
-  template <class T, std::enable_if_t<std::is_same<T, char>::value, int> = 0>
-  inline void read(T& c) {
-    skip_space();
-    if (cur + 1 >= ed) reload();
-    c = *cur, ++cur;
-  }
-
-  template <class T, std::enable_if_t<std::is_same<T, double>::value, int> = 0>
-  inline void read(T& num) {
-    skip_space();
-    if (cur + integer_size >= ed) reload();
-    bool neg = false;
-    num = 0;
-    if (*cur == '-') neg = true, ++cur;
-    while (*cur >= '0' && *cur <= '9') num = num * 10 + (*cur & 15), ++cur;
-    if (*cur != '.') return;
-    ++cur;
-    T base = 0.1;
-    while (*cur >= '0' && *cur <= '9') {
-      num += base * (*cur ^ 48);
-      ++cur;
-      base *= 0.1;
-    }
-    if (neg) num = -num;
-  }
-
-  template <class T,
-            std::enable_if_t<std::is_same<T, long double>::value, int> = 0>
-  inline void read(T& num) {
-    skip_space();
-    if (cur + integer_size >= ed) reload();
-    bool neg = false;
-    num = 0;
-    if (*cur == '-') neg = true, ++cur;
-    while (*cur >= '0' && *cur <= '9') num = num * 10 + (*cur & 15), ++cur;
-    if (*cur != '.') return;
-    ++cur;
-    T base = 0.1;
-    while (*cur >= '0' && *cur <= '9') {
-      num += base * (*cur ^ 48);
-      ++cur;
-      base *= 0.1;
-    }
-    if (neg) num = -num;
-  }
-
-  template <class T>
-  inline void read(std::vector<T>& vec) {
-    for (T& e : vec) read(e);
-  }
-
-  template <class T, class U>
-  inline void read(std::pair<T, U>& p) {
-    read(p.first, p.second);
-  }
-
-  template <class Tuple, std::size_t... Is>
-  inline void tuple_scan(Tuple& tp, std::index_sequence<Is...>) {
-    (read(std::get<Is>(tp)), ...);
-  }
-
-  template <class... Args>
-  inline void read(std::tuple<Args...>& tp) {
-    tuple_scan(tp, std::index_sequence_for<Args...>{});
-  }
-
-  inline void read() {}
-
-  template <class Head, class... Tail>
-  inline void read(Head&& head, Tail&&... tail) {
-    read(head);
-    read(std::forward<Tail>(tail)...);
   }
 };
 
 class Printer {
-  static constexpr int buf_size = (1 << 18);
-  static constexpr int integer_size = 20;
-  static constexpr int string_size = (1 << 6);
-  static constexpr int margin = 1;
   static constexpr int n = 10000;
-  char buf[buf_size + margin] = {};
-  char table[n * 4] = {};
+  char buf[1 << 19];
+  char table[n * 4];
   char* cur = buf;
 
  public:
@@ -175,14 +71,14 @@ class Printer {
 
   template <class T>
   inline Printer& operator<<(T val) {
-    write(val);
+    print(val);
     return *this;
   }
 
-  template<class T>
+  template <class T>
   inline void println(T val) {
-    write(val);
-    write('\n');
+    print(val);
+    print('\n');
   }
 
  private:
@@ -198,12 +94,11 @@ class Printer {
   }
 
   inline void flush() {
-    fwrite(buf, 1, cur - buf, stdout);
+    fwrite(buf, 1, std::distance(buf, cur), stdout);
     cur = buf;
   }
 
-  template <class T, std::enable_if_t<std::is_same<T, int>::value, int> = 0>
-  inline int get_digit(T n) {
+  inline int get_digit(int n) {
     if (n >= (int)1e5) {
       if (n >= (int)1e8) return 9;
       if (n >= (int)1e7) return 8;
@@ -218,8 +113,7 @@ class Printer {
     }
   }
 
-  template <class T, std::enable_if_t<std::is_same<T, int64>::value, int> = 0>
-  inline int get_digit(T n) {
+  inline int get_digit(int64 n) {
     if (n >= (int64)1e10) {
       if (n >= (int64)1e14) {
         if (n >= (int64)1e18) return 19;
@@ -251,15 +145,14 @@ class Printer {
     }
   }
 
-  template <class T, std::enable_if_t<std::is_same<T, int>::value, int> = 0>
-  inline void write(T num) {
-    if (__builtin_expect(cur + integer_size >= buf + buf_size, 0)) flush();
+  inline void print(int num) {
+    if (std::next(cur, 20) >= std::end(buf)) flush();
     if (num == 0) {
-      write('0');
+      print('0');
       return;
     }
     if (num < 0) {
-      write('-');
+      print('-');
       num = -num;
     }
     int len = get_digit(num);
@@ -273,15 +166,14 @@ class Printer {
     cur += digits;
   }
 
-  template <class T, std::enable_if_t<std::is_same<T, int64>::value, int> = 0>
-  inline void write(T num) {
-    if (__builtin_expect(cur + integer_size >= buf + buf_size, 0)) flush();
+  inline void print(int64 num) {
+    if (std::next(cur, 20) >= std::end(buf)) flush();
     if (num == 0) {
-      write('0');
+      print('0');
       return;
     }
     if (num < 0) {
-      write('-');
+      print('-');
       num = -num;
     }
     int len = get_digit(num);
@@ -295,29 +187,26 @@ class Printer {
     cur += digits;
   }
 
-  template <class T, std::enable_if_t<std::is_same<T, char>::value, int> = 0>
-  inline void write(T c) {
-    if (__builtin_expect(cur + 1 >= buf + buf_size, 0)) flush();
+  inline void print(char c) {
+    if (std::next(cur) >= std::end(buf)) flush();
     *cur = c;
     ++cur;
   }
 
-  template <class T,
-            std::enable_if_t<std::is_same<T, std::string>::value, int> = 0>
-  inline void write(T str) {
-    if (__builtin_expect(cur + str.size() >= buf + buf_size, 0)) flush();
-    for (char c : str) write(c);
+  inline void print(const std::string& str) {
+    if (std::next(cur, str.size()) >= std::end(buf)) flush();
+    strcpy(cur, str.data());
+    std::advance(cur, str.size());
   }
 
-  template <class T,
-            std::enable_if_t<std::is_same<T, const char*>::value, int> = 0>
-  inline void write(T str) {
-    if (__builtin_expect(cur + string_size >= buf + buf_size, 0)) flush();
-    for (int i = 0; str[i]; ++i) write(str[i]);
+  inline void print(const char* str) {
+    if (std::next(cur, std::strlen(str)) >= std::end(buf)) flush();
+    strcpy(cur, str);
+    std::advance(cur, std::strlen(str));
   }
 };
 }  // namespace FastIO
 
-FastIO::Scanner fin;
-FastIO::Printer fout;
+FastIO::Scanner in;
+FastIO::Printer out;
 // snippet-end
