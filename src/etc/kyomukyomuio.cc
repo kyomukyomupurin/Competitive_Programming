@@ -1,4 +1,6 @@
-// Fast input for integer, fast output for integer and string
+// Fast input for integer
+// Fast output for integer, char, std::string, char*
+// Slower than FastIO, but implementation is very simple
 
 #include <cstring>
 #include <iostream>
@@ -10,12 +12,11 @@ using int64 = long long;
 
 namespace kyomukyomuIO {
 class Scanner {
-  static constexpr int sz = 1 << 19;
-  char buf[sz];
+  char buf[1 << 19];
   char* cur = buf;
 
  public:
-  Scanner() { fread(buf, 1, sz, stdin); }
+  Scanner() { fread(buf, 1, std::size(buf), stdin); }
 
   template <class T>
   inline Scanner& operator>>(T& val) {
@@ -28,7 +29,7 @@ class Scanner {
   inline void reload() {
     int res = std::distance(cur, std::end(buf));
     memcpy(buf, cur, res);
-    fread(std::next(buf, res), 1, sz - res, stdin);
+    fread(std::next(buf, res), 1, std::size(buf) - res, stdin);
     cur = buf;
   }
 
@@ -48,8 +49,7 @@ class Scanner {
 };
 
 class Printer {
-  static constexpr int sz = 1 << 19;
-  char buf[sz];
+  char buf[1 << 19];
   char* cur = buf;
 
  public:
@@ -88,7 +88,7 @@ class Printer {
   inline void print(char c) {
     if (std::next(cur) >= std::end(buf)) flush();
     *cur = c;
-    std::advance(cur, 1);
+    ++cur;
   }
 
   inline void print(const std::string& str) {
