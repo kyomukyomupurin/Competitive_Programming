@@ -25,23 +25,37 @@ std::ostream& operator<<(std::ostream& os, const std::tuple<Args...>& tp) {
 
 template <class T>
 std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec) {
-  int n = 0;
-  for (auto e : vec) os << (n++ ? ", " : "{") << e;
-  return os << (n ? "}" : "{}");
+  bool f = true;
+  for (auto e : vec) os << (f ? "{" : ", ") << e, f = false;
+  return os << (f ? "{}" : "}");
 }
 
 template <class T, class Compare>
 std::ostream& operator<<(std::ostream& os, const std::set<T, Compare>& st) {
-  int n = 0;
-  for (auto e : st) os << (n++ ? ", " : "{") << e;
-  return os << (n ? "}" : "{}");
+  bool f = true;
+  for (auto e : st) os << (f ? "{" : ", ") << e, f = false;
+  return os << (f ? "{}" : "}");
 }
 
 template <class T, class U, class Compare>
 std::ostream& operator<<(std::ostream& os, const std::map<T, U, Compare>& mp) {
-  int n = 0;
-  for (auto e : mp) os << (n++ ? ", " : "{") << e;
-  return os << (n ? "}" : "{}");
+  bool f = true;
+  for (auto e : mp) os << (f ? "{" : ", ") << e, f = false;
+  return os << (f ? "{}" : "}");
+}
+
+template <class T, class Compare>
+std::ostream& operator<<(std::ostream& os, const std::multiset<T, Compare>& st) {
+  bool f = true;
+  for (auto e : st) os << (f ? "{" : ", ") << e, f = false;
+  return os << (f ? "{}" : "}");
+}
+
+template <class T, class U, class Compare>
+std::ostream& operator<<(std::ostream& os, const std::multimap<T, U, Compare>& mp) {
+  bool f = true;
+  for (auto e : mp) os << (f ? "{" : ", ") << e, f = false;
+  return os << (f ? "{}" : "}");
 }
 
 #ifdef LOCAL
