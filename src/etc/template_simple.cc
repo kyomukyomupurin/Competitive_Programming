@@ -4,10 +4,8 @@
 #include <cassert>
 #include <cctype>
 #include <chrono>
-#include <cmath>
 #include <complex>
 #include <cstring>
-#include <deque>
 #include <iomanip>
 #include <iostream>
 #include <map>
@@ -16,10 +14,7 @@
 #include <random>
 #include <set>
 #include <stack>
-#include <string>
 #include <tuple>
-#include <utility>
-#include <vector>
 
 using namespace std;
 
