@@ -1,5 +1,4 @@
 {
-    "root": "./../src/",
-    "output": "./output.json",
-    "extension": [".cc", ".cpp"]
+    "extension": [".cc", ".cpp"],
+    "output": "snippets.json"
 }

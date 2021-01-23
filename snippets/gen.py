@@ -3,50 +3,40 @@ import os
 from os.path import join
 from pathlib import Path
 
-settings = open('./snippets_settings.json', 'r')
-loaded_settings = json.load(settings)
+
+def snippetize(filename: str) -> dict:
+    snippet = {}
+    snippet["prefix"] = Path(filename).stem
+    lines = Path(filename).open("r").read().splitlines()
+    body = []
+    processing = False
+
+    for line in lines:
+        if processing:
+            body.append(line)
+        elif line.startswith("// snippet-begin"):
+            processing = True
+        elif line.startswith("// snippet-end"):
+            break
+
+    snippet["body"] = body
+
+    return snippet
 
 
-def make_target_list() -> list:
-    result = []
+if __name__ == "__main__":
+    settings = json.load(Path("snippets_settings.json").open("r"))
+    target_files = []
 
-    for root, dirs, files in os.walk(loaded_settings["root"]):
+    for root, dirs, files in os.walk("./../src/"):
         for file_name in files:
-            if Path(file_name).suffix in loaded_settings["extension"]:
-                result.append(join(root, file_name))
+            if Path(file_name).suffix in settings["extension"]:
+                target_files.append(join(root, file_name))
 
-    return result
+    snippets = {}
 
+    for file in target_files:
+        if snippetize(file)["body"]:
+            snippets[Path(file).stem] = snippetize(file)
 
-def make_dict(file_path: str) -> dict:
-    snippets_content = {}
-    snippets_content["prefix"] = Path(file_path).stem
-    body_list = []
-
-    with open(file_path, 'r') as f:
-        lines = f.readlines()
-        start = False
-
-        for line in lines:
-            if line.startswith('// snippet-end'):
-                break
-            elif line.startswith('// snippet-begin'):
-                start = True
-            elif start:
-                body_list.append(line.replace('\n', '\r'))
-
-    snippets_content["body"] = body_list
-
-    return snippets_content
-
-
-if __name__ == '__main__':
-    json_content = {}
-    target_file_list = make_target_list()
-
-    for target_file in target_file_list:
-        if make_dict(target_file)["body"]:
-            json_content[Path(target_file).stem] = make_dict(target_file)
-
-    with open(loaded_settings["output"], 'w') as of:
-        of.write(json.dumps(json_content, indent=4))
+    Path(settings["output"]).open("w").write(json.dumps(snippets, indent=4))
