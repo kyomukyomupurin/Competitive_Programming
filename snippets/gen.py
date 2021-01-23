@@ -12,12 +12,12 @@ def snippetize(filename: str) -> dict:
     processing = False
 
     for line in lines:
-        if processing:
-            body.append(line)
+        if line.startswith("// snippet-end"):
+            break
         elif line.startswith("// snippet-begin"):
             processing = True
-        elif line.startswith("// snippet-end"):
-            break
+        elif processing:
+            body.append(line)
 
     snippet["body"] = body
 
