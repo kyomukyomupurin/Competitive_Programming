@@ -72,6 +72,7 @@ class FenwickTree {
   int n_;
   std::vector<T> data_;
   std::vector<T> node_;
+
   void init() {
     node_.assign(n_ + 1, 0);
     for (int i = 0; i < n_ - 1; ++i) add(i, data_[i]);
