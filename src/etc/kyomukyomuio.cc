@@ -2,13 +2,13 @@
 // Fast output for integer, char, std::string, char*
 // Slower than FastIO, but implementation is very simple
 
-#include <cstring>
 #include <iostream>
 
 using int64 = long long;
 
 // snippet-begin
 #include <charconv>
+#include <cstring>
 
 namespace kyomukyomuIO {
 class Scanner {
@@ -28,7 +28,7 @@ class Scanner {
  private:
   inline void reload() {
     int res = std::distance(cur, std::end(buf));
-    memcpy(buf, cur, res);
+    std::memcpy(buf, cur, res);
     fread(std::next(buf, res), 1, std::size(buf) - res, stdin);
     cur = buf;
   }
@@ -93,13 +93,13 @@ class Printer {
 
   inline void print(const std::string& str) {
     if (std::next(cur, str.size()) >= std::end(buf)) flush();
-    strcpy(cur, str.data());
+    std::strcpy(cur, str.data());
     std::advance(cur, str.size());
   }
 
   inline void print(const char* str) {
     if (std::next(cur, std::strlen(str)) >= std::end(buf)) flush();
-    strcpy(cur, str);
+    std::strcpy(cur, str);
     std::advance(cur, std::strlen(str));
   }
 };
