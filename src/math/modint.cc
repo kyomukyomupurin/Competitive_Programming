@@ -116,15 +116,16 @@ Mint power(const Mint& a, T b) {
 // inv を別の場所で使いたい、とかのときは最初に choose(2000000, 1); とか空呼び出ししてテーブルを十分なサイズまで作っておく
 // std::vector<Mint> fact{1, 1};
 // std::vector<Mint> inv{0, 1};
-// std::vector<Mint> finv{1, 1};
+// std::vector<Mint> inv_fact{1, 1};
 
 // Mint choose(int n, int k) noexcept {
 //   if (n < k || n < 0 || k < 0) return 0;
 //   while ((int)fact.size() < n + 1) {
-//     fact.emplace_back(fact.back() * (int)fact.size());
-//     inv.emplace_back(mod - inv[mod % ((int)fact.size() - 1)] * (mod / ((int)fact.size() - 1)));
-//     finv.emplace_back(finv.back() * inv.back());
+//     int sz = fact.size();
+//     fact.emplace_back(fact.back() * sz);
+//     inv.emplace_back(mod - inv[mod % sz] * (mod / sz));
+//     inv_fact.emplace_back(inv_fact.back() * inv.back());
 //   }
-//   return fact[n] * finv[k] * finv[n - k];
+//   return fact[n] * inv_fact[k] * inv_fact[n - k];
 // }
 // snippet-end
