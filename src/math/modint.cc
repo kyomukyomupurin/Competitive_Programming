@@ -112,8 +112,8 @@ Mint power(const Mint& a, T b) {
   return res;
 }
 
-// 必要なところまで作る組み合わせテーブル
-// inv を別の場所で使いたい、とかのときは最初に choose(2000000, 1); とか空呼び出ししてテーブルを十分なサイズまで作っておく
+// 二項係数テーブルを必要なところまで作る
+// inv だけ前計算したいときは choose(200000, 1) とかで適当に空呼び出しすればいい
 // std::vector<Mint> fact{1, 1};
 // std::vector<Mint> inv{0, 1};
 // std::vector<Mint> inv_fact{1, 1};
