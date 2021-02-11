@@ -15,7 +15,7 @@ class Doubling {
 
   void build() {
     for (int i = 0; i + 1 < lg_; ++i) {
-      for (int j = 0; j < (int)table[i].size(); ++j) {
+      for (int j = 0; j < int(table[i].size()); ++j) {
         table[i + 1][j] = (table[i][j] == -1 ? -1 : table[i][table[i][j]]);
       }
     }

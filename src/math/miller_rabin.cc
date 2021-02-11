@@ -11,7 +11,7 @@ using int64 = long long;
 // snippet-begin
 using int128 = __int128_t;
 
-int128 power(int128 base, int128 e, int128 mod) {
+int128 power_i128(int128 base, int128 e, int128 mod) {
   int128 res = 1;
   base %= mod;
   while (e) {
@@ -29,7 +29,7 @@ bool is_prime(int64 n) {
   for (int64 base : {2, 325, 9375, 28178, 450775, 9780504, 1795265022}) {
     int128 x = base % n;
     if (!x) continue;
-    x = power(x, d, n);
+    x = power_i128(x, d, n);
     if (x == 1 || x == n - 1) continue;
     bool ok = false;
     for (int i = 0; i < s - 1; ++i) {

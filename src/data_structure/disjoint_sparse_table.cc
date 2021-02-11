@@ -49,7 +49,7 @@ class DisjointSparseTable {
       }
     }
     lookup_.resize(1 << sz);
-    for (int i = 2; i < (int)lookup_.size(); ++i) {
+    for (int i = 2; i < int(lookup_.size()); ++i) {
       lookup_[i] = lookup_[i >> 1] + 1;
     }
   }

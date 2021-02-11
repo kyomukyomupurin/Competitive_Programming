@@ -7,7 +7,7 @@ template <class T>
 class FenwickTree2D {
  public:
   FenwickTree2D(const std::vector<std::vector<T>>& vec)
-      : x_((int)vec.size()), y_((int)vec[0].size()), vec_(vec) {
+      : x_(int(vec.size())), y_(int(vec[0].size())), vec_(vec) {
     build();
   }
 

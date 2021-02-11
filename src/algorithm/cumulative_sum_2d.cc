@@ -10,7 +10,7 @@ template <class T>
 class CumulativeSum2D {
  public:
   CumulativeSum2D(const std::vector<vector<T>>& vec)
-      : x_((int)vec.size()), y_((int)vec[0].size()), vec_(vec) {
+      : x_(int(vec.size())), y_(int(vec[0].size())), vec_(vec) {
     build();
   }
 

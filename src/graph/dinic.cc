@@ -15,10 +15,8 @@ class Dinic {
 
   void add(int from, int to, T cost) {
     assert(0 <= from && from < node_size_ && 0 <= to && to < node_size_);
-    graph_[from].emplace_back(
-        (edge){to, cost, static_cast<int>(graph_[to].size())});
-    graph_[to].emplace_back((edge){from, static_cast<T>(0),
-                                   static_cast<int>(graph_[from].size()) - 1});
+    graph_[from].emplace_back((edge){to, cost, int(graph_[to].size())});
+    graph_[to].emplace_back((edge){from, T(0), int(graph_[from].size()) - 1});
   }
 
   T max_flow(int s, int t) {
@@ -28,9 +26,7 @@ class Dinic {
       if (level_[t] < 0) return flow;
       std::fill(iter_.begin(), iter_.end(), 0);
       T f;
-      while ((f = dfs(s, t,
-                      std::numeric_limits<T>::max() / static_cast<T>(2))) >
-             0) {
+      while ((f = dfs(s, t, std::numeric_limits<T>::max() / 2)) > 0) {
         flow += f;
       }
     }

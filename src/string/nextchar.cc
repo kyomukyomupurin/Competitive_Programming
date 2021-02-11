@@ -18,7 +18,7 @@ class NextChar {
   }
 
   // returns whether str contains c or not
-  bool contain(char c) const { return find(0, c) != n_; }
+  bool contains(char c) const { return find(0, c) != n_; }
 
  private:
   int n_;

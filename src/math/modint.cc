@@ -120,7 +120,7 @@ Mint power(const Mint& a, T b) {
 
 // Mint choose(int n, int k) noexcept {
 //   if (n < k || n < 0 || k < 0) return 0;
-//   while ((int)fact.size() < n + 1) {
+//   while (int(fact.size()) < n + 1) {
 //     int sz = fact.size();
 //     fact.emplace_back(fact.back() * sz);
 //     inv.emplace_back(mod - inv[mod % sz] * (mod / sz));

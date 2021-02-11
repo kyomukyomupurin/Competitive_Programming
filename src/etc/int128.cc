@@ -33,7 +33,7 @@ std::ostream& operator<<(std::ostream& os, const int128& val) {
   }
   std::string str = "";
   while (t) {
-    str += (char)(t % 10 | 48);
+    str += char(t % 10 | 48);
     t /= 10;
   }
   std::reverse(str.begin(), str.end());
@@ -78,7 +78,7 @@ std::string to_string(const int128& val) {
     t = -t;
   }
   while (t) {
-    str += (char)(t % 10 | 48);
+    str += char(t % 10 | 48);
     t /= 10;
   }
   if (neg) str += '-';
