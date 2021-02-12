@@ -73,7 +73,7 @@ class Modular {
   int64 val_;
 };
 
-constexpr int mod = (int)1e9 + 7;
+constexpr int mod = int(1e9) + 7;
 using Mint = Modular<mod>;
 
 Mint operator+(const Mint& lhs, const Mint& rhs) noexcept {
