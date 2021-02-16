@@ -30,7 +30,7 @@ class Scanner {
  private:
   inline void reload() {
     int res = std::distance(cur, std::end(buf));
-    memcpy(buf, cur, res);
+    std::memcpy(buf, cur, res);
     fread(std::next(buf, res), 1, std::size(buf) - res, stdin);
     cur = buf;
   }
@@ -99,47 +99,47 @@ class Printer {
   }
 
   inline int get_digit(int n) {
-    if (n >= (int)1e5) {
-      if (n >= (int)1e8) return 9;
-      if (n >= (int)1e7) return 8;
-      if (n >= (int)1e6) return 7;
+    if (n >= int(1e5)) {
+      if (n >= int(1e8)) return 9;
+      if (n >= int(1e7)) return 8;
+      if (n >= int(1e6)) return 7;
       return 6;
     } else {
-      if (n >= (int)1e4) return 5;
-      if (n >= (int)1e3) return 4;
-      if (n >= (int)1e2) return 3;
-      if (n >= (int)1e1) return 2;
+      if (n >= int(1e4)) return 5;
+      if (n >= int(1e3)) return 4;
+      if (n >= int(1e2)) return 3;
+      if (n >= int(1e1)) return 2;
       return 1;
     }
   }
 
   inline int get_digit(int64 n) {
-    if (n >= (int64)1e10) {
-      if (n >= (int64)1e14) {
-        if (n >= (int64)1e18) return 19;
-        if (n >= (int64)1e17) return 18;
-        if (n >= (int64)1e16) return 17;
-        if (n >= (int64)1e15) return 16;
+    if (n >= int64(1e10)) {
+      if (n >= int64(1e14)) {
+        if (n >= int64(1e18)) return 19;
+        if (n >= int64(1e17)) return 18;
+        if (n >= int64(1e16)) return 17;
+        if (n >= int64(1e15)) return 16;
         return 15;
       } else {
-        if (n >= (int64)1e14) return 15;
-        if (n >= (int64)1e13) return 14;
-        if (n >= (int64)1e12) return 13;
-        if (n >= (int64)1e11) return 12;
+        if (n >= int64(1e14)) return 15;
+        if (n >= int64(1e13)) return 14;
+        if (n >= int64(1e12)) return 13;
+        if (n >= int64(1e11)) return 12;
         return 11;
       }
     } else {
-      if (n >= (int64)1e5) {
-        if (n >= (int64)1e9) return 10;
-        if (n >= (int64)1e8) return 9;
-        if (n >= (int64)1e7) return 8;
-        if (n >= (int64)1e6) return 7;
+      if (n >= int64(1e5)) {
+        if (n >= int64(1e9)) return 10;
+        if (n >= int64(1e8)) return 9;
+        if (n >= int64(1e7)) return 8;
+        if (n >= int64(1e6)) return 7;
         return 6;
       } else {
-        if (n >= (int64)1e4) return 5;
-        if (n >= (int64)1e3) return 4;
-        if (n >= (int64)1e2) return 3;
-        if (n >= (int64)1e1) return 2;
+        if (n >= int64(1e4)) return 5;
+        if (n >= int64(1e3)) return 4;
+        if (n >= int64(1e2)) return 3;
+        if (n >= int64(1e1)) return 2;
         return 1;
       }
     }
@@ -158,11 +158,11 @@ class Printer {
     int len = get_digit(num);
     int digits = len;
     while (num >= n) {
-      memcpy(cur + len - 4, table + (num % n) * 4, 4);
+      std::memcpy(cur + len - 4, table + (num % n) * 4, 4);
       num /= n;
       len -= 4;
     }
-    memcpy(cur, table + num * 4 + (4 - len), len);
+    std::memcpy(cur, table + num * 4 + (4 - len), len);
     cur += digits;
   }
 
@@ -179,11 +179,11 @@ class Printer {
     int len = get_digit(num);
     int digits = len;
     while (num >= n) {
-      memcpy(cur + len - 4, table + (num % n) * 4, 4);
+      std::memcpy(cur + len - 4, table + (num % n) * 4, 4);
       num /= n;
       len -= 4;
     }
-    memcpy(cur, table + num * 4 + (4 - len), len);
+    std::memcpy(cur, table + num * 4 + (4 - len), len);
     cur += digits;
   }
 
@@ -195,13 +195,13 @@ class Printer {
 
   inline void print(const std::string& str) {
     if (std::next(cur, str.size()) >= std::end(buf)) flush();
-    strcpy(cur, str.data());
+    std::strcpy(cur, str.data());
     std::advance(cur, str.size());
   }
 
   inline void print(const char* str) {
     if (std::next(cur, std::strlen(str)) >= std::end(buf)) flush();
-    strcpy(cur, str);
+    std::strcpy(cur, str);
     std::advance(cur, std::strlen(str));
   }
 };
