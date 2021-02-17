@@ -3,12 +3,12 @@
 // Slower than FastIO, but implementation is very simple
 
 #include <iostream>
+#include <cstring>
 
 using int64 = long long;
 
 // snippet-begin
 #include <charconv>
-#include <cstring>
 
 namespace kyomukyomuIO {
 class Scanner {
