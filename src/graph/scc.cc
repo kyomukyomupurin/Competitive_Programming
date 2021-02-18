@@ -6,48 +6,67 @@
 
 // snippet-begin
 template <class T>
-std::vector<std::vector<int>> SCC(const digraph<T>& g) {
-  std::vector<int> order;
-  std::vector<bool> visited(g.n_, false);
+class scc_digraph : public digraph<T> {
+ public:
+  using digraph<T>::n_;
+  using digraph<T>::data_;
+  using digraph<T>::edges_;
 
-  auto dfs = [&](auto&& self, int cur) -> void {
-    visited[cur] = true;
-    for (int id : g.data_[cur]) {
-      const auto& [from, to, cost] = g.edges_[id];
-      int nxt = from ^ to ^ cur;
-      if (visited[nxt]) continue;
-      self(self, nxt);
+  std::vector<std::vector<int>> components_;
+
+  scc_digraph(int n)
+      : digraph<T>(n),
+        cnt_(0),
+        ids_(n),
+        components_(n),
+        visited_(n, false),
+        rg_(n) {}
+
+  void build() {
+    for (int i = 0; i < n_; ++i) {
+      if (!visited_[i]) dfs(i);
     }
-    order.emplace_back(cur);
-  };
-
-  for (int i = 0; i < g.n_; ++i) {
-    if (!visited[i]) dfs(dfs, i);
+    visited_.assign(n_, false);
+    rg_ = (*this).reverse();
+    for (int i = n_ - 1; i >= 0; --i) {
+      if (!visited_[order_[i]]) dfs2(order_[i], cnt_++);
+    }
+    components_.resize(cnt_);
   }
 
-  visited.assign(g.n_, false);
-  std::vector<std::vector<int>> scc(g.n_);
-  digraph<T> rg = g.reverse();
-
-  auto dfs2 = [&](auto&& self, int cur, int k) -> void {
-    visited[cur] = true;
-    scc[k].emplace_back(cur);
-    for (int id : rg.data_[cur]) {
-      const auto& [from, to, cost] = rg.edges_[id];
-      int nxt = from ^ to ^ cur;
-      if (visited[nxt]) continue;
-      self(self, nxt, k);
-    }
-  };
-
-  int cnt = 0;
-
-  for (int i = int(order.size()) - 1; i >= 0; --i) {
-    if (!visited[order[i]]) dfs2(dfs2, order[i], cnt++);
+  int operator[](int v) const noexcept {
+    assert(0 <= v && v < n_);
+    return ids_[v];
   }
 
-  scc.resize(cnt);
+ private:
+  int cnt_;
+  std::vector<int> order_;
+  std::vector<int> ids_;
+  std::vector<bool> visited_;
+  digraph<T> rg_;
 
-  return scc;
-}
+  void dfs(int cur) {
+    visited_[cur] = true;
+    for (int id : data_[cur]) {
+      const auto& [from, to, cost] = edges_[id];
+      int nxt = from ^ to ^ cur;
+      if (visited_[nxt]) continue;
+      dfs(nxt);
+    }
+    order_.emplace_back(cur);
+  }
+
+  void dfs2(int cur, int k) {
+    visited_[cur] = true;
+    components_[k].emplace_back(cur);
+    ids_[cur] = k;
+    for (int id : rg_.data_[cur]) {
+      const auto& [from, to, cost] = rg_.edges_[id];
+      int nxt = from ^ to ^ cur;
+      if (visited_[nxt]) continue;
+      dfs2(nxt, k);
+    }
+  }
+};
 // snippet-end
