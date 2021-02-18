@@ -12,13 +12,14 @@ class scc_digraph : public digraph<T> {
   using digraph<T>::data_;
   using digraph<T>::edges_;
 
+  std::vector<int> ids_;
   std::vector<std::vector<int>> components_;
 
   scc_digraph(int n)
       : digraph<T>(n),
-        cnt_(0),
         ids_(n),
         components_(n),
+        cnt_(0),
         visited_(n, false),
         rg_(n) {}
 
@@ -42,7 +43,6 @@ class scc_digraph : public digraph<T> {
  private:
   int cnt_;
   std::vector<int> order_;
-  std::vector<int> ids_;
   std::vector<bool> visited_;
   digraph<T> rg_;
 
