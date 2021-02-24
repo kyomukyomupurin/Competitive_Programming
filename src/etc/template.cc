@@ -1,19 +1,5 @@
 // snippet-begin
-#include <algorithm>
-#include <bitset>
-#include <cassert>
-#include <cctype>
-#include <chrono>
-#include <complex>
-#include <cstring>
-#include <iomanip>
-#include <iostream>
-#include <map>
-#include <numeric>
-#include <queue>
-#include <random>
-#include <set>
-#include <stack>
+#include <bits/stdc++.h>
 
 using namespace std;
 
