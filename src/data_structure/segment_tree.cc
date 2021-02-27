@@ -1,9 +1,4 @@
 // Segment Tree
-// non-recursive version
-// verified by
-//     https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/all/DSL_2_A
-//     https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/all/DSL_2_B
-//     https://atcoder.jp/contests/practice2/tasks/practice2_j
 
 #include <vector>
 
@@ -12,8 +7,19 @@ template <class M, class F>
 class SegmentTree {
  public:
   SegmentTree(const std::vector<M>& data, M ie, F f)
-      : ie_(ie), data_(data), f_(f) {
-    build();
+      : sz_(int(data.size())), ie_(ie), f_(f) {
+    n_ = 1;
+    while (n_ < sz_) n_ <<= 1;
+    node_.assign(2 * n_, ie_);
+    for (int i = 0; i < sz_; ++i) node_[i + n_] = data[i];
+    for (int i = n_ - 1; i > 0; --i)
+      node_[i] = f_(node_[2 * i], node_[2 * i + 1]);
+  }
+
+  SegmentTree(int n, M ie, F f) : sz_(n), ie_(ie), f_(f) {
+    n_ = 1;
+    while (n_ < sz_) n_ <<= 1;
+    node_.assign(2 * n_, ie_);
   }
 
   void update(int pos, M val) {
@@ -28,7 +34,7 @@ class SegmentTree {
 
   // return f_[l, r)
   // if l >= r, return ie_
-  M get(int l, int r) {
+  M get(int l, int r) const {
     assert(0 <= l && l < n_ && 0 <= r && r < n_ + 1);
     M vl = ie_, vr = ie_;
     for (l += n_, r += n_; l < r; l >>= 1, r >>= 1) {
@@ -44,12 +50,12 @@ class SegmentTree {
   }
 
   // return f_[0, sz_)
-  M get_all() { return node_[1]; }
+  M get_all() const { return node_[1]; }
 
   // return the maximum i that satisfies cond(i) == true, where i >= l
   // if there is no such i, return sz_
   template <class Condition>
-  int max_right(int l, Condition cond) {
+  int max_right(int l, Condition cond) const {
     assert(0 <= l && l <= sz_);
     assert(cond(ie_));
     if (l == sz_) return sz_;
@@ -79,7 +85,7 @@ class SegmentTree {
   // if there is no such i, return 0
   // NOT VERIFIED!!
   template <class Condition>
-  int min_left(int r, Condition cond) {
+  int min_left(int r, Condition cond) const {
     assert(0 <= r && r <= sz_);
     assert(cond(ie_));
     if (r == 0) return 0;
@@ -109,91 +115,7 @@ class SegmentTree {
   int n_;
   int sz_;
   M ie_;
-  std::vector<M> data_;
   std::vector<M> node_;
   F f_;
-
-  void build() {
-    sz_ = data_.size();
-    n_ = 1;
-    while (n_ < sz_) n_ <<= 1;
-    node_.assign(2 * n_, ie_);
-    for (int i = 0; i < sz_; ++i) node_[i + n_] = data_[i];
-    for (int i = n_ - 1; i > 0; --i) node_[i] = f_(node_[2 * i], node_[2 * i + 1]);
-  }
 };
 // snippet-end
-
-// verification code
-/*
-void DSL_2_A() {
-  int n, q;
-  cin >> n >> q;
-  auto f = [](int x, int y) { return min(x, y); };
-  constexpr int INF = 2147483647;
-  SegmentTree<int, decltype(f)> seg(vector<int>(n, INF), INF, f);
-  for (int i = 0; i < q; ++i) {
-    int com, x, y;
-    cin >> com >> x >> y;
-    if (com == 0) {
-      seg.update(x, y);
-    } else {
-      cout << seg.get(x, y + 1) << '\n';
-    }
-  }
-}
-*/
-
-/*
-void DSL_2_B() {
-  int n, q;
-  cin >> n >> q;
-  auto f = [](int x, int y) { return x + y; };
-  SegmentTree<int, decltype(f)> seg(vector<int>(n, 0), 0, f);
-  for (int i = 0; i < q; ++i) {
-    int com, x, y;
-    cin >> com >> x >> y;
-    if (com == 0) {
-      --x;
-      seg.update(x, seg[x] + y);
-    } else {
-      --x;
-      --y;
-      cout << seg.get(x, y + 1) << '\n';
-    }
-  }
-}
-*/
-
-/*
-void practice2_J() {
-  int n, q;
-  cin >> n >> q;
-  vector<int> a(n);
-  for (int& e : a) cin >> e;
-
-  int ie = -1;
-  auto f = [](int x, int y) { return max(x, y); };
-  SegmentTree seg(a, ie, f);
-
-  while (q--) {
-    int t;
-    cin >> t;
-    if (t == 1) {
-      int x, v;
-      cin >> x >> v;
-      --x;
-      seg.update(x, v);
-    } else if (t == 2) {
-      int l, r;
-      cin >> l >> r;
-      cout << seg.get(l - 1, r) << '\n';
-    } else {
-      int x, v;
-      cin >> x >> v;
-      auto cond = [&](int val) -> bool { return val < v; };
-      cout << seg.max_right(x - 1, cond) + 1 << '\n';
-    }
-  }
-} 
-*/
