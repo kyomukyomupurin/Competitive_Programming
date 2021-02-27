@@ -1,6 +1,4 @@
 // Fenwick Tree(Binary Indexed Tree) (for point add query)
-// verified by 
-//     https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B
 
 #include <vector>
 
@@ -8,9 +6,12 @@
 template <class T>
 class FenwickTree {
  public:
-  FenwickTree(const std::vector<T>& data) : n_(data.size() + 1), data_(data) {
-    init();
+  FenwickTree(const std::vector<T>& data) : n_(int(data.size()) + 1) {
+    node_.assign(n_, 0);
+    for (int i = 0; i < n_ - 1; ++i) add(i, data[i]);
   }
+
+  FenwickTree(int n) : n_(n + 1) { node_.assign(n_, 0); }
 
   void add(int pos, T val) {
     ++pos;
@@ -20,21 +21,8 @@ class FenwickTree {
     }
   }
 
-  // return sum of [0, i]
-  T get(int pos) {
-    ++pos;
-    T sum = 0;
-    while (pos > 0) {
-      sum += node_[pos];
-      pos -= pos & -pos;
-    }
-    return sum;
-  }
-
-/*
-  // this code works faster
   // return sum of [l, r)
-  T get(int l, int r) {
+  T get(int l, int r) const {
     T sum = 0;
     while (l < r) {
       sum += node_[r];
@@ -46,14 +34,10 @@ class FenwickTree {
     }
     return sum;
   }
-*/
-
-  // return sum of [l, r]
-  T get(int l, int r) { return get(r) - get(l - 1); }
 
   // return the first k where sum of [0, k] >= val
   // use only when all element in data >= 0
-  int lower_bound(T val) {
+  int lower_bound(T val) const {
     if (val <= 0) return 0;
     int pos = 0;
     int k = 1;
@@ -70,30 +54,6 @@ class FenwickTree {
 
  private:
   int n_;
-  std::vector<T> data_;
   std::vector<T> node_;
-
-  void init() {
-    node_.assign(n_ + 1, 0);
-    for (int i = 0; i < n_ - 1; ++i) add(i, data_[i]);
-  }
 };
 // snippet-end
-
-// verification code
-/*
-void DSL_2_B() {
-  int n, q;
-  cin >> n >> q;
-  FenwickTree<int> ft(vector<int>(n, 0));
-  for (int i = 0; i < q; ++i) {
-    int com, x, y;
-    cin >> com >> x >> y;
-    if (com == 0) {
-      ft.add(x - 1, y);
-    } else {
-      cout << ft.get(x - 1, y - 1) << '\n';
-    }
-  }
-}
-*/
