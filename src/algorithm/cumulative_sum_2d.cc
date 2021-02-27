@@ -17,8 +17,8 @@ class CumulativeSum2D {
   // return sum of [sx, gx] * [sy, gy]
   T get(int sx, int sy, int gx, int gy) {
     assert(sx <= gx && sy <= gy);
-    assert(0 <= sx && sx < x_ && 0 <= gx && gx < x_ && 0 <= sy && sy < y_ &&
-           0 <= gy && gy < y_);
+    assert(0 <= sx && sx < x_ && 0 <= gx && gx < x_);
+    assert(0 <= sy && sy < y_ && 0 <= gy && gy < y_);
     return sum_[gx + 1][gy + 1] - sum_[gx + 1][sy] - sum_[sx][gy + 1] +
            sum_[sx][sy];
   }
