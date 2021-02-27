@@ -11,8 +11,15 @@ class SparseTable {
   // F must be idempotent function!
  public:
   SparseTable(const std::vector<T>& data, F f)
-      : n_((int)data.size()), lg_(32 - __builtin_clz(n_)), f_(f), data_(data) {
-    build();
+      : n_(int(data.size())), lg_(32 - __builtin_clz(n_)), f_(f) {
+    tab_.resize(lg_);
+    tab_[0] = data;
+    for (int j = 1; j < lg_; ++j) {
+      tab_[j].resize(n_ - (1 << j) + 1);
+      for (int i = 0; i <= n_ - (1 << j); ++i) {
+        tab_[j][i] = f_(tab_[j - 1][i], tab_[j - 1][i + (1 << (j - 1))]);
+      }
+    }
   }
 
   // return f_[l, r]
@@ -26,19 +33,7 @@ class SparseTable {
   int n_;
   int lg_;
   F f_;
-  std::vector<T> data_;
   std::vector<std::vector<T>> tab_;
-
-  void build() {
-    tab_.resize(lg_);
-    tab_[0] = data_;
-    for (int j = 1; j < lg_; ++j) {
-      tab_[j].resize(n_ - (1 << j) + 1);
-      for (int i = 0; i <= n_ - (1 << j); ++i) {
-        tab_[j][i] = f_(tab_[j - 1][i], tab_[j - 1][i + (1 << (j - 1))]);
-      }
-    }
-  }
 };
 // snippet-end
 
