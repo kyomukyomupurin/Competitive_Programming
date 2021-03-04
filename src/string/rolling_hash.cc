@@ -8,55 +8,58 @@
 #include <vector>
 #include <random>
 
+using int64 = long long;
+
 // snippet-begin
-using ull = unsigned long long;
-
 class RollingHash {
+  using Hashes = std::pair<int64, int64>;
+
  public:
-  RollingHash(const std::string& str) : str_(str) { build(); }
-
-  // get hash value of [l, r)
-  std::pair<ull, ull> get(int l, int r) {
-    ull ret0 = (hash0_[r] - hash0_[l] * pow0_[r - l] % mod0_ + mod0_) % mod0_;
-    ull ret1 = (hash1_[r] - hash1_[l] * pow1_[r - l] % mod1_ + mod1_) % mod1_;
-    return {ret0, ret1};
-  }
-
- private:
-  const std::string str_;
-  static ull base0_;
-  static ull base1_;
-  static constexpr ull mod0_ = 2020202077;
-  static constexpr ull mod1_ = 2020202111;
-  std::vector<ull> hash0_;
-  std::vector<ull> hash1_;
-  static std::vector<ull> pow0_;
-  static std::vector<ull> pow1_;
-  static std::mt19937_64 mt_;
-
-  void build() {
-    int n = str_.size();
-    hash0_.assign(n + 1, 0);
-    hash1_.assign(n + 1, 0);
+  RollingHash(const std::string& str) {
+    int n = str.size();
+    h0_.reserve(n + 1);
+    h1_.reserve(n + 1);
+    h0_.emplace_back(1);
+    h1_.emplace_back(1);
     for (int i = 0; i < n; ++i) {
-      hash0_[i + 1] = (hash0_[i] * base0_ + str_[i]) % mod0_;
-      hash1_[i + 1] = (hash1_[i] * base1_ + str_[i]) % mod1_;
+      h0_.emplace_back((h0_.back() * base0_ + str[i]) % mod0_);
+      h1_.emplace_back((h1_.back() * base1_ + str[i]) % mod1_);
     }
-    for (int i = 0; i < n; ++i) {
+    while (int(pow0_.size()) < n + 1) {
       pow0_.emplace_back(pow0_.back() * base0_ % mod0_);
       pow1_.emplace_back(pow1_.back() * base1_ % mod1_);
     }
   }
+
+  // get hash value of str[l, r)
+  Hashes get(int l, int r) const {
+    int64 hash0 = (h0_[r] - h0_[l] * pow0_[r - l]) % mod0_;
+    int64 hash1 = (h1_[r] - h1_[l] * pow1_[r - l]) % mod1_;
+    if (hash0 < 0) hash0 += mod0_;
+    if (hash1 < 0) hash1 += mod1_;
+    return {hash0, hash1};
+  }
+
+ private:
+  static constexpr int64 mod0_ = 2000000011; // prime number
+  static constexpr int64 mod1_ = 2000000033; // prime number
+  static constexpr int64 base0_ = 100001; // primitive root of 2000000011
+  static constexpr int64 base1_ = 100000; // primitive root of 2000000033
+  // static int64 base0_;
+  // static int64 base1_;
+  std::vector<int64> h0_;
+  std::vector<int64> h1_;
+  static std::vector<int64> pow0_;
+  static std::vector<int64> pow1_;
 };
 
-std::mt19937_64 RollingHash::mt_(
-    std::chrono::steady_clock::now().time_since_epoch().count());
-ull RollingHash::base0_ = std::uniform_int_distribution<ull>(
-    2, RollingHash::mod0_ - 1)(RollingHash::mt_);
-ull RollingHash::base1_ = std::uniform_int_distribution<ull>(
-    2, RollingHash::mod1_ - 1)(RollingHash::mt_);
-std::vector<ull> RollingHash::pow0_{1};
-std::vector<ull> RollingHash::pow1_{1};
+std::vector<int64> RollingHash::pow0_{1};
+std::vector<int64> RollingHash::pow1_{1};
+
+// for Codeforces
+// std::mt19937_64 rng(std::chrono::steady_clock::now().time_since_epoch().count());
+// int64 RollingHash::base0_ = std::uniform_int_distribution<int64>(2, mod0_ - 1)(rng);
+// int64 RollingHash::base1_ = std::uniform_int_distribution<int64>(2, mod1_ - 1)(rng);
 // snippet-end
 
 // verification code
