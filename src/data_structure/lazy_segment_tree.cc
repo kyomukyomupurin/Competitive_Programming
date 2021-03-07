@@ -104,7 +104,7 @@ void DSL_2_F() {
   auto fg = [](int e, int x){ return x; };
   auto g = [](int x1, int x2){ return x2; };
   constexpr int inf = 2147483647;
-  LazySegmentTree seg(n, inf, -1, f1, f2, f3);
+  LazySegmentTree seg(n, inf, -1, f, fg, g);
   while (q--) {
     int op; cin >> op;
     if (op == 0) {
@@ -127,7 +127,7 @@ void DSL_2_G() {
   auto f = [](Node e1, Node e2) { return (Node){e1.val + e2.val, e1.len + e2.len}; };
   auto fg = [](Node e, int64 x){ return (Node){e.val + e.len * x, e.len}; };
   auto g = [](int64 x1, int64 x2){ return x1 + x2; };
-  LazySegmentTree seg(n, (Node){0, 1}, 0, f1, f2, f3);
+  LazySegmentTree seg(n, (Node){0, 1}, 0, f, fg, g);
   while (q--) {
     int op; cin >> op;
     if (op == 0) {
@@ -149,7 +149,7 @@ void DSL_2_H() {
   auto g = [](int x1, int x2){ return x1 + x2; };
   constexpr int inf = (int)1e9;
   vector<int> v(n, 0);
-  LazySegmentTree seg(v, inf, 0, f1, f2, f3);
+  LazySegmentTree seg(v, inf, 0, f, fg, g);
   while (q--) {
     int op; cin >> op;
     if (op == 0) {
@@ -172,7 +172,7 @@ void DSL_2_I() {
   auto f = [](Node e1, Node e2) { return (Node){e1.val + e2.val, e1.len + e2.len}; };
   auto fg = [](Node e, int64 x){ return (Node){e.len * x, e.len}; };
   auto g = [](int64 x1, int64 x2){ return x2; };
-  LazySegmentTree seg(n, (Node){0, 1}, -(int64)1e18, f1, f2, f3);
+  LazySegmentTree seg(n, (Node){0, 1}, -int64(1e18), f, fg, g);
   while (q--) {
     int op; cin >> op;
     if (op == 0) {
@@ -226,7 +226,9 @@ void Range_Affine_Range_Sum() {
 
   Node ie = {0, 1};
   Op oie = {1, 0};
-  LazySegmentTree seg(n, ie, oie, f1, f2, f3);
+  vector<Node> v;
+  for (int i = 0; i < n; ++i) v.emplace_back(a[i], 1);
+  LazySegmentTree seg(n, ie, oie, f, fg, g);
 
   while (q--) {
     int com;
