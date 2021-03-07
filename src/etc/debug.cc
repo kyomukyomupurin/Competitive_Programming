@@ -13,13 +13,13 @@ std::ostream& operator<<(std::ostream& os, const std::pair<T, U>& p) {
 }
 
 template <class Tuple, std::size_t... Is>
-void tuple_out(std::ostream& os, const Tuple& tp, std::index_sequence<Is...>) {
-  ((os << (Is ? ", " : "(") << std::get<Is>(tp)), ...) << ")";
+void tuple_out(std::ostream& os, const Tuple& tup, std::index_sequence<Is...>) {
+  ((os << (Is ? ", " : "(") << std::get<Is>(tup)), ...) << ")";
 }
 
 template <class... Args>
-std::ostream& operator<<(std::ostream& os, const std::tuple<Args...>& tp) {
-  tuple_out(os, tp, std::index_sequence_for<Args...>{});
+std::ostream& operator<<(std::ostream& os, const std::tuple<Args...>& tup) {
+  tuple_out(os, tup, std::index_sequence_for<Args...>{});
   return os;
 }
 
