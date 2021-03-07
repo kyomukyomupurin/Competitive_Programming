@@ -43,12 +43,26 @@ inline void println(long double val) noexcept {
   std::cout << std::fixed << std::setprecision(17) << val << '\n';
 }
 
-inline void Yes(bool cond) noexcept {
-  println(cond ? "Yes" : "No");
+inline void Yes(bool cond) noexcept { println(cond ? "Yes" : "No"); }
+
+inline void YES(bool cond) noexcept { println(cond ? "YES" : "NO"); }
+
+template <class T>
+inline bool umax(T& lhs, const T rhs) {
+  if (lhs < rhs) {
+    lhs = rhs;
+    return true;
+  }
+  return false;
 }
 
-inline void YES(bool cond) noexcept {
-  println(cond ? "YES" : "NO");
+template <class T>
+inline bool umin(T& lhs, const T rhs) {
+  if (lhs > rhs) {
+    lhs = rhs;
+    return true;
+  }
+  return false;
 }
 
 template <class T>
