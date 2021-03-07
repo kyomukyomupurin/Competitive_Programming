@@ -13,8 +13,23 @@ template <class M, class OM, class F1, class F2, class F3>
 class LazySegmentTree {
  public:
   LazySegmentTree(const std::vector<M>& data, M ie, OM oie, F1 f1, F2 f2, F3 f3)
-      : ie_(ie), oie_(oie), data_(data), f1_(f1), f2_(f2), f3_(f3) {
-    build();
+      : ie_(ie), oie_(oie), f1_(f1), f2_(f2), f3_(f3) {
+    int sz = data.size();
+    n_ = 1, h_ = 0;
+    while (n_ < sz) n_ <<= 1, ++h_;
+    node_.assign(2 * n_, ie_);
+    lazy_.assign(2 * n_, oie_);
+    for (int i = 0; i < sz; ++i) node_[i + n_] = data[i];
+    for (int i = n_ - 1; i > 0; --i) node_[i] = f1_(node_[2 * i], node_[2 * i + 1]);
+  }
+
+  LazySegmentTree(int n, M ie, OM oie, F1 f1, F2 f2, F3 f3)
+      : ie_(ie), oie_(oie), f1_(f1), f2_(f2), f3_(f3) {
+    n_ = 1, h_ = 0;
+    while (n_ < n) n_ <<= 1, ++h_;
+    node_.assign(2 * n_, ie_);
+    lazy_.assign(2 * n_, oie_);
+    for (int i = n_ - 1; i > 0; --i) node_[i] = f1_(node_[2 * i], node_[2 * i + 1]);
   }
 
   // modify data_[l, r) -> f3_(data_[l], val), ... , f3_(data[r - 1], val)
@@ -45,7 +60,6 @@ class LazySegmentTree {
 
  private:
   int n_, h_;
-  std::vector<M> data_;
   std::vector<M> node_;
   std::vector<OM> lazy_;
   M ie_;
@@ -53,16 +67,6 @@ class LazySegmentTree {
   F1 f1_;
   F2 f2_;
   F3 f3_;
-
-  void build() {
-    int sz = data_.size();
-    n_ = 1, h_ = 0;
-    while (n_ < sz) n_ <<= 1, ++h_;
-    node_.assign(2 * n_, ie_);
-    lazy_.assign(2 * n_, oie_);
-    for (int i = 0; i < sz; ++i) node_[i + n_] = data_[i];
-    for (int i = n_ - 1; i > 0; --i) node_[i] = f1_(node_[2 * i], node_[2 * i + 1]);
-  }
 
   inline void propagate(int pos) {
     if (lazy_[pos] != oie_) {
@@ -96,12 +100,11 @@ class LazySegmentTree {
 // RMQ and RUQ
 void DSL_2_F() {
   int n, q; cin >> n >> q;
-  auto f1 = [](int e1, int e2){ return min(e1, e2); };
-  auto f2 = [](int e, int x){ return x; };
-  auto f3 = [](int x1, int x2){ return x2; };
+  auto f = [](int e1, int e2){ return min(e1, e2); };
+  auto fg = [](int e, int x){ return x; };
+  auto g = [](int x1, int x2){ return x2; };
   constexpr int inf = 2147483647;
-  vector<int> v(n, inf);
-  LazySegmentTree<int, int, decltype(f1), decltype(f2), decltype(f3)> seg(v, inf, -1, f1, f2, f3);
+  LazySegmentTree seg(n, inf, -1, f1, f2, f3);
   while (q--) {
     int op; cin >> op;
     if (op == 0) {
@@ -121,11 +124,10 @@ void DSL_2_G() {
   struct Node {
     int64 val, len;
   };
-  auto f1 = [](Node e1, Node e2) { return (Node){e1.val + e2.val, e1.len + e2.len}; };
-  auto f2 = [](Node e, int64 x){ return (Node){e.val + e.len * x, e.len}; };
-  auto f3 = [](int64 x1, int64 x2){ return x1 + x2; };
-  vector<Node> v(n, (Node){0, 1});
-  LazySegmentTree<Node, int64, decltype(f1), decltype(f2), decltype(f3)> seg(v, (Node){0, 1}, 0, f1, f2, f3);
+  auto f = [](Node e1, Node e2) { return (Node){e1.val + e2.val, e1.len + e2.len}; };
+  auto fg = [](Node e, int64 x){ return (Node){e.val + e.len * x, e.len}; };
+  auto g = [](int64 x1, int64 x2){ return x1 + x2; };
+  LazySegmentTree seg(n, (Node){0, 1}, 0, f1, f2, f3);
   while (q--) {
     int op; cin >> op;
     if (op == 0) {
@@ -142,12 +144,12 @@ void DSL_2_G() {
 // RMQ and RAQ
 void DSL_2_H() {
   int n, q; cin >> n >> q;
-  auto f1 = [](int e1, int e2){ return min(e1, e2); };
-  auto f2 = [](int e, int x){ return e + x; };
-  auto f3 = [](int x1, int x2){ return x1 + x2; };
+  auto f = [](int e1, int e2){ return min(e1, e2); };
+  auto fg = [](int e, int x){ return e + x; };
+  auto g = [](int x1, int x2){ return x1 + x2; };
   constexpr int inf = (int)1e9;
   vector<int> v(n, 0);
-  LazySegmentTree<int, int, decltype(f1), decltype(f2), decltype(f3)> seg(v, inf, 0, f1, f2, f3);
+  LazySegmentTree seg(v, inf, 0, f1, f2, f3);
   while (q--) {
     int op; cin >> op;
     if (op == 0) {
@@ -167,11 +169,10 @@ void DSL_2_I() {
   struct Node {
     int64 val, len;
   };
-  auto f1 = [](Node e1, Node e2) { return (Node){e1.val + e2.val, e1.len + e2.len}; };
-  auto f2 = [](Node e, int64 x){ return (Node){e.len * x, e.len}; };
-  auto f3 = [](int64 x1, int64 x2){ return x2; };
-  vector<Node> v(n, (Node){0, 1});
-  LazySegmentTree<Node, int64, decltype(f1), decltype(f2), decltype(f3)> seg(v, (Node){0, 1}, -(int64)1e18, f1, f2, f3);
+  auto f = [](Node e1, Node e2) { return (Node){e1.val + e2.val, e1.len + e2.len}; };
+  auto fg = [](Node e, int64 x){ return (Node){e.len * x, e.len}; };
+  auto g = [](int64 x1, int64 x2){ return x2; };
+  LazySegmentTree seg(n, (Node){0, 1}, -(int64)1e18, f1, f2, f3);
   while (q--) {
     int op; cin >> op;
     if (op == 0) {
@@ -213,21 +214,19 @@ void Range_Affine_Range_Sum() {
 
   constexpr int mod = 998244353;
 
-  auto f1 = [](Node e1, Node e2) -> Node {
+  auto f = [](Node e1, Node e2) -> Node {
     return (Node){(e1.val + e2.val) % mod, e1.len + e2.len};
   };
-  auto f2 = [](Node e, Op x) -> Node {
+  auto fg = [](Node e, Op x) -> Node {
     return (Node){(e.val * x.op1 + e.len * x.op2) % mod, e.len};
   };
-  auto f3 = [](Op x1, Op x2) -> Op {
+  auto g = [](Op x1, Op x2) -> Op {
     return (Op){(x1.op1 * x2.op1) % mod, (x1.op2 * x2.op1 + x2.op2) % mod};
   };
 
-  vector<Node> v;
-  for (int64 e : a) v.emplace_back(e, 1);
   Node ie = {0, 1};
   Op oie = {1, 0};
-  LazySegmentTree seg(v, ie, oie, f1, f2, f3);
+  LazySegmentTree seg(n, ie, oie, f1, f2, f3);
 
   while (q--) {
     int com;
