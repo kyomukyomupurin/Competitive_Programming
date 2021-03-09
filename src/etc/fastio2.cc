@@ -9,7 +9,7 @@
 using int64 = long long;
 
 // snippet-begin
-namespace kyomukyomuIO {
+namespace FastIO {
 class Scanner {
  public:
   Scanner() { fread(buf, 1, std::size(buf), stdin); }
@@ -84,6 +84,14 @@ class Printer {
     cur = std::to_chars(cur, std::next(cur, 20), num).ptr;
   }
 
+  inline void print(std::size_t num) {
+    print(static_cast<int>(num));
+  }
+
+  inline void print(std::ptrdiff_t num) {
+    print(static_cast<int>(num));
+  }
+
   inline void print(char c) {
     if (std::next(cur) >= std::end(buf)) flush();
     *cur = c;
@@ -102,8 +110,8 @@ class Printer {
     std::advance(cur, std::strlen(str));
   }
 };
-}  // namespace kyomukyomuIO
+}  // namespace FastIO
 
-kyomukyomuIO::Scanner in;
-kyomukyomuIO::Printer out;
+FastIO::Scanner in;
+FastIO::Printer out;
 // snippet-end
