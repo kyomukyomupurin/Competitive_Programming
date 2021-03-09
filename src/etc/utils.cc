@@ -35,14 +35,6 @@ inline void println(T val) {
   std::cout << val << '\n';
 }
 
-inline void println(double val) noexcept {
-  std::cout << std::fixed << std::setprecision(17) << val << '\n';
-}
-
-inline void println(long double val) noexcept {
-  std::cout << std::fixed << std::setprecision(17) << val << '\n';
-}
-
 inline void Yes(bool cond) noexcept { println(cond ? "Yes" : "No"); }
 
 inline void YES(bool cond) noexcept { println(cond ? "YES" : "NO"); }
