@@ -187,6 +187,14 @@ class Printer {
     cur += digits;
   }
 
+  inline void print(std::size_t num) {
+    print(static_cast<int>(num));
+  }
+
+  inline void print(std::ptrdiff_t num) {
+    print(static_cast<int>(num));
+  }
+
   inline void print(char c) {
     if (std::next(cur) >= std::end(buf)) flush();
     *cur = c;
