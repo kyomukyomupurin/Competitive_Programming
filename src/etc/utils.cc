@@ -23,16 +23,17 @@ inline std::vector<int> compressed(const std::vector<T>& vec) {
 }
 
 template <class T>
-inline std::string to_binary(T n) {
-  std::string bin_str = "";
-  while (n) bin_str += (n & 1) ? '1' : '0', n >>= 1;
-  std::reverse(bin_str.begin(), bin_str.end());
-  return bin_str;
-}
-
-template <class T>
 inline void println(T val) {
   std::cout << val << '\n';
+}
+
+inline void println() { std::cout << '\n'; }
+
+template <class Head, class... Tail>
+inline void println(Head&& head, Tail&&... tail) {
+  std::cout << head;
+  if (sizeof...(Tail) != 0) std::cout << ' ';
+  println(std::forward<Tail>(tail)...);
 }
 
 inline void Yes(bool cond) noexcept { println(cond ? "Yes" : "No"); }
