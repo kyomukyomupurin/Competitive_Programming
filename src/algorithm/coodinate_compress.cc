@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <vector>
 
+// snippet-begin
 template <class T>
 inline std::vector<int> compressed(const std::vector<T>& vec) {
   std::vector<T> t = vec;
@@ -15,3 +16,4 @@ inline std::vector<int> compressed(const std::vector<T>& vec) {
         std::distance(t.begin(), std::lower_bound(t.begin(), t.end(), vec[i]));
   return compressed;
 }
+// snippet-end
