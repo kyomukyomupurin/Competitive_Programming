@@ -28,7 +28,7 @@ inline void Yes(bool cond) noexcept { println(cond ? "Yes" : "No"); }
 inline void YES(bool cond) noexcept { println(cond ? "YES" : "NO"); }
 
 template <class T>
-inline bool umax(T& lhs, const T rhs) {
+inline bool upmax(T& lhs, const T rhs) {
   if (lhs < rhs) {
     lhs = rhs;
     return true;
@@ -37,7 +37,7 @@ inline bool umax(T& lhs, const T rhs) {
 }
 
 template <class T>
-inline bool umin(T& lhs, const T rhs) {
+inline bool upmin(T& lhs, const T rhs) {
   if (lhs > rhs) {
     lhs = rhs;
     return true;
