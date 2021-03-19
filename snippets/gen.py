@@ -7,7 +7,7 @@ from pathlib import Path
 def snippetize(filename: str) -> dict:
     snippet = {}
     snippet["prefix"] = Path(filename).stem
-    lines = Path(filename).open("r").read().splitlines()
+    lines = Path(filename).read_text().splitlines()
     body = []
     processing = False
 
@@ -39,4 +39,4 @@ if __name__ == "__main__":
         if snippetize(file)["body"]:
             snippets[Path(file).stem] = snippetize(file)
 
-    Path(settings["output"]).open("w").write(json.dumps(snippets, indent=4))
+    Path(settings["output"]).write_text(json.dumps(snippets, indent=4))
