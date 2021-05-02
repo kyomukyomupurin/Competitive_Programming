@@ -8,8 +8,8 @@ using int64 = long long;
 #define ALL(v) std::begin(v), std::end(v)
 #define RALL(v) std::rbegin(v), std::rend(v)
 
-template <class T> inline bool upmin(T& x, const T y) { if (x > y) { x = y; return 1; } return 0; }
-template <class T> inline bool upmax(T& x, const T y) { if (x < y) { x = y; return 1; } return 0; }
+template <class T> inline bool upmin(T& x, T y) { if (x > y) { x = y; return 1; } return 0; }
+template <class T> inline bool upmax(T& x, T y) { if (x < y) { x = y; return 1; } return 0; }
 
 int main() {
   std::ios_base::sync_with_stdio(false);
